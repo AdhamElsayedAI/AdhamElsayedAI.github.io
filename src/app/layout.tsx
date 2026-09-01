@@ -6,6 +6,7 @@ import "./enhancements.css";
 import "./portrait-v4.css";
 import "./showcase-v5.css";
 import "./polish-v6.css";
+import "./portrait-v7.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
