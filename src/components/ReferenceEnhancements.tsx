@@ -1,8 +1,15 @@
 "use client";
 
-import { Command, ExternalLink, FileText, Github, Home, Layers3, Linkedin, Mail, X } from "lucide-react";
+import { Command, ExternalLink, FileText, Github, Home, Layers3, Linkedin, Mail, X, type LucideIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { navItems, profile } from "@/data/profile";
+
+type CommandItem = {
+  label: string;
+  href: string;
+  icon: LucideIcon;
+  external?: boolean;
+};
 
 export function ReferenceEnhancements() {
   const [paletteOpen, setPaletteOpen] = useState(false);
@@ -32,9 +39,9 @@ export function ReferenceEnhancements() {
     };
   }, []);
 
-  const commands = useMemo(
+  const commands = useMemo<CommandItem[]>(
     () => [
-      ...navItems.map((item, index) => ({
+      ...navItems.map((item, index): CommandItem => ({
         label: `Go to ${item.label}`,
         href: item.href,
         icon: index === 0 ? Home : Layers3,
