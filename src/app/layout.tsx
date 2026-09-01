@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { ThemeProvider, themeBootstrapScript } from "@/components/ThemeProvider";
 import "./globals.css";
 import "./reference.css";
+import "./enhancements.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
