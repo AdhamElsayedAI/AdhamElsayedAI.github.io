@@ -1,4 +1,4 @@
-/* V11 — section headings only. True SVG dot-matrix letters with visible particle motion. */
+/* V13 — section headings only. Mouse-following dot-matrix letters with layered parallax. */
 
 .section-heading-v5 {
   margin-bottom: clamp(2.7rem, 5vw, 4.3rem);
@@ -16,6 +16,7 @@
   background: transparent;
   isolation: isolate;
   text-align: center;
+  perspective: 900px;
 }
 
 .section-dot-banner::before {
@@ -27,10 +28,11 @@
   height: 9.5rem;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgb(var(--banner-rgb) / .14), transparent 72%);
+  background: radial-gradient(ellipse at center, rgb(var(--banner-rgb) / .16), transparent 72%);
   filter: blur(30px);
-  opacity: .82;
+  opacity: .86;
   pointer-events: none;
+  animation: sectionBannerAuraV13 4.8s ease-in-out infinite;
 }
 
 .section-dot-banner::after {
@@ -41,65 +43,86 @@
   width: min(48rem, 74%);
   height: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgb(var(--banner-rgb) / .55), transparent);
-  opacity: .5;
+  background: linear-gradient(90deg, transparent, rgb(var(--banner-rgb) / .62), transparent);
+  opacity: .55;
   pointer-events: none;
 }
 
-.section-dot-svg {
+.section-dot-word-interactive {
   position: relative;
   z-index: 2;
-  display: block;
   width: min(100%, 1120px);
-  height: auto;
-  overflow: visible;
-  filter: drop-shadow(0 0 18px rgb(var(--banner-rgb) / .12));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.02rem, .24vw, .18rem);
+  transform-style: preserve-3d;
+  transition: transform 180ms cubic-bezier(.2,.7,.2,1);
+  will-change: transform;
+  filter: drop-shadow(0 0 18px rgb(var(--banner-rgb) / .14));
 }
 
-.section-svg-mask-text,
-.section-svg-silhouette {
+.section-letter-svg {
+  display: block;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 92px;
+  height: auto;
+  overflow: visible;
+  transform-style: preserve-3d;
+  transition: transform 190ms cubic-bezier(.2,.7,.2,1), filter 190ms ease;
+  will-change: transform;
+}
+
+.section-letter-svg:hover {
+  filter: drop-shadow(0 0 12px rgb(var(--banner-rgb) / .45));
+}
+
+.section-letter-mask-text,
+.section-letter-silhouette {
   font-family: Inter, Aptos, "Segoe UI", system-ui, sans-serif;
-  font-size: 132px;
+  font-size: 124px;
   font-weight: 950;
   letter-spacing: -4px;
 }
 
-.section-svg-mask-text {
+.section-letter-mask-text {
   fill: white;
   stroke: white;
-  stroke-width: 1.5px;
+  stroke-width: 1.35px;
 }
 
-.section-svg-silhouette {
+.section-letter-silhouette {
   fill: rgb(var(--banner-rgb) / .035);
-  stroke: rgb(var(--banner-rgb) / .13);
+  stroke: rgb(var(--banner-rgb) / .15);
   stroke-width: 1px;
 }
 
 .section-svg-dot-primary { fill: rgb(var(--banner-rgb)); }
 .section-svg-dot-secondary { fill: rgb(var(--cyan-rgb)); }
 .section-svg-dot-tertiary { fill: rgb(var(--warm-rgb)); }
-.section-svg-dot-soft { opacity: .83; }
+.section-svg-dot-soft { opacity: .84; }
 
-.section-svg-dot-field {
+.section-letter-dot-field {
+  transform-box: fill-box;
   transform-origin: center;
-  animation: sectionDotFieldFloatV11 5.8s ease-in-out infinite;
+  animation: sectionLetterFieldFloatV13 3.8s ease-in-out infinite;
 }
 
-.section-svg-scan-layer {
+.section-letter-dot-field rect {
+  animation: sectionLetterTextureDriftV13 5.2s linear infinite;
+}
+
+.section-letter-scan-layer {
   mix-blend-mode: screen;
   pointer-events: none;
 }
 
-.section-svg-scan {
-  fill: url(#none);
-  opacity: .5;
-  animation: sectionDotScanV11 5.2s ease-in-out infinite;
-}
-
-.section-svg-scan-layer .section-svg-scan {
-  fill: rgb(255 255 255 / .12);
-  filter: blur(16px);
+.section-letter-scan {
+  fill: rgb(255 255 255 / .22);
+  filter: blur(9px);
+  opacity: 0;
+  animation: sectionLetterScanV13 4.1s cubic-bezier(.42,0,.24,1) infinite;
 }
 
 .section-heading-v5[data-tone="cyan"] { --banner-rgb: 34 211 238; }
@@ -114,28 +137,46 @@
   margin-top: .85rem;
 }
 
-@keyframes sectionDotFieldFloatV11 {
-  0%, 100% { transform: translateY(0) scale(1); }
-  25% { transform: translateY(-2px) scale(1.002); }
-  50% { transform: translateY(2px) scale(.999); }
-  75% { transform: translateY(-1px) scale(1.001); }
+@keyframes sectionLetterFieldFloatV13 {
+  0%, 100% { transform: translateY(0) scale(1); opacity: .9; }
+  35% { transform: translateY(-2.2px) scale(1.008); opacity: 1; }
+  68% { transform: translateY(1.6px) scale(.997); opacity: .91; }
 }
 
-@keyframes sectionDotScanV11 {
-  0%, 12% { transform: translateX(0); opacity: 0; }
-  24% { opacity: .25; }
-  52% { opacity: .48; }
-  72% { opacity: .18; }
-  88%, 100% { transform: translateX(calc(100% + 1480px)); opacity: 0; }
+@keyframes sectionLetterTextureDriftV13 {
+  0% { transform: translate3d(-7px,-5px,0); }
+  25% { transform: translate3d(5px,-9px,0); }
+  50% { transform: translate3d(10px,3px,0); }
+  75% { transform: translate3d(-3px,9px,0); }
+  100% { transform: translate3d(-7px,-5px,0); }
+}
+
+@keyframes sectionLetterScanV13 {
+  0%, 10% { transform: translateX(0); opacity: 0; }
+  22% { opacity: .18; }
+  46% { opacity: .72; }
+  72% { opacity: .35; }
+  88%, 100% { transform: translateX(150px); opacity: 0; }
+}
+
+@keyframes sectionBannerAuraV13 {
+  0%, 100% { opacity: .64; transform: translate(-50%, -50%) scale(.96); }
+  50% { opacity: .94; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .section-dot-banner-interactive {
+    cursor: default;
+  }
 }
 
 @media (max-width: 900px) {
   .section-dot-banner {
     min-height: clamp(7rem, 17vw, 9.5rem);
   }
-  .section-svg-mask-text,
-  .section-svg-silhouette {
-    font-size: 124px;
+  .section-letter-mask-text,
+  .section-letter-silhouette {
+    font-size: 116px;
   }
 }
 
@@ -144,31 +185,44 @@
     min-height: clamp(6rem, 21vw, 8rem);
     overflow: hidden;
   }
-  .section-dot-svg {
+  .section-dot-word-interactive {
     width: 108%;
     max-width: none !important;
   }
-  .section-svg-mask-text,
-  .section-svg-silhouette {
-    font-size: 116px;
+  .section-letter-mask-text,
+  .section-letter-silhouette {
+    font-size: 108px;
     letter-spacing: -3px;
   }
 }
 
 @media (max-width: 440px) {
   .section-dot-banner { min-height: 5.5rem; }
-  .section-dot-svg { width: 116%; }
-  .section-svg-mask-text,
-  .section-svg-silhouette {
-    font-size: 108px;
-  }
+  .section-dot-word-interactive { width: 116%; }
+  .section-letter-mask-text,
+  .section-letter-silhouette { font-size: 101px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .section-svg-dot-field,
-  .section-svg-scan { animation: none !important; }
+  .section-dot-word-interactive,
+  .section-letter-svg,
+  .section-letter-dot-field,
+  .section-letter-dot-field rect,
+  .section-letter-scan,
+  .section-dot-banner::before {
+    animation: none !important;
+    transition: none !important;
+  }
   .section-svg-dot animate { display: none; }
 }
 
-html.motion-off .section-svg-dot-field,
-html.motion-off .section-svg-scan { animation: none !important; }
+html.motion-off .section-dot-word-interactive,
+html.motion-off .section-letter-svg,
+html.motion-off .section-letter-dot-field,
+html.motion-off .section-letter-dot-field rect,
+html.motion-off .section-letter-scan,
+html.motion-off .section-dot-banner::before {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
