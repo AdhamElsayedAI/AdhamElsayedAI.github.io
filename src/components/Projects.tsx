@@ -1,15 +1,15 @@
 "use client";
 
 import {
+  BarChart3,
   BrainCircuit,
-  ChartNoAxesCombined,
-  ChartSpline,
   ExternalLink,
   GraduationCap,
   ScanBarcode,
   ScanFace,
   ShieldCheck,
   ShoppingCart,
+  TrendingDown,
   UserRoundMinus,
 } from "lucide-react";
 import { useState } from "react";
@@ -17,24 +17,48 @@ import { medflow, projects, type Project } from "@/data/projects";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
-const iconMap = {
-  basket: { Primary: ScanBarcode, Secondary: ShoppingCart, label: "Vision checkout" },
-  shield: { Primary: ScanFace, Secondary: ShieldCheck, label: "AI proctoring" },
-  chart: { Primary: GraduationCap, Secondary: ChartNoAxesCombined, label: "Learning analytics" },
-  spark: { Primary: UserRoundMinus, Secondary: ChartSpline, label: "Churn prediction" },
-};
+const projectVisuals = {
+  basket: {
+    Primary: ScanBarcode,
+    Secondary: ShoppingCart,
+    label: "VISION CHECKOUT",
+    tone: "orange",
+  },
+  shield: {
+    Primary: ScanFace,
+    Secondary: ShieldCheck,
+    label: "AI PROCTORING",
+    tone: "violet",
+  },
+  chart: {
+    Primary: GraduationCap,
+    Secondary: BarChart3,
+    label: "LEARNING ANALYTICS",
+    tone: "blue",
+  },
+  spark: {
+    Primary: UserRoundMinus,
+    Secondary: TrendingDown,
+    label: "CHURN PREDICTION",
+    tone: "rose",
+  },
+} as const;
 
-function ProjectVisual({ project }: { project: Project }) {
-  const { Primary, Secondary, label } = iconMap[project.icon];
+function ProjectPoster({ project }: { project: Project }) {
+  const visual = projectVisuals[project.icon];
+  const Primary = visual.Primary;
+  const Secondary = visual.Secondary;
+
   return (
-    <div className={`project-visual project-visual-${project.icon}`} aria-hidden>
-      <div className="project-visual-grid" />
-      <span className="project-visual-orbit" />
-      <span className="project-visual-icon">
-        <Primary className="project-icon-primary" strokeWidth={1.75} />
-        <Secondary className="project-icon-secondary" strokeWidth={2} />
+    <div className={`project-poster-v5 project-poster-${visual.tone}`} aria-hidden="true">
+      <div className="project-poster-grid-v5" />
+      <span className="project-poster-orbit-v5 orbit-a" />
+      <span className="project-poster-orbit-v5 orbit-b" />
+      <span className="project-poster-icon-v5">
+        <Primary className="project-poster-icon-primary-v5" strokeWidth={1.6} />
+        <span className="project-poster-mini-v5"><Secondary strokeWidth={1.8} /></span>
       </span>
-      <span className="project-visual-code">{label}</span>
+      <span className="project-poster-label-v5">{visual.label}</span>
     </div>
   );
 }
@@ -44,13 +68,13 @@ export function Projects() {
   const activeImage = medflow.images[selectedImage];
 
   return (
-    <section id="projects" className="section-shell">
+    <section id="projects" className="section-shell section-shell-projects-v5">
       <div className="site-container">
         <SectionHeading
           number="03"
           eyebrow="Projects"
-          title="Systems with measurable behavior."
-          description="Featured work across evidence-grounded GenAI, computer vision, edge deployment, analytics and big-data machine learning."
+          title="Selected systems, presented like products."
+          description="A mix of evidence-grounded GenAI, computer vision, edge AI, analytics and machine-learning work — with real metrics where they exist."
           action={
             <a href="https://github.com/AdhamElsayedAI?tab=repositories" target="_blank" rel="noreferrer" className="button-secondary text-xs">
               All repositories <ExternalLink aria-hidden className="h-3.5 w-3.5" />
@@ -58,106 +82,98 @@ export function Projects() {
           }
         />
 
-        <Reveal className="featured-project overflow-hidden">
-          <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)]">
-            <div className="min-w-0 border-b border-line p-3 lg:border-b-0 lg:border-r sm:p-4">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-[#09110e]">
-                <img
-                  key={activeImage.src}
-                  src={activeImage.src}
-                  alt={activeImage.alt}
-                  className="h-full w-full object-cover object-top transition-opacity"
-                  width="1400"
-                  height="875"
-                />
-                <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5" />
-                <span className="absolute left-3 top-3 rounded-full border border-white/10 bg-[#07110d]/80 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-[#8ef0be] backdrop-blur">
-                  Authentic project UI
-                </span>
+        <div className="projects-grid-v5">
+          <Reveal className="project-card-v5 project-card-featured-v5 group">
+            <div className="project-featured-media-v5">
+              <img
+                key={activeImage.src}
+                src={activeImage.src}
+                alt={activeImage.alt}
+                className="project-featured-image-v5"
+                width="1400"
+                height="875"
+              />
+              <div className="project-featured-overlay-v5" />
+              <span className="project-featured-logo-v5"><BrainCircuit className="h-7 w-7" /></span>
+              <div className="project-featured-badges-v5">
+                <span>FEATURED · TEAM PROJECT</span>
+                <span>🏆 2ND PLACE</span>
               </div>
-              <div className="scrollbar-none mt-3 flex gap-2 overflow-x-auto pb-1">
-                {medflow.images.map((image, index) => (
-                  <button
-                    key={image.src}
-                    type="button"
-                    onClick={() => setSelectedImage(index)}
-                    aria-label={`Show MedFlow screenshot ${index + 1}`}
-                    aria-pressed={selectedImage === index}
-                    className={`relative h-14 w-24 shrink-0 overflow-hidden rounded-lg border transition ${selectedImage === index ? "border-accent ring-2 ring-accent/15" : "border-line opacity-70 hover:opacity-100"}`}
-                  >
-                    <img src={image.src} alt="" className="h-full w-full object-cover object-top" width="190" height="110" />
-                  </button>
-                ))}
+              <div className="project-featured-caption-v5">
+                <span>MEDFLOW</span>
+                <strong>Evidence-grounded clinical AI</strong>
               </div>
             </div>
 
-            <div className="flex min-w-0 flex-col p-5 sm:p-7 lg:p-8">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="featured-project-mark" aria-label="MedFlow AI system">
-                  <BrainCircuit aria-hidden className="h-4 w-4" />
-                </span>
-                <span className="eyebrow-badge">Featured · Team Project</span>
-                <span className="award-badge">🏆 2nd Place</span>
+            <div className="project-card-body-v5">
+              <div>
+                <p className="project-card-category-v5">{medflow.category}</p>
+                <h3 className="project-card-title-v5">{medflow.title}</h3>
+                <p className="project-card-description-v5">{medflow.description}</p>
               </div>
-              <h3 className="mt-5 text-3xl font-black tracking-[-0.05em] text-ink sm:text-4xl">{medflow.title}</h3>
-              <p className="mt-2 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-accent">{medflow.category}</p>
-              <p className="mt-5 leading-7 text-muted">{medflow.description}</p>
 
-              <div className="mt-6 grid grid-cols-3 overflow-hidden rounded-xl border border-line bg-line">
+              <div className="project-metrics-v5">
                 {medflow.metrics.map((metric) => (
-                  <div key={metric.label} className="bg-elevated p-3 text-center sm:p-4">
-                    <strong className="block text-base font-black tracking-[-0.03em] text-accent sm:text-xl">{metric.value}</strong>
-                    <span className="mt-1 block font-mono text-[8px] uppercase tracking-[0.13em] text-muted sm:text-[9px]">{metric.label}</span>
+                  <div key={metric.label}>
+                    <strong>{metric.value}</strong>
+                    <span>{metric.label}</span>
                   </div>
                 ))}
               </div>
-              <p className="mt-2 text-[10px] leading-5 text-muted">Canonical retrieval engineering metrics — not clinical accuracy or medical validation.</p>
 
-              <div className="mt-5 flex flex-wrap gap-1.5">
-                {medflow.technologies.map((technology) => <span key={technology} className="chip">{technology}</span>)}
+              <p className="project-metric-note-v5">Retrieval engineering metrics — not clinical accuracy.</p>
+
+              <div className="project-tags-v5">
+                {medflow.technologies.map((technology) => <span key={technology}>{technology}</span>)}
               </div>
 
-              <a href={medflow.github} target="_blank" rel="noreferrer" className="button-primary mt-7 self-start">
-                Explore MedFlow <ExternalLink aria-hidden className="h-4 w-4" />
-              </a>
+              <div className="project-featured-footer-v5">
+                <div className="project-gallery-dots-v5" aria-label="MedFlow screenshots">
+                  {medflow.images.map((image, index) => (
+                    <button
+                      key={image.src}
+                      type="button"
+                      onClick={() => setSelectedImage(index)}
+                      aria-label={`Show MedFlow screenshot ${index + 1}`}
+                      aria-pressed={selectedImage === index}
+                      className={selectedImage === index ? "active" : ""}
+                    />
+                  ))}
+                </div>
+                <a href={medflow.github} target="_blank" rel="noreferrer" className="project-link-v5">
+                  View project <ExternalLink className="h-3.5 w-3.5" />
+                </a>
+              </div>
             </div>
-          </div>
+          </Reveal>
 
-          <div className="grid border-t border-line md:grid-cols-5">
-            {medflow.retrieval.map((item) => (
-              <div key={item.label} className="border-b border-line p-4 last:border-b-0 md:border-b-0 md:border-r md:last:border-r-0">
-                <span className="block font-mono text-[8px] uppercase tracking-[0.18em] text-muted">{item.label}</span>
-                <strong className="mt-1.5 block break-words text-xs leading-5 text-ink">{item.value}</strong>
-              </div>
-            ))}
-          </div>
-        </Reveal>
-
-        <div className="mt-5 grid gap-5 md:grid-cols-2">
           {projects.map((project, index) => (
-            <Reveal key={project.title} delay={index * 0.05} className="project-card group">
-              <ProjectVisual project={project} />
-              <div className="flex flex-1 flex-col p-5 sm:p-6">
-                <p className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-accent">{project.category}</p>
-                <h3 className="mt-2 text-xl font-black tracking-[-0.035em] text-ink sm:text-2xl">{project.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-muted">{project.description}</p>
+            <Reveal key={project.title} delay={index * 0.05} className={`project-card-v5 project-card-${project.icon} group`}>
+              <ProjectPoster project={project} />
+              <div className="project-card-body-v5">
+                <div>
+                  <p className="project-card-category-v5">{project.category}</p>
+                  <h3 className="project-card-title-v5">{project.title}</h3>
+                  <p className="project-card-description-v5">{project.description}</p>
+                </div>
 
                 {project.metrics ? (
-                  <div className="mt-5 flex flex-wrap gap-2">
+                  <div className="project-metrics-v5 project-metrics-compact-v5">
                     {project.metrics.map((metric) => (
-                      <div key={metric.label} className="rounded-lg border border-line bg-elevated px-3 py-2">
-                        <strong className="text-sm text-ink">{metric.value}</strong>
-                        <span className="ml-2 font-mono text-[8px] uppercase tracking-[0.12em] text-muted">{metric.label}</span>
+                      <div key={metric.label}>
+                        <strong>{metric.value}</strong>
+                        <span>{metric.label}</span>
                       </div>
                     ))}
                   </div>
                 ) : null}
 
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {project.technologies.map((technology) => <span key={technology} className="chip">{technology}</span>)}
+                <div className="project-tags-v5">
+                  {project.technologies.map((technology) => <span key={technology}>{technology}</span>)}
                 </div>
-                <a href={project.github} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 self-start text-sm font-bold text-ink transition-colors hover:text-accent">
-                  View repository <ExternalLink aria-hidden className="h-3.5 w-3.5" />
+
+                <a href={project.github} target="_blank" rel="noreferrer" className="project-link-v5">
+                  View repository <ExternalLink className="h-3.5 w-3.5" />
                 </a>
               </div>
             </Reveal>
