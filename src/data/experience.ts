@@ -9,16 +9,16 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
-    period: "Summer 2026",
-    organization: "Orange Digital Center Egypt × Nokia",
-    role: "Summer Training",
+    period: "2026",
+    organization: "Orange Digital Center Egypt × Creativa Innovation Hubs",
+    role: "AI Hackathons Participant",
     summary:
-      "A 7-week technical training program spanning modern connectivity, infrastructure and application foundations.",
+      "Participated in the AI Hackathons program organized through Orange Digital Center Egypt and Creativa Innovation Hubs, with ecosystem partners shown in the official event material.",
     details: [
-      "Covered networking, mobile networks, Core/IP and cloud infrastructure.",
-      "Included full-stack fundamentals alongside telecommunications systems.",
+      "Worked in a hackathon environment focused on building and presenting applied AI solutions under time constraints.",
+      "Developed stronger skills in teamwork, rapid prototyping, technical communication and solution evaluation.",
     ],
-    tags: ["Networking", "Mobile Networks", "Core/IP", "Cloud", "Full Stack"],
+    tags: ["AI Hackathon", "Rapid Prototyping", "Teamwork", "Problem Solving", "Presentation"],
   },
   {
     period: "Sep 2025 — Jul 2026",
