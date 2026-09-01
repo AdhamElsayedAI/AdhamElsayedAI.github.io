@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { Projects } from "@/components/Projects";
+import { ReferenceEnhancements } from "@/components/ReferenceEnhancements";
 import { Skills } from "@/components/Skills";
 import { Stats } from "@/components/Stats";
 
@@ -16,6 +17,7 @@ export default function HomePage() {
     <>
       <a href="#main-content" className="skip-link">Skip to main content</a>
       <Navbar />
+      <ReferenceEnhancements />
       <main id="main-content">
         <Hero />
         <Stats />
