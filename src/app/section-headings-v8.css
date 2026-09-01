@@ -1,4 +1,4 @@
-/* V9 — section headings only. Strong, readable dot-matrix titles with restrained motion. */
+/* V10 — section headings only. Letter-by-letter dot matrix wave animation. */
 
 .section-heading-v5 {
   margin-bottom: clamp(2.7rem, 5vw, 4.3rem);
@@ -29,7 +29,7 @@
   border-radius: 50%;
   background: radial-gradient(ellipse at center, rgb(var(--banner-rgb) / .14), transparent 70%);
   filter: blur(28px);
-  opacity: .8;
+  opacity: .82;
   pointer-events: none;
 }
 
@@ -49,57 +49,76 @@
 .section-dot-word {
   position: relative;
   z-index: 2;
-  display: inline-block;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: .015em;
   padding: 0;
   font-family: "Cascadia Code", "JetBrains Mono", ui-monospace, monospace;
   font-size: clamp(3.8rem, 7.4vw, 7.4rem);
   font-weight: 950;
   line-height: .88;
-  letter-spacing: .015em;
+  letter-spacing: 0;
   white-space: nowrap;
-  color: rgb(var(--banner-rgb) / .24);
-  -webkit-text-stroke: 1px rgb(var(--banner-rgb) / .78);
-  text-shadow:
-    0 0 12px rgb(var(--banner-rgb) / .2),
-    0 0 36px rgb(var(--banner-rgb) / .11);
 }
 
-.section-dot-word::before {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
+.section-dot-word::before,
+.section-dot-word::after {
+  content: none;
+}
+
+.section-dot-letter {
+  --phase: calc(var(--letter-index) * .12s);
+  position: relative;
+  display: inline-block;
+  min-width: .64em;
   color: transparent;
+  -webkit-text-stroke: 1px rgb(var(--banner-rgb) / .2);
   background-image:
     radial-gradient(circle, rgb(var(--banner-rgb)) 0 2.9px, transparent 3.35px),
-    radial-gradient(circle, rgb(255 255 255 / .94) 0 1.25px, transparent 1.7px);
+    radial-gradient(circle, rgb(255 255 255 / .92) 0 1.2px, transparent 1.7px);
   background-size: 9px 9px, 27px 27px;
   background-position: 0 0, 5px 4px;
   -webkit-background-clip: text;
   background-clip: text;
-  filter: drop-shadow(0 0 7px rgb(var(--banner-rgb) / .23));
-  opacity: .98;
-  animation: sectionDotsTravelV9 7.5s linear infinite;
+  filter:
+    drop-shadow(0 0 8px rgb(var(--banner-rgb) / .24))
+    drop-shadow(0 0 24px rgb(var(--banner-rgb) / .10));
+  transform-origin: 50% 80%;
+  animation:
+    sectionLetterWaveV10 2.9s cubic-bezier(.55,.08,.35,.95) infinite,
+    sectionDotsFlowV10 6s linear infinite;
+  animation-delay: var(--phase), calc(var(--phase) * -1);
 }
 
-.section-dot-word::after {
-  content: attr(data-text);
+.section-dot-letter::before {
+  content: attr(data-char);
+  position: absolute;
+  inset: 0;
+  color: rgb(var(--banner-rgb) / .16);
+  -webkit-text-stroke: 1px rgb(var(--banner-rgb) / .42);
+  text-shadow: 0 0 18px rgb(var(--banner-rgb) / .16);
+  z-index: -1;
+}
+
+.section-dot-letter::after {
+  content: attr(data-char);
   position: absolute;
   inset: 0;
   color: transparent;
   background-image:
-    radial-gradient(circle, rgb(255 255 255 / .98) 0 1.8px, transparent 2.25px),
-    radial-gradient(circle, rgb(var(--cyan-rgb) / .95) 0 1.7px, transparent 2.2px);
-  background-size: 33px 33px, 47px 47px;
-  background-position: 0 2px, 17px 10px;
+    radial-gradient(circle, rgb(255 255 255 / .98) 0 1.8px, transparent 2.2px),
+    radial-gradient(circle, rgb(var(--cyan-rgb) / .9) 0 1.7px, transparent 2.1px);
+  background-size: 31px 31px, 43px 43px;
+  background-position: 0 2px, 13px 8px;
   -webkit-background-clip: text;
   background-clip: text;
-  opacity: .52;
-  animation: sectionDotsSparkV9 3.8s ease-in-out infinite alternate;
+  opacity: .45;
+  animation: sectionLetterSparkV10 2.2s ease-in-out infinite alternate;
+  animation-delay: calc(var(--phase) * .8);
 }
 
-.section-dot-line {
-  display: none;
-}
+.section-dot-line { display: none; }
 
 .section-heading-v5[data-tone="cyan"] { --banner-rgb: 34 211 238; }
 .section-heading-v5[data-tone="amber"] { --banner-rgb: 251 191 36; }
@@ -109,32 +128,44 @@
 .section-heading-v5[data-tone="lime"] { --banner-rgb: 163 230 53; }
 .section-heading-v5[data-tone="blue"] { --banner-rgb: 96 165 250; }
 
-.section-heading-v5-copy {
-  margin-top: 1rem;
+.section-heading-v5-copy { margin-top: 1rem; }
+
+@keyframes sectionLetterWaveV10 {
+  0%, 100% {
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+  18% {
+    transform: translateY(-.09em) scale(1.015) rotate(-.35deg);
+  }
+  36% {
+    transform: translateY(-.23em) scale(1.04) rotate(.55deg);
+  }
+  54% {
+    transform: translateY(-.08em) scale(1.01) rotate(-.25deg);
+  }
+  72% {
+    transform: translateY(.025em) scale(.995) rotate(.15deg);
+  }
 }
 
-@keyframes sectionDotsTravelV9 {
+@keyframes sectionDotsFlowV10 {
   from { background-position: 0 0, 5px 4px; }
   to { background-position: 54px 0, 59px 4px; }
 }
 
-@keyframes sectionDotsSparkV9 {
+@keyframes sectionLetterSparkV10 {
   from {
-    opacity: .28;
-    transform: translateX(-2px);
-    background-position: 0 2px, 17px 10px;
+    opacity: .18;
+    background-position: 0 2px, 13px 8px;
   }
   to {
-    opacity: .7;
-    transform: translateX(4px);
-    background-position: 33px 2px, -30px 10px;
+    opacity: .72;
+    background-position: 31px 2px, -30px 8px;
   }
 }
 
 @media (max-width: 900px) {
-  .section-dot-word {
-    font-size: clamp(3rem, 9.4vw, 5.8rem);
-  }
+  .section-dot-word { font-size: clamp(3rem, 9.4vw, 5.8rem); }
 }
 
 @media (max-width: 768px) {
@@ -142,31 +173,25 @@
     min-height: clamp(6rem, 19vw, 8rem);
     overflow: hidden;
   }
-
   .section-dot-word {
     font-size: clamp(2.5rem, 11.5vw, 4.7rem);
-    letter-spacing: .005em;
   }
-
-  .section-dot-banner::after {
-    width: 86%;
-  }
+  .section-dot-banner::after { width: 86%; }
 }
 
 @media (max-width: 440px) {
-  .section-dot-word {
-    font-size: clamp(2rem, 10.3vw, 3.25rem);
-  }
+  .section-dot-word { font-size: clamp(2rem, 10.3vw, 3.25rem); }
+  .section-dot-letter { min-width: .61em; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .section-dot-word::before,
-  .section-dot-word::after {
+  .section-dot-letter,
+  .section-dot-letter::after {
     animation: none !important;
   }
 }
 
-html.motion-off .section-dot-word::before,
-html.motion-off .section-dot-word::after {
+html.motion-off .section-dot-letter,
+html.motion-off .section-dot-letter::after {
   animation: none !important;
 }
