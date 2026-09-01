@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Reveal } from "./Reveal";
 
 const toneBySection: Record<string, string> = {
@@ -31,7 +31,18 @@ export function SectionHeading({
   return (
     <Reveal className="section-heading-v5" data-tone={tone}>
       <div className="section-dot-banner" aria-hidden="true">
-        <span className="section-dot-word" data-text={displayWord}>{displayWord}</span>
+        <span className="section-dot-word" data-text={displayWord}>
+          {displayWord.split("").map((character, index) => (
+            <span
+              key={`${character}-${index}`}
+              className="section-dot-letter"
+              data-char={character}
+              style={{ "--letter-index": index } as CSSProperties}
+            >
+              {character}
+            </span>
+          ))}
+        </span>
         <span className="section-dot-line" />
       </div>
 
