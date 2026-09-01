@@ -1,4 +1,4 @@
-/* V10 — section headings only. Letter-by-letter dot matrix wave animation. */
+/* V11 — section headings only. True SVG dot-matrix letters with visible particle motion. */
 
 .section-heading-v5 {
   margin-bottom: clamp(2.7rem, 5vw, 4.3rem);
@@ -6,7 +6,7 @@
 
 .section-dot-banner {
   position: relative;
-  min-height: clamp(8rem, 13vw, 11rem);
+  min-height: clamp(8.5rem, 13vw, 11.5rem);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,12 +23,12 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(64rem, 88vw);
-  height: 9rem;
+  width: min(66rem, 90vw);
+  height: 9.5rem;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgb(var(--banner-rgb) / .14), transparent 70%);
-  filter: blur(28px);
+  background: radial-gradient(ellipse at center, rgb(var(--banner-rgb) / .14), transparent 72%);
+  filter: blur(30px);
   opacity: .82;
   pointer-events: none;
 }
@@ -37,88 +37,70 @@
   content: "";
   position: absolute;
   left: 50%;
-  bottom: .35rem;
-  width: min(46rem, 72%);
+  bottom: .25rem;
+  width: min(48rem, 74%);
   height: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgb(var(--banner-rgb) / .62), transparent);
-  opacity: .56;
+  background: linear-gradient(90deg, transparent, rgb(var(--banner-rgb) / .55), transparent);
+  opacity: .5;
   pointer-events: none;
 }
 
-.section-dot-word {
+.section-dot-svg {
   position: relative;
   z-index: 2;
-  display: inline-flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: .015em;
-  padding: 0;
-  font-family: "Cascadia Code", "JetBrains Mono", ui-monospace, monospace;
-  font-size: clamp(3.8rem, 7.4vw, 7.4rem);
+  display: block;
+  width: min(100%, 1120px);
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 18px rgb(var(--banner-rgb) / .12));
+}
+
+.section-svg-mask-text,
+.section-svg-silhouette {
+  font-family: Inter, Aptos, "Segoe UI", system-ui, sans-serif;
+  font-size: 132px;
   font-weight: 950;
-  line-height: .88;
-  letter-spacing: 0;
-  white-space: nowrap;
+  letter-spacing: -4px;
 }
 
-.section-dot-word::before,
-.section-dot-word::after {
-  content: none;
+.section-svg-mask-text {
+  fill: white;
+  stroke: white;
+  stroke-width: 1.5px;
 }
 
-.section-dot-letter {
-  --phase: calc(var(--letter-index) * .12s);
-  position: relative;
-  display: inline-block;
-  min-width: .64em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgb(var(--banner-rgb) / .2);
-  background-image:
-    radial-gradient(circle, rgb(var(--banner-rgb)) 0 2.9px, transparent 3.35px),
-    radial-gradient(circle, rgb(255 255 255 / .92) 0 1.2px, transparent 1.7px);
-  background-size: 9px 9px, 27px 27px;
-  background-position: 0 0, 5px 4px;
-  -webkit-background-clip: text;
-  background-clip: text;
-  filter:
-    drop-shadow(0 0 8px rgb(var(--banner-rgb) / .24))
-    drop-shadow(0 0 24px rgb(var(--banner-rgb) / .10));
-  transform-origin: 50% 80%;
-  animation:
-    sectionLetterWaveV10 2.9s cubic-bezier(.55,.08,.35,.95) infinite,
-    sectionDotsFlowV10 6s linear infinite;
-  animation-delay: var(--phase), calc(var(--phase) * -1);
+.section-svg-silhouette {
+  fill: rgb(var(--banner-rgb) / .035);
+  stroke: rgb(var(--banner-rgb) / .13);
+  stroke-width: 1px;
 }
 
-.section-dot-letter::before {
-  content: attr(data-char);
-  position: absolute;
-  inset: 0;
-  color: rgb(var(--banner-rgb) / .16);
-  -webkit-text-stroke: 1px rgb(var(--banner-rgb) / .42);
-  text-shadow: 0 0 18px rgb(var(--banner-rgb) / .16);
-  z-index: -1;
+.section-svg-dot-primary { fill: rgb(var(--banner-rgb)); }
+.section-svg-dot-secondary { fill: rgb(var(--cyan-rgb)); }
+.section-svg-dot-tertiary { fill: rgb(var(--warm-rgb)); }
+.section-svg-dot-soft { opacity: .83; }
+
+.section-svg-dot-field {
+  transform-origin: center;
+  animation: sectionDotFieldFloatV11 5.8s ease-in-out infinite;
 }
 
-.section-dot-letter::after {
-  content: attr(data-char);
-  position: absolute;
-  inset: 0;
-  color: transparent;
-  background-image:
-    radial-gradient(circle, rgb(255 255 255 / .98) 0 1.8px, transparent 2.2px),
-    radial-gradient(circle, rgb(var(--cyan-rgb) / .9) 0 1.7px, transparent 2.1px);
-  background-size: 31px 31px, 43px 43px;
-  background-position: 0 2px, 13px 8px;
-  -webkit-background-clip: text;
-  background-clip: text;
-  opacity: .45;
-  animation: sectionLetterSparkV10 2.2s ease-in-out infinite alternate;
-  animation-delay: calc(var(--phase) * .8);
+.section-svg-scan-layer {
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
-.section-dot-line { display: none; }
+.section-svg-scan {
+  fill: url(#none);
+  opacity: .5;
+  animation: sectionDotScanV11 5.2s ease-in-out infinite;
+}
+
+.section-svg-scan-layer .section-svg-scan {
+  fill: rgb(255 255 255 / .12);
+  filter: blur(16px);
+}
 
 .section-heading-v5[data-tone="cyan"] { --banner-rgb: 34 211 238; }
 .section-heading-v5[data-tone="amber"] { --banner-rgb: 251 191 36; }
@@ -128,70 +110,65 @@
 .section-heading-v5[data-tone="lime"] { --banner-rgb: 163 230 53; }
 .section-heading-v5[data-tone="blue"] { --banner-rgb: 96 165 250; }
 
-.section-heading-v5-copy { margin-top: 1rem; }
-
-@keyframes sectionLetterWaveV10 {
-  0%, 100% {
-    transform: translateY(0) scale(1) rotate(0deg);
-  }
-  18% {
-    transform: translateY(-.09em) scale(1.015) rotate(-.35deg);
-  }
-  36% {
-    transform: translateY(-.23em) scale(1.04) rotate(.55deg);
-  }
-  54% {
-    transform: translateY(-.08em) scale(1.01) rotate(-.25deg);
-  }
-  72% {
-    transform: translateY(.025em) scale(.995) rotate(.15deg);
-  }
+.section-heading-v5-copy {
+  margin-top: .85rem;
 }
 
-@keyframes sectionDotsFlowV10 {
-  from { background-position: 0 0, 5px 4px; }
-  to { background-position: 54px 0, 59px 4px; }
+@keyframes sectionDotFieldFloatV11 {
+  0%, 100% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(-2px) scale(1.002); }
+  50% { transform: translateY(2px) scale(.999); }
+  75% { transform: translateY(-1px) scale(1.001); }
 }
 
-@keyframes sectionLetterSparkV10 {
-  from {
-    opacity: .18;
-    background-position: 0 2px, 13px 8px;
-  }
-  to {
-    opacity: .72;
-    background-position: 31px 2px, -30px 8px;
-  }
+@keyframes sectionDotScanV11 {
+  0%, 12% { transform: translateX(0); opacity: 0; }
+  24% { opacity: .25; }
+  52% { opacity: .48; }
+  72% { opacity: .18; }
+  88%, 100% { transform: translateX(calc(100% + 1480px)); opacity: 0; }
 }
 
 @media (max-width: 900px) {
-  .section-dot-word { font-size: clamp(3rem, 9.4vw, 5.8rem); }
+  .section-dot-banner {
+    min-height: clamp(7rem, 17vw, 9.5rem);
+  }
+  .section-svg-mask-text,
+  .section-svg-silhouette {
+    font-size: 124px;
+  }
 }
 
 @media (max-width: 768px) {
   .section-dot-banner {
-    min-height: clamp(6rem, 19vw, 8rem);
+    min-height: clamp(6rem, 21vw, 8rem);
     overflow: hidden;
   }
-  .section-dot-word {
-    font-size: clamp(2.5rem, 11.5vw, 4.7rem);
+  .section-dot-svg {
+    width: 108%;
+    max-width: none !important;
   }
-  .section-dot-banner::after { width: 86%; }
+  .section-svg-mask-text,
+  .section-svg-silhouette {
+    font-size: 116px;
+    letter-spacing: -3px;
+  }
 }
 
 @media (max-width: 440px) {
-  .section-dot-word { font-size: clamp(2rem, 10.3vw, 3.25rem); }
-  .section-dot-letter { min-width: .61em; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .section-dot-letter,
-  .section-dot-letter::after {
-    animation: none !important;
+  .section-dot-banner { min-height: 5.5rem; }
+  .section-dot-svg { width: 116%; }
+  .section-svg-mask-text,
+  .section-svg-silhouette {
+    font-size: 108px;
   }
 }
 
-html.motion-off .section-dot-letter,
-html.motion-off .section-dot-letter::after {
-  animation: none !important;
+@media (prefers-reduced-motion: reduce) {
+  .section-svg-dot-field,
+  .section-svg-scan { animation: none !important; }
+  .section-svg-dot animate { display: none; }
 }
+
+html.motion-off .section-svg-dot-field,
+html.motion-off .section-svg-scan { animation: none !important; }
