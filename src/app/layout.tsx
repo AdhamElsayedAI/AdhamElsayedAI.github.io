@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider, themeBootstrapScript } from "@/components/ThemeProvider";
 import "./globals.css";
+import "./reference.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
@@ -50,8 +51,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f4f9f6" },
-    { media: "(prefers-color-scheme: dark)", color: "#050c0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f6f9" },
+    { media: "(prefers-color-scheme: dark)", color: "#050507" },
   ],
 };
 
