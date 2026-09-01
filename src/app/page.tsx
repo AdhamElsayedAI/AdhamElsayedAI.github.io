@@ -10,7 +10,6 @@ import { Navbar } from "@/components/Navbar";
 import { Projects } from "@/components/Projects";
 import { ReferenceEnhancements } from "@/components/ReferenceEnhancements";
 import { Skills } from "@/components/Skills";
-import { Stats } from "@/components/Stats";
 
 export default function HomePage() {
   return (
@@ -20,12 +19,11 @@ export default function HomePage() {
       <ReferenceEnhancements />
       <main id="main-content">
         <Hero />
-        <Stats />
         <About />
         <Skills />
+        <Experience />
         <Projects />
         <Achievement />
-        <Experience />
         <Certifications />
         <Contact />
       </main>
