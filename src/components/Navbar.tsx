@@ -1,138 +1,146 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { Download, Github, Linkedin, Menu, X } from "lucide-react";
+import { Command, Download, Menu, Moon, Sparkles, Sun, X, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { navItems, profile } from "@/data/profile";
-import { ThemeToggle } from "./ThemeToggle";
+import { useTheme } from "./ThemeProvider";
+
+const tones = ["ref-nav-red", "ref-nav-gold", "ref-nav-neon"];
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState("home");
+  const [glow, setGlow] = useState(true);
+  const [motionOn, setMotionOn] = useState(true);
   const reduced = useReducedMotion();
+  const { theme, mounted, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    const storedGlow = localStorage.getItem("adham-glow");
+    const storedMotion = localStorage.getItem("adham-motion");
+    if (storedGlow !== null) setGlow(storedGlow === "true");
+    if (storedMotion !== null) setMotionOn(storedMotion === "true");
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("motion-off", !motionOn);
+  }, [motionOn]);
 
   useEffect(() => {
     const sections = navItems
       .map((item) => document.getElementById(item.href.slice(1)))
       .filter((section): section is HTMLElement => Boolean(section));
-
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible?.target.id) setActive(visible.target.id);
       },
-      { rootMargin: "-24% 0px -62% 0px", threshold: [0, 0.25, 0.6] },
+      { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.2, 0.55] },
     );
-
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     document.body.classList.toggle("menu-locked", menuOpen);
-    const closeOnEscape = (event: KeyboardEvent) => {
+    const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setMenuOpen(false);
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        window.dispatchEvent(new CustomEvent("command:open"));
+      }
     };
-    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", onKey);
     return () => {
       document.body.classList.remove("menu-locked");
-      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("keydown", onKey);
     };
   }, [menuOpen]);
 
+  const toggleGlow = () => {
+    const next = !glow;
+    setGlow(next);
+    localStorage.setItem("adham-glow", String(next));
+    window.dispatchEvent(new CustomEvent("glow:toggle", { detail: next }));
+  };
+
+  const toggleMotion = () => {
+    const next = !motionOn;
+    setMotionOn(next);
+    localStorage.setItem("adham-motion", String(next));
+  };
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5">
-      <nav aria-label="Primary navigation" className="nav-shell mx-auto flex max-w-[1380px] items-center justify-between gap-3 px-3 py-2.5 sm:px-4">
-        <a href="#home" className="group flex min-w-0 items-center gap-2.5" aria-label="Adham Elsayed, home">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-accent/30 bg-accent-soft font-mono text-xs font-black text-accent transition-transform group-hover:-rotate-3">
-            AE
-          </span>
-          <span className="hidden leading-tight sm:block">
-            <strong className="block text-[13px] font-extrabold tracking-[-0.02em] text-ink">Adham Elsayed</strong>
-            <span className="block font-mono text-[9px] uppercase tracking-[0.18em] text-muted">AI Engineer</span>
-          </span>
+    <header className="ref-header">
+      <div className="ref-header-inner">
+        <a href="#home" className="flex min-w-0 items-center gap-2 font-mono text-sm font-semibold tracking-tight text-ink" aria-label="Adham Elsayed home">
+          <span className="ref-brand-mark">AE</span>
+          <span className="hidden sm:inline">adham.elsayed</span>
         </a>
 
-        <div className="hidden items-center gap-0.5 xl:flex">
-          {navItems.map((item) => {
-            const isActive = active === item.href.slice(1);
+        <nav className="ml-auto hidden items-center gap-0.5 lg:flex" aria-label="Primary navigation">
+          {navItems.map((item, index) => {
+            const selected = active === item.href.slice(1);
             return (
               <a
                 key={item.href}
                 href={item.href}
-                aria-current={isActive ? "page" : undefined}
-                className={`nav-link ${isActive ? "nav-link-active" : ""}`}
+                aria-current={selected ? "page" : undefined}
+                className={`ref-nav-link ${selected ? tones[index % tones.length] : ""}`}
               >
                 {item.label}
               </a>
             );
           })}
-        </div>
+        </nav>
 
-        <div className="flex items-center gap-1.5">
-          <a className="icon-button hidden sm:grid" href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub profile">
-            <Github aria-hidden className="h-4 w-4" />
+        <div className="ml-auto flex items-center gap-2 lg:ml-3">
+          <button className="ref-command hidden md:inline-flex" onClick={() => window.dispatchEvent(new CustomEvent("command:open"))} aria-label="Open command palette">
+            <Command className="h-3.5 w-3.5" /> <span>Ctrl K</span>
+          </button>
+          <button className={`icon-button hidden md:grid ${motionOn ? "text-accent" : ""}`} onClick={toggleMotion} aria-label="Toggle motion" title={`Motion ${motionOn ? "on" : "off"}`}>
+            <Zap className="h-4 w-4" />
+          </button>
+          <button className={`icon-button hidden md:grid ${glow ? "text-accent" : ""}`} onClick={toggleGlow} aria-label="Toggle cursor glow" title={`Glow ${glow ? "on" : "off"}`}>
+            <Sparkles className="h-4 w-4" />
+          </button>
+          <button className="icon-button hidden md:grid" onClick={toggleTheme} aria-label="Toggle theme">
+            {mounted && theme === "light" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+          <a href={profile.cv} download className="button-primary hidden gap-2 lg:inline-flex">
+            <Download className="h-3.5 w-3.5" /> Resume
           </a>
-          <a className="icon-button hidden sm:grid" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
-            <Linkedin aria-hidden className="h-4 w-4" />
-          </a>
-          <ThemeToggle />
-          <a href={profile.cv} download className="button-primary hidden min-h-9 px-3 text-xs md:inline-flex">
-            <Download aria-hidden className="h-3.5 w-3.5" />
-            CV
-          </a>
-          <button
-            type="button"
-            className="icon-button xl:hidden"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-navigation"
-            onClick={() => setMenuOpen((open) => !open)}
-          >
-            {menuOpen ? <X aria-hidden className="h-4 w-4" /> : <Menu aria-hidden className="h-4 w-4" />}
+          <button className="icon-button lg:hidden" onClick={() => setMenuOpen((v) => !v)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen}>
+            {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
-      </nav>
+      </div>
 
       <AnimatePresence>
-        {menuOpen ? (
+        {menuOpen && (
           <motion.div
-            id="mobile-navigation"
-            initial={reduced ? false : { opacity: 0, y: -12, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={reduced ? undefined : { opacity: 0, y: -8, scale: 0.99 }}
-            transition={{ duration: 0.2 }}
-            className="nav-shell mx-auto mt-2 max-w-[1380px] p-3 xl:hidden"
+            initial={reduced ? false : { opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduced ? undefined : { opacity: 0, y: -8 }}
+            className="border-t border-line bg-surface lg:hidden"
           >
-            <div className="grid grid-cols-2 gap-1 sm:grid-cols-4">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
-                  className={`rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${
-                    active === item.href.slice(1) ? "bg-accent-soft text-accent" : "text-muted hover:bg-elevated hover:text-ink"
-                  }`}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
-            <div className="mt-2 flex items-center gap-2 border-t border-line pt-3 sm:hidden">
-              <a className="button-secondary flex-1 text-xs" href={profile.github} target="_blank" rel="noreferrer">
-                <Github aria-hidden className="h-4 w-4" /> GitHub
-              </a>
-              <a className="button-secondary flex-1 text-xs" href={profile.linkedin} target="_blank" rel="noreferrer">
-                <Linkedin aria-hidden className="h-4 w-4" /> LinkedIn
-              </a>
-              <a className="button-primary flex-1 text-xs" href={profile.cv} download>
-                <Download aria-hidden className="h-4 w-4" /> CV
-              </a>
-            </div>
+            <nav className="mx-auto grid max-w-6xl grid-cols-2 gap-1 px-4 py-4 sm:grid-cols-4">
+              {navItems.map((item, index) => {
+                const selected = active === item.href.slice(1);
+                return (
+                  <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className={`rounded-md px-3 py-2 text-sm ${selected ? tones[index % tones.length] : "text-muted hover:bg-elevated hover:text-ink"}`}>
+                    {item.label}
+                  </a>
+                );
+              })}
+              <a href={profile.cv} download className="button-primary col-span-2 mt-2 sm:col-span-1"><Download className="h-3.5 w-3.5" /> Resume</a>
+              <button className="button-secondary mt-2" onClick={toggleTheme}>Theme</button>
+              <button className="button-secondary mt-2" onClick={toggleMotion}>Motion: {motionOn ? "on" : "off"}</button>
+              <button className="button-secondary mt-2" onClick={toggleGlow}>Glow: {glow ? "on" : "off"}</button>
+            </nav>
           </motion.div>
-        ) : null}
+        )}
       </AnimatePresence>
     </header>
   );
