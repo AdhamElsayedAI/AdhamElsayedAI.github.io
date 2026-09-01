@@ -21,8 +21,8 @@ export function Contact() {
           description="Open to AI engineering opportunities, technical collaborations and projects involving Generative AI, RAG, computer vision or edge AI."
         />
 
-        <div className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
-          <Reveal className="contact-cta relative overflow-hidden p-7 sm:p-10">
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
+          <Reveal className="contact-cta min-w-0 overflow-hidden p-7 sm:p-10">
             <div aria-hidden className="absolute -right-20 -top-20 h-64 w-64 rounded-full border border-white/10" />
             <div aria-hidden className="absolute -right-8 -top-8 h-40 w-40 rounded-full border border-white/10" />
             <div className="relative">
@@ -39,7 +39,7 @@ export function Contact() {
             </div>
           </Reveal>
 
-          <Reveal delay={0.08} className="panel-card p-5 sm:p-7">
+          <Reveal delay={0.08} className="panel-card min-w-0 p-5 sm:p-7">
             <div className="space-y-2">
               {links.map(({ icon: Icon, label, value, href }) => {
                 const content = (
