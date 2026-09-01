@@ -1,6 +1,7 @@
 "use client";
 
-import type { CSSProperties, PointerEvent as ReactPointerEvent, ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
+import { useEffect, useRef } from "react";
 import { Reveal } from "./Reveal";
 
 const toneBySection: Record<string, string> = {
@@ -14,7 +15,8 @@ const toneBySection: Record<string, string> = {
   Contact: "rose",
 };
 
-function resetInteractiveHeading(target: HTMLDivElement) {
+function resetInteractiveHeading(target: HTMLDivElement | null) {
+  if (!target) return;
   const word = target.querySelector<HTMLElement>(".section-dot-word-interactive");
   if (word) word.style.transform = "";
   target.querySelectorAll<SVGElement>(".section-letter-svg").forEach((letter) => {
@@ -39,46 +41,90 @@ export function SectionHeading({
   const displayWord = eyebrow.toUpperCase();
   const safeId = displayWord.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const renderedWidth = Math.min(1120, Math.max(460, displayWord.length * 88));
+  const bannerRef = useRef<HTMLDivElement>(null);
 
-  const handlePointerMove = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (event.pointerType !== "mouse") return;
-    if (document.documentElement.classList.contains("motion-off")) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  useEffect(() => {
+    let frame = 0;
+    let pointerX = window.innerWidth / 2;
+    let pointerY = window.innerHeight / 2;
 
-    const target = event.currentTarget;
-    const rect = target.getBoundingClientRect();
-    const x = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / rect.width - 0.5) * 2));
-    const y = Math.max(-1, Math.min(1, ((event.clientY - rect.top) / rect.height - 0.5) * 2));
-    const word = target.querySelector<HTMLElement>(".section-dot-word-interactive");
-    const letters = Array.from(target.querySelectorAll<SVGElement>(".section-letter-svg"));
+    const update = () => {
+      frame = 0;
+      const target = bannerRef.current;
+      if (!target) return;
+      if (document.documentElement.classList.contains("motion-off")) {
+        resetInteractiveHeading(target);
+        return;
+      }
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        resetInteractiveHeading(target);
+        return;
+      }
 
-    if (word) {
-      word.style.transform = `translate3d(${(x * 15).toFixed(2)}px, ${(y * 10).toFixed(2)}px, 0) rotateX(${(-y * 3.2).toFixed(2)}deg) rotateY(${(x * 4.4).toFixed(2)}deg)`;
-    }
+      const rect = target.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const dx = pointerX - centerX;
+      const dy = pointerY - centerY;
+      const maxX = Math.max(window.innerWidth * 0.5, 1);
+      const maxY = Math.max(window.innerHeight * 0.5, 1);
+      const x = Math.max(-1, Math.min(1, dx / maxX));
+      const y = Math.max(-1, Math.min(1, dy / maxY));
 
-    const middle = (letters.length - 1) / 2;
-    letters.forEach((letter, index) => {
-      const spread = index - middle;
-      const depth = 4.5 + (index % 4) * 2.1;
-      const localX = x * depth + y * spread * 0.42;
-      const localY = y * depth * 0.68 + x * Math.sin(index * 1.35) * 1.7;
-      const rotate = x * spread * 0.34;
-      letter.style.transform = `translate3d(${localX.toFixed(2)}px, ${localY.toFixed(2)}px, ${depth.toFixed(1)}px) rotateZ(${rotate.toFixed(2)}deg)`;
-    });
-  };
+      const viewportInfluence = Math.max(
+        0.3,
+        Math.min(1, 1 - Math.abs(centerY - window.innerHeight / 2) / (window.innerHeight * 0.9)),
+      );
 
-  const handlePointerLeave = (event: ReactPointerEvent<HTMLDivElement>) => {
-    resetInteractiveHeading(event.currentTarget);
-  };
+      const word = target.querySelector<HTMLElement>(".section-dot-word-interactive");
+      const letters = Array.from(target.querySelectorAll<SVGElement>(".section-letter-svg"));
+
+      if (word) {
+        word.style.transform = `translate3d(${(x * 34 * viewportInfluence).toFixed(2)}px, ${(y * 22 * viewportInfluence).toFixed(2)}px, 0) rotateX(${(-y * 7 * viewportInfluence).toFixed(2)}deg) rotateY(${(x * 9 * viewportInfluence).toFixed(2)}deg)`;
+      }
+
+      const middle = (letters.length - 1) / 2;
+      letters.forEach((letter, index) => {
+        const spread = index - middle;
+        const depth = 8 + (index % 5) * 3.4;
+        const localX = (x * depth + y * spread * 0.95) * viewportInfluence;
+        const localY = (y * depth * 0.82 + x * Math.sin(index * 1.22) * 4.6) * viewportInfluence;
+        const rotate = x * spread * 0.9 * viewportInfluence;
+        letter.style.transform = `translate3d(${localX.toFixed(2)}px, ${localY.toFixed(2)}px, ${(depth * viewportInfluence).toFixed(1)}px) rotateZ(${rotate.toFixed(2)}deg)`;
+      });
+    };
+
+    const queueUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      if (event.pointerType && event.pointerType !== "mouse") return;
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      queueUpdate();
+    };
+
+    const onScroll = () => queueUpdate();
+    const onResize = () => queueUpdate();
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+    queueUpdate();
+
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      if (frame) window.cancelAnimationFrame(frame);
+      resetInteractiveHeading(bannerRef.current);
+    };
+  }, []);
 
   return (
     <Reveal className="section-heading-v5" data-tone={tone}>
-      <div
-        className="section-dot-banner section-dot-banner-interactive"
-        aria-hidden="true"
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-      >
+      <div ref={bannerRef} className="section-dot-banner section-dot-banner-interactive" aria-hidden="true">
         <div
           className="section-dot-word-interactive"
           style={{ maxWidth: `${renderedWidth}px`, "--letter-count": displayWord.length } as CSSProperties}
