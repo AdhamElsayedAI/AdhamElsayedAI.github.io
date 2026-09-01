@@ -1,26 +1,40 @@
 "use client";
 
-import { BarChart3, ExternalLink, Network, ScanSearch, ShoppingBasket, UsersRound } from "lucide-react";
+import {
+  BrainCircuit,
+  ChartNoAxesCombined,
+  ChartSpline,
+  ExternalLink,
+  GraduationCap,
+  ScanBarcode,
+  ScanFace,
+  ShieldCheck,
+  ShoppingCart,
+  UserRoundMinus,
+} from "lucide-react";
 import { useState } from "react";
 import { medflow, projects, type Project } from "@/data/projects";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
 const iconMap = {
-  basket: ShoppingBasket,
-  shield: ScanSearch,
-  chart: BarChart3,
-  spark: UsersRound,
+  basket: { Primary: ScanBarcode, Secondary: ShoppingCart, label: "Vision checkout" },
+  shield: { Primary: ScanFace, Secondary: ShieldCheck, label: "AI proctoring" },
+  chart: { Primary: GraduationCap, Secondary: ChartNoAxesCombined, label: "Learning analytics" },
+  spark: { Primary: UserRoundMinus, Secondary: ChartSpline, label: "Churn prediction" },
 };
 
 function ProjectVisual({ project }: { project: Project }) {
-  const Icon = iconMap[project.icon];
+  const { Primary, Secondary, label } = iconMap[project.icon];
   return (
     <div className={`project-visual project-visual-${project.icon}`} aria-hidden>
       <div className="project-visual-grid" />
       <span className="project-visual-orbit" />
-      <span className="project-visual-icon"><Icon className="h-8 w-8" strokeWidth={1.8} /></span>
-      <span className="project-visual-code">{project.category.split(" / ")[0]}</span>
+      <span className="project-visual-icon">
+        <Primary className="project-icon-primary" strokeWidth={1.75} />
+        <Secondary className="project-icon-secondary" strokeWidth={2} />
+      </span>
+      <span className="project-visual-code">{label}</span>
     </div>
   );
 }
@@ -79,6 +93,9 @@ export function Projects() {
 
             <div className="flex min-w-0 flex-col p-5 sm:p-7 lg:p-8">
               <div className="flex flex-wrap items-center gap-2">
+                <span className="featured-project-mark" aria-label="MedFlow AI system">
+                  <BrainCircuit aria-hidden className="h-4 w-4" />
+                </span>
                 <span className="eyebrow-badge">Featured · Team Project</span>
                 <span className="award-badge">🏆 2nd Place</span>
               </div>

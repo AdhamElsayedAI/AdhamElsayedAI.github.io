@@ -19,7 +19,7 @@ jobs:
       - name: Checkout portfolio-v3
         uses: actions/checkout@v4
         with:
-          ref: portfolio-v3
+          ref: ${{ github.sha }}
           path: source
 
       - name: Setup Node
@@ -37,7 +37,13 @@ jobs:
         working-directory: source
         env:
           PREVIEW_BASE_PATH: /preview-v3
+          NEXT_PUBLIC_BASE_PATH: /preview-v3
+          NEXT_PUBLIC_BUILD_SHA: ${{ github.sha }}
         run: npm run build
+
+      - name: Write source commit manifest
+        working-directory: source
+        run: printf '{"sourceCommit":"%s","previewPath":"/preview-v3/"}\n' "$GITHUB_SHA" > out/deployment.json
 
       - name: Checkout main
         uses: actions/checkout@v4
@@ -52,21 +58,15 @@ jobs:
           cp -a source/out/. live/preview-v3/
           touch live/preview-v3/.nojekyll
 
-          rm -rf live/images
-          cp -a source/public/images live/images
-          cp source/public/Adham_Elsayed_CV.pdf live/Adham_Elsayed_CV.pdf
-          cp source/public/favicon.svg live/favicon.svg
-          cp source/public/og-image.svg live/og-image.svg
-
       - name: Commit preview to main
         working-directory: live
         run: |
           git config user.name "Adham Elsayed"
           git config user.email "145601881+AdhamElsayedAI@users.noreply.github.com"
-          git add preview-v3 images Adham_Elsayed_CV.pdf favicon.svg og-image.svg
+          git add preview-v3
           if git diff --cached --quiet; then
             echo "Preview is already current."
           else
-            git commit -m "preview: publish portfolio v3"
+            git commit -m "preview: publish portfolio v3 from ${GITHUB_SHA}"
             git push origin main
           fi

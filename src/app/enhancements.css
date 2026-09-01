@@ -182,3 +182,35 @@ html.motion-off .ref-portrait-tilt {
     height: 1.65rem;
   }
 }
+
+.issuer-identity { display:flex; min-width:0; align-items:center; gap:.75rem; }
+.issuer-brand { display:grid; width:3.15rem; height:3.15rem; flex:0 0 auto; place-items:center; overflow:hidden; border:1px solid rgb(255 255 255 / .16); border-radius:.85rem; box-shadow:0 12px 30px -18px rgb(0 0 0 / .7); transition:transform .2s ease,box-shadow .2s ease; }
+.issuer-brand-symbol { font-family:"Segoe UI",Inter,sans-serif; font-size:.66rem; font-weight:900; letter-spacing:-.02em; }
+.issuer-source-label { display:block; color:var(--muted); font-family:"Cascadia Code",ui-monospace,monospace; font-size:.48rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; }
+.issuer-source-name { display:block; margin-top:.18rem; overflow:hidden; color:var(--ink); font-size:.7rem; line-height:1.15rem; text-overflow:ellipsis; white-space:nowrap; }
+.cert-card:hover .issuer-brand { transform:translateY(-3px) rotate(-2deg); box-shadow:0 14px 32px -15px rgb(var(--accent-rgb) / .4); }
+.issuer-brand-anthropic { background:#f4f1ea; color:#171717; }
+.issuer-brand-anthropic .issuer-brand-symbol { font-family:Georgia,serif; font-size:1.4rem; }
+.issuer-brand-cisco { background:linear-gradient(145deg,#049fd9,#086da5); color:white; }
+.issuer-brand-cisco .issuer-brand-symbol { font-size:.48rem; letter-spacing:.05em; }
+.issuer-brand-simplilearn { background:linear-gradient(145deg,#1064e5 0 72%,#ff8b2c 72%); color:white; }
+.issuer-brand-simplilearn .issuer-brand-symbol { font-size:.82rem; }
+.issuer-brand-one-million { background:linear-gradient(145deg,#6d41cf,#31165f); color:white; }
+.issuer-brand-one-million .issuer-brand-symbol { font-size:1rem; }
+.issuer-brand-ibm { background:#0f62fe; color:white; }
+.issuer-brand-ibm .issuer-brand-symbol { font-size:.82rem; letter-spacing:.05em; text-decoration:underline; text-decoration-thickness:1px; }
+.issuer-brand-huawei { background:#fff; color:#cf0a2c; }
+.issuer-brand-huawei .issuer-brand-symbol { font-size:.46rem; letter-spacing:.03em; }
+.issuer-brand-st-smart { background:linear-gradient(145deg,#ff7a18,#ce3f07); color:white; }
+.issuer-brand-zewail { background:linear-gradient(145deg,#173f6f 0 68%,#d8ad47 68%); color:white; }
+.issuer-brand-impact { background:linear-gradient(145deg,#006c52,#18a67e); color:white; }
+.issuer-microsoft-grid { display:grid; width:1.65rem; height:1.65rem; grid-template-columns:repeat(2,1fr); gap:.14rem; }
+.issuer-microsoft-grid i:nth-child(1){background:#f35325}.issuer-microsoft-grid i:nth-child(2){background:#81bc06}.issuer-microsoft-grid i:nth-child(3){background:#05a6f0}.issuer-microsoft-grid i:nth-child(4){background:#ffba08}
+
+.project-visual-icon { width:4.8rem; height:4.8rem; border-radius:1.4rem; transform:rotate(-3deg); }
+.project-icon-primary { width:2.35rem; height:2.35rem; }
+.project-icon-secondary { position:absolute; right:-.55rem; bottom:-.45rem; width:1.75rem; height:1.75rem; border:1px solid rgb(var(--accent-rgb) / .38); border-radius:.6rem; background:var(--surface); padding:.28rem; color:var(--accent); box-shadow:0 8px 24px rgb(0 0 0 / .24); }
+.project-visual-orbit::before,.project-visual-orbit::after { content:""; position:absolute; border-radius:999px; background:var(--accent); box-shadow:0 0 12px rgb(var(--accent-rgb) / .8); }
+.project-visual-orbit::before { left:9%; top:5%; width:.42rem; height:.42rem; }
+.project-visual-orbit::after { right:4%; bottom:17%; width:.28rem; height:.28rem; }
+.featured-project-mark { display:grid; width:2rem; height:2rem; place-items:center; border:1px solid rgb(var(--accent-rgb) / .36); border-radius:.65rem; background:rgb(var(--accent-rgb) / .1); color:var(--accent); box-shadow:0 0 24px rgb(var(--accent-rgb) / .12); }

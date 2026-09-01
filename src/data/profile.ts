@@ -1,3 +1,5 @@
+import { assetPath } from "@/lib/assetPath";
+
 export const profile = {
   name: "Adham Elsayed",
   role: "AI Engineer",
@@ -8,8 +10,8 @@ export const profile = {
   location: "Egypt",
   github: "https://github.com/AdhamElsayedAI",
   linkedin: "https://www.linkedin.com/in/adham-elsayed-",
-  cv: "/Adham_Elsayed_CV.pdf",
-  portrait: "/images/adham-transparent.png",
+  cv: assetPath("/Adham_Elsayed_CV.pdf"),
+  portrait: assetPath("/images/adham-transparent-v2.png"),
   website: "https://adhamelsayedai.github.io/",
 } as const;
 

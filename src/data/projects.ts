@@ -1,3 +1,5 @@
+import { assetPath } from "@/lib/assetPath";
+
 export type Project = {
   title: string;
   category: string;
@@ -26,12 +28,12 @@ export const medflow = {
   ],
   github: "https://github.com/AdhamElsayedAI/MedFlow-AI",
   images: [
-    { src: "/images/medflow/rag-chat.png", alt: "MedFlow evidence-grounded RAG chat interface" },
-    { src: "/images/medflow/home.png", alt: "MedFlow clinical AI home workspace" },
-    { src: "/images/medflow/rag-architecture-ui.png", alt: "MedFlow transparent RAG architecture interface" },
-    { src: "/images/medflow/knowledge-base.png", alt: "MedFlow knowledge base interface" },
-    { src: "/images/medflow/lab-interpreter.png", alt: "MedFlow lab interpreter interface" },
-    { src: "/images/medflow/pdf-search.png", alt: "MedFlow semantic PDF search interface" },
+    { src: assetPath("/images/medflow/rag-chat.png"), alt: "MedFlow evidence-grounded RAG chat interface" },
+    { src: assetPath("/images/medflow/home.png"), alt: "MedFlow clinical AI home workspace" },
+    { src: assetPath("/images/medflow/rag-architecture-ui.png"), alt: "MedFlow transparent RAG architecture interface" },
+    { src: assetPath("/images/medflow/knowledge-base.png"), alt: "MedFlow knowledge base interface" },
+    { src: assetPath("/images/medflow/lab-interpreter.png"), alt: "MedFlow lab interpreter interface" },
+    { src: assetPath("/images/medflow/pdf-search.png"), alt: "MedFlow semantic PDF search interface" },
   ],
   retrieval: [
     { label: "Embedding", value: "BAAI/bge-small-en-v1.5" },

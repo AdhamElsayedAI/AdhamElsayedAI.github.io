@@ -1,11 +1,6 @@
 name: Generate transparent portrait
 
 on:
-  push:
-    branches: [portfolio-v3]
-    paths:
-      - 'public/images/adham-original.jpg'
-      - '.github/workflows/generate-transparent-portrait.yml'
   workflow_dispatch:
 
 permissions:
@@ -19,55 +14,21 @@ jobs:
         with:
           ref: portfolio-v3
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: '3.12'
+          node-version: 22
+          cache: npm
 
-      - run: pip install pillow
+      - run: npm ci
 
-      - name: Remove only border-connected near-white background
-        run: |
-          python - <<'PY'
-          from PIL import Image
-          from collections import deque
-
-          src='public/images/adham-original.jpg'
-          dst='public/images/adham-transparent.png'
-          im=Image.open(src).convert('RGBA')
-          px=im.load(); w,h=im.size
-          seen=bytearray(w*h)
-          q=deque()
-
-          def near_white(x,y):
-              r,g,b,a=px[x,y]
-              return r>=238 and g>=238 and b>=238 and max(r,g,b)-min(r,g,b)<=18
-
-          for x in range(w):
-              if near_white(x,0): q.append((x,0))
-              if near_white(x,h-1): q.append((x,h-1))
-          for y in range(h):
-              if near_white(0,y): q.append((0,y))
-              if near_white(w-1,y): q.append((w-1,y))
-
-          while q:
-              x,y=q.popleft(); i=y*w+x
-              if seen[i] or not near_white(x,y): continue
-              seen[i]=1
-              r,g,b,a=px[x,y]
-              px[x,y]=(r,g,b,0)
-              if x>0:q.append((x-1,y))
-              if x+1<w:q.append((x+1,y))
-              if y>0:q.append((x,y-1))
-              if y+1<h:q.append((x,y+1))
-
-          im.save(dst, optimize=True)
-          PY
+      - name: Generate pixel-preserving transparent cutout
+        run: npm run assets:portrait
 
       - name: Commit generated cutout
         run: |
           git config user.name "Adham Elsayed"
           git config user.email "145601881+AdhamElsayedAI@users.noreply.github.com"
-          git add public/images/adham-transparent.png
+          git add public/images/adham-transparent.png public/images/adham-transparent-v2.png
           if git diff --cached --quiet; then
             echo "Cutout unchanged"
           else

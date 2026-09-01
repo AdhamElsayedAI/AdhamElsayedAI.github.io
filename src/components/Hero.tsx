@@ -51,6 +51,8 @@ export function Hero() {
           <div className="ref-portrait-wrap">
             <div aria-hidden className="ref-portrait-glow" />
             <div className="ref-portrait-stage" aria-label="Animated 3D frame around Adham Elsayed's original portrait">
+              <span aria-hidden className="portrait-orbit portrait-orbit-one" />
+              <span aria-hidden className="portrait-orbit portrait-orbit-two" />
               <span aria-hidden className="ref-portrait-corner tl" />
               <span aria-hidden className="ref-portrait-corner tr" />
               <span aria-hidden className="ref-portrait-corner br" />
@@ -60,6 +62,7 @@ export function Hero() {
                   <img src={profile.portrait} alt="Adham Elsayed in his original light gray suit portrait" width="1254" height="1254" fetchPriority="high" />
                 </div>
               </div>
+              <span aria-hidden className="portrait-frame-label">Original portrait · alpha cutout</span>
             </div>
           </div>
         </div>

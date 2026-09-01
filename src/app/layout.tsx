@@ -59,12 +59,14 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const buildSha = process.env.NEXT_PUBLIC_BUILD_SHA ?? "local";
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
       </head>
-      <body>
+      <body data-build-sha={buildSha}>
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

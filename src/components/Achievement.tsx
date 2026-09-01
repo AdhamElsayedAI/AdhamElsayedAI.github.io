@@ -1,6 +1,7 @@
 import { ArrowUpRight, Medal, Trophy, Users } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
+import { assetPath } from "@/lib/assetPath";
 
 export function Achievement() {
   return (
@@ -17,7 +18,7 @@ export function Achievement() {
           <div className="grid lg:grid-cols-[0.82fr_1.18fr]">
             <div className="relative min-h-[280px] overflow-hidden border-b border-line lg:min-h-[430px] lg:border-b-0 lg:border-r">
               <img
-                src="/images/medflow/team-photo.png"
+                src={assetPath("/images/medflow/team-photo.png")}
                 alt="The MedFlow team at the Mansoura AI Hackathon"
                 className="absolute inset-0 h-full w-full object-cover"
                 width="1400"
