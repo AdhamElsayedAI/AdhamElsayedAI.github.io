@@ -4,6 +4,7 @@ import "./globals.css";
 import "./reference.css";
 import "./enhancements.css";
 import "./portrait-v4.css";
+import "./showcase-v5.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
