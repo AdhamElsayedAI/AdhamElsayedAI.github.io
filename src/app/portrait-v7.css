@@ -1,4 +1,4 @@
-/* V7 portrait frame: visible, restrained glass treatment with subtle motion. */
+/* Circular portrait frame: centered composition with restrained motion and color. */
 
 .ref-portrait-wrap {
   position: relative;
@@ -9,10 +9,14 @@
 
 .portrait-soft-glow-v7 {
   position: absolute;
-  width: clamp(18rem, 29vw, 24rem);
+  width: clamp(19rem, 30vw, 26rem);
   aspect-ratio: 1;
-  border-radius: 42%;
-  background: radial-gradient(circle, rgb(var(--accent-rgb) / .17), rgb(var(--accent-rgb) / .055) 42%, transparent 70%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle,
+      rgb(var(--accent-rgb) / .16) 0%,
+      rgb(var(--accent-rgb) / .07) 42%,
+      transparent 70%);
   filter: blur(34px);
   pointer-events: none;
 }
@@ -20,166 +24,157 @@
 .portrait-frame-soft-v7 {
   position: relative;
   width: clamp(19rem, 29vw, 25.5rem);
-  min-height: 31rem;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 1.15rem 1.15rem .55rem;
-  border-radius: 1.55rem;
+  aspect-ratio: 1;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: .72rem;
+  border-radius: 50%;
   background:
-    linear-gradient(180deg, rgb(var(--surface-rgb) / .38), rgb(var(--surface-rgb) / .11)),
-    radial-gradient(circle at 52% 22%, rgb(var(--accent-rgb) / .08), transparent 42%);
+    radial-gradient(circle at 50% 38%, rgb(var(--accent-rgb) / .085), transparent 52%),
+    rgb(var(--surface-rgb) / .15);
   box-shadow:
-    0 22px 70px -48px rgb(var(--accent-rgb) / .75),
-    inset 0 1px 0 rgb(255 255 255 / .055);
-  backdrop-filter: blur(10px);
+    0 24px 68px -48px rgb(var(--accent-rgb) / .72),
+    inset 0 0 42px rgb(var(--accent-rgb) / .035);
+  backdrop-filter: blur(9px);
   isolation: isolate;
-  animation: portraitFloatSoftV7 6.8s ease-in-out infinite;
+  animation: portraitFloatSoftV7 7s ease-in-out infinite;
 }
 
 .portrait-frame-soft-v7::after {
   content: "";
   position: absolute;
-  inset: 7% 8% 8%;
+  inset: 7.5%;
   z-index: 0;
-  border-radius: 1.2rem;
-  background: radial-gradient(circle at 50% 44%, rgb(var(--accent-rgb) / .065), transparent 58%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 42%, rgb(var(--accent-rgb) / .05), transparent 62%);
   pointer-events: none;
 }
 
 .portrait-frame-line-v7 {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  overflow: hidden;
-  border: 1px solid rgb(var(--accent-rgb) / .48);
-  border-radius: inherit;
+  z-index: 4;
+  border: 1px solid rgb(var(--accent-rgb) / .52);
+  border-radius: 50%;
   box-shadow:
-    inset 0 0 0 1px rgb(255 255 255 / .045),
-    inset 0 0 34px rgb(var(--accent-rgb) / .045),
-    0 0 22px rgb(var(--accent-rgb) / .10);
+    0 0 22px rgb(var(--accent-rgb) / .11),
+    inset 0 0 0 1px rgb(255 255 255 / .025);
   pointer-events: none;
 }
 
+/* One very light rotating accent around the circular edge. */
 .portrait-frame-line-v7::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: -45%;
-  width: 34%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / .85), rgb(var(--accent-rgb) / .95), transparent);
-  filter: drop-shadow(0 0 5px rgb(var(--accent-rgb) / .5));
-  animation: portraitBorderSweepV7 7.5s ease-in-out infinite;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 70deg,
+    rgb(var(--accent-rgb) / .72) 96deg 126deg,
+    transparent 150deg 245deg,
+    rgb(var(--cyan-rgb) / .46) 266deg 292deg,
+    transparent 316deg 360deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 2px));
+  animation: portraitRingRotateV7 11s linear infinite;
+  opacity: .8;
 }
 
 .portrait-frame-line-v7::after {
   content: "";
   position: absolute;
-  left: 12%;
-  right: 12%;
-  bottom: -1px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(var(--accent-rgb) / .78), transparent);
-  opacity: .92;
+  inset: .55rem;
+  border: 1px solid rgb(var(--accent-rgb) / .13);
+  border-radius: 50%;
+  animation: portraitRingPulseV7 4.8s ease-in-out infinite;
 }
 
+/* Rectangular corner HUDs are intentionally disabled in the circular design. */
 .portrait-frame-corner-v7 {
-  position: absolute;
-  z-index: 5;
-  width: 2.5rem;
-  height: 2.5rem;
-  pointer-events: none;
-  opacity: .92;
-}
-
-.portrait-frame-corner-tl-v7 {
-  top: .7rem;
-  left: .7rem;
-  border-top: 2px solid rgb(var(--accent-rgb) / .72);
-  border-left: 2px solid rgb(var(--accent-rgb) / .72);
-  border-top-left-radius: .7rem;
-  filter: drop-shadow(0 0 5px rgb(var(--accent-rgb) / .16));
-}
-
-.portrait-frame-corner-br-v7 {
-  right: .7rem;
-  bottom: .7rem;
-  border-right: 2px solid rgb(var(--accent-rgb) / .72);
-  border-bottom: 2px solid rgb(var(--accent-rgb) / .72);
-  border-bottom-right-radius: .7rem;
-  filter: drop-shadow(0 0 5px rgb(var(--accent-rgb) / .16));
+  display: none;
 }
 
 .portrait-photo-clean-v7 {
   position: relative;
   z-index: 3;
-  width: 90%;
-  height: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  width: 91%;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 40%, rgb(var(--accent-rgb) / .055), transparent 62%),
+    rgb(var(--page-rgb) / .12);
 }
 
 .portrait-photo-clean-v7::before {
   content: "";
   position: absolute;
-  left: 13%;
-  right: 13%;
-  bottom: 1.15rem;
-  height: 2.35rem;
+  left: 18%;
+  right: 18%;
+  bottom: 7%;
+  height: 1.7rem;
   border-radius: 50%;
-  background: rgb(0 0 0 / .26);
-  filter: blur(19px);
+  background: rgb(0 0 0 / .19);
+  filter: blur(18px);
   z-index: -1;
 }
 
 .portrait-photo-clean-v7 img {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 108%;
+  height: 108%;
   object-fit: contain;
-  object-position: 50% 100%;
-  filter: drop-shadow(0 18px 27px rgb(0 0 0 / .24));
+  object-position: 50% 50%;
+  transform: translateY(1.5%);
+  filter: drop-shadow(0 16px 24px rgb(0 0 0 / .22));
 }
 
 @keyframes portraitFloatSoftV7 {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-5px); }
 }
 
-@keyframes portraitBorderSweepV7 {
-  0%, 28% { left: -45%; opacity: 0; }
-  38% { opacity: .85; }
-  62% { opacity: .85; }
-  72%, 100% { left: 112%; opacity: 0; }
+@keyframes portraitRingRotateV7 {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes portraitRingPulseV7 {
+  0%, 100% { opacity: .5; transform: scale(1); }
+  50% { opacity: .9; transform: scale(1.012); }
 }
 
 @media (max-width: 1023px) {
   .portrait-frame-soft-v7 {
     width: clamp(17rem, 56vw, 22rem);
-    min-height: 26rem;
   }
 }
 
 @media (max-width: 640px) {
   .ref-portrait-wrap { min-height: 20rem; }
   .portrait-frame-soft-v7 {
-    width: min(78vw, 18.5rem);
-    min-height: 22.5rem;
-    padding: .85rem .85rem .3rem;
-    border-radius: 1.25rem;
+    width: min(76vw, 18.25rem);
+    padding: .55rem;
   }
-  .portrait-frame-corner-v7 {
-    width: 1.8rem;
-    height: 1.8rem;
+  .portrait-photo-clean-v7 {
+    width: 92%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .portrait-frame-soft-v7,
-  .portrait-frame-line-v7::before { animation: none !important; }
+  .portrait-frame-line-v7::before,
+  .portrait-frame-line-v7::after {
+    animation: none !important;
+  }
 }
 
 html.motion-off .portrait-frame-soft-v7,
-html.motion-off .portrait-frame-line-v7::before { animation: none !important; }
+html.motion-off .portrait-frame-line-v7::before,
+html.motion-off .portrait-frame-line-v7::after {
+  animation: none !important;
+}
