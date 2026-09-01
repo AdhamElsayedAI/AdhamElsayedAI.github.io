@@ -1,6 +1,6 @@
 "use client";
 
-import { BarChart3, ExternalLink, Network, ShieldCheck, ShoppingBasket } from "lucide-react";
+import { BarChart3, ExternalLink, Network, ScanSearch, ShoppingBasket, UsersRound } from "lucide-react";
 import { useState } from "react";
 import { medflow, projects, type Project } from "@/data/projects";
 import { Reveal } from "./Reveal";
@@ -8,9 +8,9 @@ import { SectionHeading } from "./SectionHeading";
 
 const iconMap = {
   basket: ShoppingBasket,
-  shield: ShieldCheck,
+  shield: ScanSearch,
   chart: BarChart3,
-  spark: Network,
+  spark: UsersRound,
 };
 
 function ProjectVisual({ project }: { project: Project }) {
@@ -19,7 +19,7 @@ function ProjectVisual({ project }: { project: Project }) {
     <div className={`project-visual project-visual-${project.icon}`} aria-hidden>
       <div className="project-visual-grid" />
       <span className="project-visual-orbit" />
-      <span className="project-visual-icon"><Icon className="h-8 w-8" /></span>
+      <span className="project-visual-icon"><Icon className="h-8 w-8" strokeWidth={1.8} /></span>
       <span className="project-visual-code">{project.category.split(" / ")[0]}</span>
     </div>
   );
