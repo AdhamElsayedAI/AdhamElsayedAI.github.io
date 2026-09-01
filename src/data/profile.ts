@@ -9,7 +9,7 @@ export const profile = {
   github: "https://github.com/AdhamElsayedAI",
   linkedin: "https://www.linkedin.com/in/adham-elsayed-",
   cv: "/Adham_Elsayed_CV.pdf",
-  portrait: "/images/adham-original.jpg",
+  portrait: "/images/adham-transparent.png",
   website: "https://adhamelsayedai.github.io/",
 } as const;
 
