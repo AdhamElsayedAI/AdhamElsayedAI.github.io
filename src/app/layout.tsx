@@ -3,6 +3,7 @@ import { ThemeProvider, themeBootstrapScript } from "@/components/ThemeProvider"
 import "./globals.css";
 import "./reference.css";
 import "./enhancements.css";
+import "./portrait-v4.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
