@@ -1,0 +1,184 @@
+.certificate-icon {
+  position: relative;
+  display: grid;
+  height: 3.25rem;
+  width: 3.25rem;
+  place-items: center;
+  border: 1px solid rgb(var(--accent-rgb) / 0.42);
+  border-radius: 0.9rem;
+  color: var(--accent);
+  background:
+    linear-gradient(145deg, rgb(var(--accent-rgb) / 0.12), transparent 62%),
+    rgb(var(--elevated-rgb) / 0.8);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 12px 28px -18px rgb(var(--accent-rgb) / 0.8);
+  transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.cert-card:hover .certificate-icon {
+  transform: translateY(-2px) rotate(-3deg) scale(1.04);
+  border-color: rgb(var(--accent-rgb) / 0.78);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 16px 34px -18px rgb(var(--accent-rgb) / 0.95);
+}
+
+.ref-portrait-stage {
+  position: relative;
+  display: grid;
+  width: clamp(18rem, 29vw, 26rem);
+  aspect-ratio: 1;
+  place-items: center;
+  perspective: 1000px;
+  isolation: isolate;
+}
+
+.ref-portrait-stage::before,
+.ref-portrait-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0.4rem;
+  z-index: -2;
+  border-radius: 46% 54% 51% 49% / 44% 46% 54% 56%;
+  pointer-events: none;
+}
+
+.ref-portrait-stage::before {
+  border: 1px solid rgb(var(--accent-rgb) / 0.52);
+  background:
+    conic-gradient(
+      from 15deg,
+      transparent 0 10%,
+      rgb(var(--accent-rgb) / 0.72) 14%,
+      transparent 20% 42%,
+      rgb(var(--cyan-rgb) / 0.55) 47%,
+      transparent 53% 74%,
+      rgb(var(--warm-rgb) / 0.58) 80%,
+      transparent 88%
+    );
+  filter: drop-shadow(0 0 14px rgb(var(--accent-rgb) / 0.28));
+  animation: portrait-orbit 11s linear infinite;
+}
+
+.ref-portrait-stage::after {
+  inset: 1rem;
+  border: 1px dashed rgb(255 255 255 / 0.12);
+  animation: portrait-orbit-reverse 16s linear infinite;
+}
+
+.ref-portrait-tilt {
+  position: relative;
+  width: calc(100% - 2.8rem);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  animation: portrait-float-3d 7s ease-in-out infinite;
+}
+
+.ref-portrait-tilt::before,
+.ref-portrait-tilt::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+.ref-portrait-tilt::before {
+  inset: -0.85rem;
+  z-index: -1;
+  border: 1px solid rgb(var(--accent-rgb) / 0.48);
+  box-shadow:
+    0 0 28px rgb(var(--accent-rgb) / 0.2),
+    inset 0 0 22px rgb(var(--accent-rgb) / 0.08);
+  transform: translateZ(-25px);
+}
+
+.ref-portrait-tilt::after {
+  inset: -1.6rem;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 22% 18%, rgb(var(--warm-rgb) / 0.22), transparent 28%),
+    radial-gradient(circle at 76% 24%, rgb(var(--cyan-rgb) / 0.16), transparent 32%),
+    radial-gradient(circle at 50% 82%, rgb(var(--accent-rgb) / 0.24), transparent 32%);
+  filter: blur(22px);
+  transform: translateZ(-48px);
+}
+
+.ref-portrait-stage .ref-portrait {
+  width: 100%;
+  height: 100%;
+  transform: translateZ(28px);
+  border: 1px solid rgb(var(--accent-rgb) / 0.44);
+  box-shadow:
+    0 18px 55px -22px rgb(0 0 0 / 0.9),
+    0 0 0 1px rgb(255 255 255 / 0.03),
+    0 0 36px -12px rgb(var(--accent-rgb) / 0.62);
+}
+
+.ref-portrait-corner {
+  position: absolute;
+  z-index: 5;
+  width: 2.2rem;
+  height: 2.2rem;
+  opacity: 0.88;
+  pointer-events: none;
+}
+
+.ref-portrait-corner::before,
+.ref-portrait-corner::after {
+  content: "";
+  position: absolute;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgb(var(--accent-rgb) / 0.6);
+}
+
+.ref-portrait-corner::before { width: 100%; height: 2px; }
+.ref-portrait-corner::after { width: 2px; height: 100%; }
+.ref-portrait-corner.tl { top: 9%; left: 3%; }
+.ref-portrait-corner.tr { top: 9%; right: 3%; transform: rotate(90deg); }
+.ref-portrait-corner.br { right: 3%; bottom: 9%; transform: rotate(180deg); }
+.ref-portrait-corner.bl { bottom: 9%; left: 3%; transform: rotate(270deg); }
+
+@keyframes portrait-orbit {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes portrait-orbit-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes portrait-float-3d {
+  0%, 100% { transform: rotateX(1deg) rotateY(-4deg) translateY(0); }
+  50% { transform: rotateX(-2deg) rotateY(4deg) translateY(-10px); }
+}
+
+html.motion-off .ref-portrait-stage::before,
+html.motion-off .ref-portrait-stage::after,
+html.motion-off .ref-portrait-tilt {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-portrait-stage::before,
+  .ref-portrait-stage::after,
+  .ref-portrait-tilt {
+    animation: none;
+  }
+}
+
+@media (max-width: 1023px) {
+  .ref-portrait-stage {
+    width: clamp(16rem, 56vw, 22rem);
+  }
+}
+
+@media (max-width: 640px) {
+  .ref-portrait-stage {
+    width: min(78vw, 19rem);
+  }
+
+  .ref-portrait-corner {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+}
