@@ -9,7 +9,7 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
-    period: "2026",
+    period: "Aug 2026",
     organization: "Orange Digital Center Egypt × Creativa Innovation Hubs",
     role: "AI Hackathons Participant",
     summary:
