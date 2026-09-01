@@ -1,4 +1,4 @@
-/* V7 portrait frame: restrained glass treatment with subtle motion. */
+/* V7 portrait frame: visible, restrained glass treatment with subtle motion. */
 
 .ref-portrait-wrap {
   position: relative;
@@ -9,11 +9,11 @@
 
 .portrait-soft-glow-v7 {
   position: absolute;
-  width: clamp(17rem, 27vw, 23rem);
+  width: clamp(18rem, 29vw, 24rem);
   aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgb(var(--accent-rgb) / .14), transparent 68%);
-  filter: blur(36px);
+  border-radius: 42%;
+  background: radial-gradient(circle, rgb(var(--accent-rgb) / .17), rgb(var(--accent-rgb) / .055) 42%, transparent 70%);
+  filter: blur(34px);
   pointer-events: none;
 }
 
@@ -27,60 +27,88 @@
   padding: 1.15rem 1.15rem .55rem;
   border-radius: 1.55rem;
   background:
-    linear-gradient(180deg, rgb(var(--surface-rgb) / .28), rgb(var(--surface-rgb) / .07)),
-    linear-gradient(135deg, rgb(var(--accent-rgb) / .04), transparent 45%);
+    linear-gradient(180deg, rgb(var(--surface-rgb) / .38), rgb(var(--surface-rgb) / .11)),
+    radial-gradient(circle at 52% 22%, rgb(var(--accent-rgb) / .08), transparent 42%);
+  box-shadow:
+    0 22px 70px -48px rgb(var(--accent-rgb) / .75),
+    inset 0 1px 0 rgb(255 255 255 / .055);
   backdrop-filter: blur(10px);
   isolation: isolate;
-  animation: portraitFloatSoftV7 6.2s ease-in-out infinite;
+  animation: portraitFloatSoftV7 6.8s ease-in-out infinite;
+}
+
+.portrait-frame-soft-v7::after {
+  content: "";
+  position: absolute;
+  inset: 7% 8% 8%;
+  z-index: 0;
+  border-radius: 1.2rem;
+  background: radial-gradient(circle at 50% 44%, rgb(var(--accent-rgb) / .065), transparent 58%);
+  pointer-events: none;
 }
 
 .portrait-frame-line-v7 {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  border: 1px solid rgb(var(--accent-rgb) / .21);
+  z-index: 2;
+  overflow: hidden;
+  border: 1px solid rgb(var(--accent-rgb) / .48);
   border-radius: inherit;
   box-shadow:
-    inset 0 0 0 1px rgb(255 255 255 / .025),
-    inset 0 0 28px rgb(var(--accent-rgb) / .035),
-    0 18px 42px -34px rgb(var(--accent-rgb) / .32);
+    inset 0 0 0 1px rgb(255 255 255 / .045),
+    inset 0 0 34px rgb(var(--accent-rgb) / .045),
+    0 0 22px rgb(var(--accent-rgb) / .10);
   pointer-events: none;
+}
+
+.portrait-frame-line-v7::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -45%;
+  width: 34%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / .85), rgb(var(--accent-rgb) / .95), transparent);
+  filter: drop-shadow(0 0 5px rgb(var(--accent-rgb) / .5));
+  animation: portraitBorderSweepV7 7.5s ease-in-out infinite;
 }
 
 .portrait-frame-line-v7::after {
   content: "";
   position: absolute;
-  left: 13%;
-  right: 13%;
+  left: 12%;
+  right: 12%;
   bottom: -1px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgb(var(--accent-rgb) / .5), transparent);
-  opacity: .65;
+  background: linear-gradient(90deg, transparent, rgb(var(--accent-rgb) / .78), transparent);
+  opacity: .92;
 }
 
 .portrait-frame-corner-v7 {
   position: absolute;
-  z-index: 4;
-  width: 2.25rem;
-  height: 2.25rem;
+  z-index: 5;
+  width: 2.5rem;
+  height: 2.5rem;
   pointer-events: none;
-  opacity: .7;
+  opacity: .92;
 }
 
 .portrait-frame-corner-tl-v7 {
-  top: .8rem;
-  left: .8rem;
-  border-top: 1.5px solid rgb(var(--accent-rgb) / .45);
-  border-left: 1.5px solid rgb(var(--accent-rgb) / .45);
-  border-top-left-radius: .65rem;
+  top: .7rem;
+  left: .7rem;
+  border-top: 2px solid rgb(var(--accent-rgb) / .72);
+  border-left: 2px solid rgb(var(--accent-rgb) / .72);
+  border-top-left-radius: .7rem;
+  filter: drop-shadow(0 0 5px rgb(var(--accent-rgb) / .16));
 }
 
 .portrait-frame-corner-br-v7 {
-  right: .8rem;
-  bottom: .8rem;
-  border-right: 1.5px solid rgb(var(--accent-rgb) / .45);
-  border-bottom: 1.5px solid rgb(var(--accent-rgb) / .45);
-  border-bottom-right-radius: .65rem;
+  right: .7rem;
+  bottom: .7rem;
+  border-right: 2px solid rgb(var(--accent-rgb) / .72);
+  border-bottom: 2px solid rgb(var(--accent-rgb) / .72);
+  border-bottom-right-radius: .7rem;
+  filter: drop-shadow(0 0 5px rgb(var(--accent-rgb) / .16));
 }
 
 .portrait-photo-clean-v7 {
@@ -96,13 +124,13 @@
 .portrait-photo-clean-v7::before {
   content: "";
   position: absolute;
-  left: 14%;
-  right: 14%;
-  bottom: 1.3rem;
-  height: 2.3rem;
+  left: 13%;
+  right: 13%;
+  bottom: 1.15rem;
+  height: 2.35rem;
   border-radius: 50%;
-  background: rgb(0 0 0 / .22);
-  filter: blur(18px);
+  background: rgb(0 0 0 / .26);
+  filter: blur(19px);
   z-index: -1;
 }
 
@@ -112,12 +140,19 @@
   height: 100%;
   object-fit: contain;
   object-position: 50% 100%;
-  filter: drop-shadow(0 18px 26px rgb(0 0 0 / .22));
+  filter: drop-shadow(0 18px 27px rgb(0 0 0 / .24));
 }
 
 @keyframes portraitFloatSoftV7 {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes portraitBorderSweepV7 {
+  0%, 28% { left: -45%; opacity: 0; }
+  38% { opacity: .85; }
+  62% { opacity: .85; }
+  72%, 100% { left: 112%; opacity: 0; }
 }
 
 @media (max-width: 1023px) {
@@ -142,7 +177,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .portrait-frame-soft-v7 { animation: none !important; }
+  .portrait-frame-soft-v7,
+  .portrait-frame-line-v7::before { animation: none !important; }
 }
 
-html.motion-off .portrait-frame-soft-v7 { animation: none !important; }
+html.motion-off .portrait-frame-soft-v7,
+html.motion-off .portrait-frame-line-v7::before { animation: none !important; }
