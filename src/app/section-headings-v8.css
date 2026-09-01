@@ -1,0 +1,167 @@
+/* V8 — isolated section-title treatment only. No layout/card/hero overrides. */
+
+.section-heading-v5 {
+  margin-bottom: clamp(2.6rem, 5vw, 4.2rem);
+}
+
+.section-dot-banner {
+  position: relative;
+  min-height: clamp(7.2rem, 12vw, 10.5rem);
+  display: flex;
+  align-items: center;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  isolation: isolate;
+}
+
+.section-dot-banner::before {
+  content: "";
+  position: absolute;
+  left: -5%;
+  top: 50%;
+  width: min(58rem, 78vw);
+  height: 8rem;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgb(var(--banner-rgb) / .11), transparent 68%);
+  filter: blur(24px);
+  opacity: .8;
+  pointer-events: none;
+}
+
+.section-dot-banner::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: .35rem;
+  width: min(44rem, 74%);
+  height: 1px;
+  background: linear-gradient(90deg, rgb(var(--banner-rgb) / .56), rgb(var(--banner-rgb) / .12) 58%, transparent);
+  opacity: .55;
+  pointer-events: none;
+}
+
+.section-dot-word {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  padding: 0;
+  font-family: "Cascadia Code", "JetBrains Mono", ui-monospace, monospace;
+  font-size: clamp(3.35rem, 9vw, 8.4rem);
+  font-weight: 950;
+  line-height: .84;
+  letter-spacing: .025em;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(var(--banner-rgb) / .16);
+  background-image:
+    radial-gradient(circle, rgb(var(--banner-rgb)) 0 2.7px, transparent 3.15px),
+    radial-gradient(circle, rgb(255 255 255 / .9) 0 1.1px, transparent 1.55px);
+  background-size: 9px 9px, 27px 27px;
+  background-position: 0 0, -5px 3px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter:
+    drop-shadow(0 0 8px rgb(var(--banner-rgb) / .22))
+    drop-shadow(0 0 28px rgb(var(--banner-rgb) / .10));
+  animation: sectionDotsTravelV8 8s linear infinite;
+}
+
+/* Soft readable silhouette under the dot matrix: makes every letter legible at a glance. */
+.section-dot-word::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: rgb(var(--banner-rgb) / .09);
+  -webkit-text-stroke: 1px rgb(var(--banner-rgb) / .22);
+  text-shadow: 0 0 24px rgb(var(--banner-rgb) / .13);
+}
+
+/* A sparse highlight layer travels inside the glyphs, not across the page. */
+.section-dot-word::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  background-image:
+    radial-gradient(circle, rgb(255 255 255 / .95) 0 1.6px, transparent 2px),
+    radial-gradient(circle, rgb(var(--cyan-rgb) / .95) 0 1.7px, transparent 2.15px);
+  background-size: 31px 31px, 43px 43px;
+  background-position: 0 1px, 15px 8px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: .42;
+  animation: sectionDotsSparkV8 4.6s ease-in-out infinite alternate;
+}
+
+.section-dot-line {
+  display: none;
+}
+
+/* Per-section palettes — deliberately distinct but restrained. */
+.section-heading-v5[data-tone="cyan"] { --banner-rgb: 34 211 238; }
+.section-heading-v5[data-tone="amber"] { --banner-rgb: 251 191 36; }
+.section-heading-v5[data-tone="gold"] { --banner-rgb: 250 204 21; }
+.section-heading-v5[data-tone="rose"] { --banner-rgb: 251 113 133; }
+.section-heading-v5[data-tone="violet"] { --banner-rgb: 196 181 253; }
+.section-heading-v5[data-tone="lime"] { --banner-rgb: 163 230 53; }
+.section-heading-v5[data-tone="blue"] { --banner-rgb: 96 165 250; }
+
+.section-heading-v5-copy {
+  margin-top: .9rem;
+}
+
+@keyframes sectionDotsTravelV8 {
+  0% { background-position: 0 0, -5px 3px; }
+  100% { background-position: 54px 0, 49px 3px; }
+}
+
+@keyframes sectionDotsSparkV8 {
+  0% {
+    opacity: .22;
+    transform: translateX(0);
+    background-position: 0 1px, 15px 8px;
+  }
+  100% {
+    opacity: .58;
+    transform: translateX(5px);
+    background-position: 31px 1px, -28px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-dot-banner {
+    min-height: clamp(5.6rem, 20vw, 7.6rem);
+    overflow: hidden;
+  }
+
+  .section-dot-word {
+    font-size: clamp(2.7rem, 13.2vw, 5.5rem);
+    letter-spacing: .01em;
+  }
+
+  .section-dot-banner::after {
+    width: 88%;
+  }
+}
+
+@media (max-width: 440px) {
+  .section-dot-word {
+    font-size: clamp(2.25rem, 12.5vw, 3.65rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-dot-word,
+  .section-dot-word::after {
+    animation: none !important;
+  }
+}
+
+html.motion-off .section-dot-word,
+html.motion-off .section-dot-word::after {
+  animation: none !important;
+}
