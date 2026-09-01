@@ -50,19 +50,16 @@ export function Hero() {
 
           <div className="ref-portrait-wrap">
             <div aria-hidden className="ref-portrait-glow" />
-            <div className="ref-portrait-stage" aria-label="Animated 3D frame around Adham Elsayed's original portrait">
-              <span aria-hidden className="portrait-orbit portrait-orbit-one" />
-              <span aria-hidden className="portrait-orbit portrait-orbit-two" />
-              <span aria-hidden className="ref-portrait-corner tl" />
-              <span aria-hidden className="ref-portrait-corner tr" />
-              <span aria-hidden className="ref-portrait-corner br" />
-              <span aria-hidden className="ref-portrait-corner bl" />
-              <div className="ref-portrait-tilt">
-                <div className="ref-portrait">
-                  <img src={profile.portrait} alt="Adham Elsayed in his original light gray suit portrait" width="1254" height="1254" fetchPriority="high" />
-                </div>
+            <div className="portrait-stage-v6" aria-label="Adham Elsayed portrait">
+              <div aria-hidden className="portrait-depth-v6" />
+              <div aria-hidden className="portrait-ring-v6 portrait-ring-one-v6" />
+              <div aria-hidden className="portrait-ring-v6 portrait-ring-two-v6" />
+              <div aria-hidden className="portrait-grid-v6" />
+              <div className="portrait-photo-v6">
+                <img src={profile.portrait} alt="Adham Elsayed in his original light gray suit portrait" width="1254" height="1254" fetchPriority="high" />
               </div>
-              <span aria-hidden className="portrait-frame-label">Original portrait · alpha cutout</span>
+              <span aria-hidden className="portrait-corner-v6 portrait-corner-tl-v6" />
+              <span aria-hidden className="portrait-corner-v6 portrait-corner-br-v6" />
             </div>
           </div>
         </div>
