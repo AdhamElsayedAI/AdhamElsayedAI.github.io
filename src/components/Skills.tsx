@@ -15,7 +15,7 @@ export function Skills() {
     <section id="skills" className="section-shell section-tint">
       <div className="site-container">
         <SectionHeading
-          number="02"
+          number="05"
           eyebrow="Skills"
           title="A stack shaped by complete AI systems."
           description="Explore the areas I use to move from a model or retrieval experiment to a measured, usable application."
