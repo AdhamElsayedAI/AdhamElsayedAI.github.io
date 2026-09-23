@@ -12,6 +12,7 @@ import {
   TrendingDown,
   UserRoundMinus,
 } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { medicalplab, medflow, projects, type Project } from "@/data/projects";
 import { Reveal } from "./Reveal";
@@ -100,7 +101,10 @@ export function Projects() {
                     <button key={image.src} type="button" onClick={() => setSelectedImage(index)} aria-label={"Show MedFlow screenshot " + (index + 1)} aria-pressed={selectedImage === index} className={selectedImage === index ? "active" : ""} />
                   ))}
                 </div>
-                <a href={medflow.github} target="_blank" rel="noreferrer" className="project-link-v5">View repository <ExternalLink className="h-3.5 w-3.5" /></a>
+                <div className="project-action-row-v4">
+                  <Link href="/projects/medflow/" className="project-link-v5">Read case study <span aria-hidden>→</span></Link>
+                  <a href={medflow.github} target="_blank" rel="noreferrer" className="project-link-v5">Repository <ExternalLink className="h-3.5 w-3.5" /></a>
+                </div>
               </div>
             </div>
           </Reveal>
@@ -139,7 +143,10 @@ export function Projects() {
 
               <div className="project-tags-v5">{medicalplab.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
               <p className="project-metric-note-v5">Educational platform engineering — not a diagnostic or clinical decision-support system.</p>
-              <a href={medicalplab.github} target="_blank" rel="noreferrer" className="project-link-v5">Explore MedicalPlab <ExternalLink className="h-3.5 w-3.5" /></a>
+              <div className="project-action-row-v4">
+                <Link href="/projects/medicalplab/" className="project-link-v5">Read case study <span aria-hidden>→</span></Link>
+                <a href={medicalplab.github} target="_blank" rel="noreferrer" className="project-link-v5">Repository <ExternalLink className="h-3.5 w-3.5" /></a>
+              </div>
             </div>
           </Reveal>
 
