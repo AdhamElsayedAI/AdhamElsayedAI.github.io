@@ -14,7 +14,7 @@ export function About() {
     <section id="about" className="section-shell">
       <div className="site-container">
         <SectionHeading
-          number="01"
+          number="04"
           eyebrow="About"
           title="Engineering AI beyond the model."
           description="I focus on the complete loop: evidence, models, evaluation, APIs, deployment and the product experience around them."
