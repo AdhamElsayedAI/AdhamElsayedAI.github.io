@@ -1,0 +1,27 @@
+/* Recruiter-grade V4: proof-first hierarchy and flagship engineering evidence. */
+.hero-role-v4{margin-top:1.1rem;color:var(--accent);font-family:"Cascadia Code",ui-monospace,monospace;font-size:.62rem;font-weight:850;letter-spacing:.18em}
+.hero-proof-grid-v4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin-top:1.35rem}
+.hero-proof-card-v4{min-width:0;border:1px solid rgb(var(--line-rgb)/.92);border-radius:.85rem;background:linear-gradient(145deg,rgb(var(--surface-rgb)/.9),rgb(var(--elevated-rgb)/.68));padding:.75rem .8rem;box-shadow:inset 0 0 22px rgb(var(--accent-rgb)/.025)}
+.hero-proof-card-v4 strong{display:block;color:var(--ink);font-size:1.08rem;font-weight:950;letter-spacing:-.035em}
+.hero-proof-card-v4 span,.hero-proof-card-v4 small{display:block}
+.hero-proof-card-v4 span{margin-top:.18rem;color:var(--accent);font-family:"Cascadia Code",ui-monospace,monospace;font-size:.51rem;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+.hero-proof-card-v4 small{margin-top:.24rem;color:var(--muted);font-size:.55rem;line-height:1.35}
+.recruiter-terminal-v4{margin-top:1rem}
+.medicalplab-featured-v4{border-color:rgb(var(--cyan-rgb)/.28)}
+.medicalplab-media-v4{position:relative;min-height:27rem;overflow:hidden;background:radial-gradient(circle at 20% 20%,rgb(var(--cyan-rgb)/.16),transparent 30%),#060d12}
+.medicalplab-media-v4>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.48;filter:saturate(.85) contrast(1.04)}
+.medicalplab-media-overlay-v4{position:absolute;inset:0;background:linear-gradient(90deg,rgb(2 8 12/.2),rgb(2 8 12/.72)),linear-gradient(180deg,transparent 15%,rgb(2 8 12/.88) 100%)}
+.medicalplab-flow-v4{position:absolute;inset:auto 1rem 1rem 1rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.45rem}
+.medicalplab-flow-node-v4{border:1px solid rgb(255 255 255/.16);border-radius:.72rem;background:rgb(3 12 17/.78);padding:.62rem;backdrop-filter:blur(12px)}
+.medicalplab-flow-node-v4 span{display:block;color:#64e5ab;font-family:"Cascadia Code",monospace;font-size:.5rem;letter-spacing:.14em}
+.medicalplab-flow-node-v4 strong{display:block;margin-top:.18rem;color:white;font-size:.66rem;line-height:1.25}
+.medicalplab-proof-grid-v4{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));overflow:hidden;border:1px solid rgb(var(--line-rgb)/.86);border-radius:.78rem}
+.medicalplab-proof-grid-v4>div{padding:.75rem;border-right:1px solid rgb(var(--line-rgb)/.86)}
+.medicalplab-proof-grid-v4>div:last-child{border-right:0}
+.medicalplab-proof-grid-v4 strong{display:block;color:var(--cyan);font-size:.95rem;font-weight:950}
+.medicalplab-proof-grid-v4 span{display:block;margin-top:.18rem;color:var(--muted);font-family:"Cascadia Code",monospace;font-size:.48rem;line-height:1.45;text-transform:uppercase;letter-spacing:.08em}
+.medicalplab-boundary-v4{border-left:2px solid rgb(var(--accent-rgb)/.72);background:rgb(var(--accent-rgb)/.055);padding:.75rem .85rem}
+.medicalplab-boundary-v4 strong{color:var(--accent);font-family:"Cascadia Code",monospace;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase}
+.medicalplab-boundary-v4 p{margin-top:.32rem;color:var(--muted);font-size:.69rem;line-height:1.55}
+@media(max-width:1023px){.hero-proof-grid-v4{grid-template-columns:repeat(2,minmax(0,1fr))}.medicalplab-media-v4{min-height:23rem}}
+@media(max-width:640px){.hero-role-v4{margin-top:.85rem;font-size:.52rem;line-height:1.55}.hero-proof-grid-v4{grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}.hero-proof-card-v4{padding:.65rem}.hero-proof-card-v4 strong{font-size:.95rem}.recruiter-terminal-v4{display:none}.medicalplab-flow-v4{grid-template-columns:repeat(2,minmax(0,1fr))}.medicalplab-proof-grid-v4{grid-template-columns:1fr}.medicalplab-proof-grid-v4>div{border-right:0;border-bottom:1px solid rgb(var(--line-rgb)/.86)}.medicalplab-proof-grid-v4>div:last-child{border-bottom:0}}
