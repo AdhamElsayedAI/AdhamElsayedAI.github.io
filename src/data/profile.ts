@@ -3,11 +3,11 @@ import { assetPath } from "@/lib/assetPath";
 export const profile = {
   name: "Adham Elsayed",
   role: "AI Engineer",
-  tagline: "AI Engineer | Generative AI · RAG · Computer Vision",
+  tagline: "AI Engineer | Grounded GenAI · Machine Learning · Computer Vision",
   intro:
-    "I build intelligent systems that connect AI models with real-world applications — from evidence-grounded GenAI and RAG systems to computer vision and edge AI.",
+    "I engineer AI systems that can be evaluated, traced and deployed — from evidence-grounded RAG and adaptive learning to YOLO/ONNX edge inference and analytics products.",
   email: "adhamelsayed515@gmail.com",
-  location: "Egypt",
+  location: "Mansoura, Egypt",
   github: "https://github.com/AdhamElsayedAI",
   linkedin: "https://www.linkedin.com/in/adham-elsayed-",
   cv: assetPath("/Adham_Elsayed_CV.pdf"),
@@ -17,11 +17,11 @@ export const profile = {
 
 export const navItems = [
   { label: "Home", href: "#home" },
+  { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#experience" },
+  { label: "Achievements", href: "#achievements" },
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Achievements", href: "#achievements" },
-  { label: "Experience", href: "#experience" },
   { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
 ] as const;
@@ -29,15 +29,15 @@ export const navItems = [
 export const heroTags = [
   "Generative AI",
   "RAG",
+  "AI Evaluation",
   "Computer Vision",
-  "LLM APIs",
-  "AI Agents",
+  "FastAPI",
   "Edge AI",
 ];
 
 export const stats = [
-  { value: "2nd", label: "Mansoura AI Hackathon 2026" },
-  { value: "5", label: "Featured AI systems" },
-  { value: "1,470", label: "MedFlow indexed chunks" },
-  { value: "2027", label: "Expected graduation" },
-];
+  { value: "2nd", label: "AI Hackathon", context: "Mansoura 2026" },
+  { value: "87.50%", label: "Hit@4", context: "MedFlow retrieval" },
+  { value: "96.89%", label: "mAP@0.5", context: "Smart Basket YOLO" },
+  { value: "1,470", label: "employee records", context: "VOLTIX BI analysis" },
+] as const;
