@@ -8,7 +8,7 @@ export function Achievement() {
     <section id="achievements" className="section-shell section-tint">
       <div className="site-container">
         <SectionHeading
-          number="04"
+          number="03"
           eyebrow="Achievement"
           title="2nd Place · Mansoura AI Hackathon 2026"
           description="A team achievement for MedFlow, an evidence-grounded clinical AI prototype built around retrieval quality, traceable citations and safety-aware behavior."
