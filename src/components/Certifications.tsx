@@ -6,15 +6,13 @@ import { useMemo, useState } from "react";
 import { certifications, type Certification } from "@/data/certifications";
 import { SectionHeading } from "./SectionHeading";
 
-const filters = ["All", "GenAI", "AI / ML", "Data", "Programs"] as const;
+const filters = ["Selected", "All", "GenAI", "AI / ML", "Data", "Programs"] as const;
 
 function IssuerBrand({ brand, initials, issuer }: Pick<Certification, "brand" | "initials" | "issuer">) {
   return (
-    <span className={`issuer-brand issuer-brand-${brand}`} role="img" aria-label={`${issuer} source mark`}>
+    <span className={"issuer-brand issuer-brand-" + brand} role="img" aria-label={issuer + " source mark"}>
       {brand === "microsoft" ? (
-        <span className="issuer-microsoft-grid" aria-hidden>
-          <i /><i /><i /><i />
-        </span>
+        <span className="issuer-microsoft-grid" aria-hidden><i /><i /><i /><i /></span>
       ) : (
         <span className="issuer-brand-symbol" aria-hidden>{initials}</span>
       )}
@@ -23,42 +21,37 @@ function IssuerBrand({ brand, initials, issuer }: Pick<Certification, "brand" | 
 }
 
 export function Certifications() {
-  const [filter, setFilter] = useState<(typeof filters)[number]>("All");
+  const [filter, setFilter] = useState<(typeof filters)[number]>("Selected");
   const reduced = useReducedMotion();
-  const visible = useMemo(
-    () => (filter === "All" ? certifications : certifications.filter((certificate) => certificate.category === filter)),
-    [filter],
-  );
+  const visible = useMemo(() => {
+    if (filter === "Selected") return certifications.filter((certificate) => certificate.featured);
+    if (filter === "All") return certifications;
+    return certifications.filter((certificate) => certificate.category === filter);
+  }, [filter]);
 
   return (
     <section id="certifications" className="section-shell section-tint">
       <div className="site-container">
         <SectionHeading
           number="06"
-          eyebrow="Certifications"
-          title="Continuous learning, clearly organized."
-          description="Professional learning across Generative AI, machine learning, data and engineering programs."
+          eyebrow="Credentials"
+          title="Selected learning, supporting the engineering work."
+          description="A concise view of the most relevant AI credentials first. The full set remains available by category."
         />
 
         <div className="mb-6 flex flex-wrap gap-2" role="group" aria-label="Filter certifications">
           {filters.map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setFilter(item)}
-              aria-pressed={filter === item}
-              className={`filter-pill ${filter === item ? "filter-pill-active" : ""}`}
-            >
+            <button key={item} type="button" onClick={() => setFilter(item)} aria-pressed={filter === item} className={"filter-pill " + (filter === item ? "filter-pill-active" : "")}>
               {item}
             </button>
           ))}
         </div>
 
-        <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((certificate, index) => (
             <motion.article
               layout
-              key={`${certificate.title}-${certificate.issuer}`}
+              key={certificate.title + "-" + certificate.issuer}
               initial={reduced ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: reduced ? 0 : index * 0.025 }}
@@ -70,7 +63,7 @@ export function Certifications() {
                   <span className="issuer-source-label">Issued by</span>
                   <strong className="issuer-source-name">{certificate.issuer}</strong>
                 </span>
-                <BadgeCheck aria-label="Verified source identity" className="h-4 w-4 shrink-0 text-accent" />
+                <BadgeCheck aria-label="Credential source" className="h-4 w-4 shrink-0 text-accent" />
               </div>
               <h3 className="mt-5 text-[15px] font-extrabold leading-6 text-ink">{certificate.title}</h3>
               <div className="mt-auto flex items-center justify-between border-t border-line pt-4">
