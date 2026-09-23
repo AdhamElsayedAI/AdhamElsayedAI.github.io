@@ -19,11 +19,11 @@ export default function HomePage() {
       <ReferenceEnhancements />
       <main id="main-content">
         <Hero />
+        <Projects />
+        <Experience />
+        <Achievement />
         <About />
         <Skills />
-        <Experience />
-        <Projects />
-        <Achievement />
         <Certifications />
         <Contact />
       </main>
