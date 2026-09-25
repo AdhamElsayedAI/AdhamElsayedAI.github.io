@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./cinematic-v5.css";
+import { ThemeProvider, themeBootstrapScript } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
@@ -54,7 +55,10 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#070a09",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#07100f" },
+    { media: "(prefers-color-scheme: light)", color: "#f2f8f6" },
+  ],
 };
 
 const personSchema = {
@@ -86,12 +90,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const buildSha = process.env.NEXT_PUBLIC_BUILD_SHA ?? "local";
 
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en" className="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
       </head>
       <body data-build-sha={buildSha}>
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );
