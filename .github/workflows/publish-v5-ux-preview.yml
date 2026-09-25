@@ -33,6 +33,10 @@ jobs:
         working-directory: source
         run: npm ci
 
+      - name: Typecheck
+        working-directory: source
+        run: npm run typecheck
+
       - name: Build isolated UX preview
         working-directory: source
         env:
@@ -40,6 +44,32 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: "/v5-ux-preview"
           NEXT_PUBLIC_BUILD_SHA: ${{ github.sha }}
         run: npm run build
+
+      - name: Install Playwright Chromium for visual QA
+        working-directory: source
+        run: npx --yes playwright@1.55.0 install --with-deps chromium
+
+      - name: Capture true viewport QA screenshots
+        working-directory: source
+        run: |
+          rm -rf qa-site qa-screenshots
+          mkdir -p qa-site/v5-ux-preview qa-screenshots
+          cp -a out/. qa-site/v5-ux-preview/
+          python3 -m http.server 4173 --directory qa-site >/tmp/v5-ux-qa.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          sleep 2
+
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="1440,900" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/" qa-screenshots/home-dark-1440x900.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="1440,900" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/" qa-screenshots/home-light-1440x900.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#about" qa-screenshots/about-dark-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#about" qa-screenshots/about-light-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#skills" qa-screenshots/stack-dark-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#skills" qa-screenshots/stack-light-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#certifications" qa-screenshots/credentials-dark-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#certifications" qa-screenshots/credentials-light-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#projects" qa-screenshots/projects-dark-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#projects" qa-screenshots/projects-light-390x844.png
 
       - name: Checkout live branch
         uses: actions/checkout@v4
@@ -52,6 +82,8 @@ jobs:
           rm -rf live/v5-ux-preview
           mkdir -p live/v5-ux-preview
           cp -a source/out/. live/v5-ux-preview/
+          mkdir -p live/v5-ux-preview/qa
+          cp -a source/qa-screenshots/. live/v5-ux-preview/qa/
           touch live/.nojekyll
 
       - name: Commit isolated UX preview
