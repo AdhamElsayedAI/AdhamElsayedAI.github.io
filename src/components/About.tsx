@@ -1,19 +1,47 @@
 import { SectionHeading } from "./SectionHeading";
 
 const pipeline = ["Data / evidence", "Retrieval / models", "Evaluation", "APIs", "Deployment", "Product experience"];
-const principles = ["Show the evidence", "Measure behavior", "Expose useful failure states", "Fail safely when support is insufficient"];
+const principles = [
+  { title: "Show the evidence", body: "Make the source of an answer inspectable instead of hiding it behind generation." },
+  { title: "Measure behavior", body: "Use retrieval and system metrics to evaluate what the pipeline is actually doing." },
+  { title: "Expose failure states", body: "Design useful caution, abstention and fallback behavior instead of forcing an answer." },
+  { title: "Fail safely", body: "When support is insufficient, stop the system from inventing confidence." },
+];
 
 export function About() {
   return (
-    <section id="about" className="section-shell cin-about-section">
+    <section id="about" className="section-shell cin-about-section ux-about-section">
       <div className="site-container">
-        <SectionHeading number="05" eyebrow="ABOUT / ENGINEERING PHILOSOPHY" title="Beyond the model." />
-        <div className="cin-about-grid">
-          <div className="cin-about-statement"><p>I am a final-year Artificial Intelligence Engineering student at Mansoura University.</p><p>My focus is building complete AI systems — not isolated model demos.</p></div>
-          <div className="cin-about-note"><span>ENGINEERING POSITION</span><p>I am especially interested in systems that can show what they used, quantify how they behave, and withhold an answer when the evidence is insufficient.</p></div>
+        <SectionHeading number="05" eyebrow="ABOUT" title="Beyond the model." />
+
+        <div className="ux-about-intro">
+          <div>
+            <p className="ux-about-lead">I am a final-year Artificial Intelligence Engineering student at Mansoura University.</p>
+            <p>My focus is building complete AI systems — not isolated model demos — across retrieval, evaluation, APIs, deployment and product experience.</p>
+          </div>
+          <blockquote>
+            I am especially interested in systems that can show what they used, quantify how they behave, and withhold an answer when the evidence is insufficient.
+          </blockquote>
         </div>
-        <div className="cin-system-loop" aria-label="End-to-end AI engineering workflow">{pipeline.map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></div>)}</div>
-        <div className="cin-principles">{principles.map((principle, index) => <article key={principle}><span>0{index + 1}</span><h3>{principle}</h3></article>)}</div>
+
+        <div className="ux-process" aria-label="End-to-end AI engineering workflow">
+          {pipeline.map((step, index) => (
+            <div key={step}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{step}</strong>
+            </div>
+          ))}
+        </div>
+
+        <div className="ux-principles">
+          {principles.map((principle, index) => (
+            <article key={principle.title}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{principle.title}</h3>
+              <p>{principle.body}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
