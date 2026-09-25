@@ -2,10 +2,56 @@
 @tailwind components;
 @tailwind utilities;
 
-:root { color-scheme: dark; --page: #070a09; --surface: #0d1210; --surface-2: #121916; --ink: #f1f2ec; --muted: #98a29d; --line: rgba(232, 241, 235, .14); --line-strong: rgba(232, 241, 235, .28); --mint: #75e6b5; --mint-soft: rgba(117, 230, 181, .1); --cyan: #76cbd2; --warm: #d7c69d; }
+:root, .dark {
+  color-scheme: dark;
+  --page: #07100f;
+  --surface: #0b1513;
+  --surface-2: #0f1c19;
+  --ink: #f3f7f5;
+  --muted: #9aaca5;
+  --line: rgba(111, 220, 190, .14);
+  --line-strong: rgba(111, 220, 190, .28);
+  --mint: #69e1c1;
+  --mint-strong: #35cfa7;
+  --mint-soft: rgba(105, 225, 193, .105);
+  --cyan: #72d7dc;
+  --accent-2: #55c8df;
+  --warm: #86d9cb;
+  --accent-ink: #06120f;
+  --nav-bg: rgba(7, 16, 15, .84);
+  --mobile-menu-bg: rgba(7, 16, 15, .985);
+  --grid-line: rgba(134, 217, 203, .045);
+  --glass: rgba(11, 21, 19, .72);
+  --outline: rgba(243, 247, 245, .46);
+  --shadow: rgba(0, 0, 0, .30);
+}
+
+.light {
+  color-scheme: light;
+  --page: #f2f8f6;
+  --surface: #fbfefd;
+  --surface-2: #eaf4f1;
+  --ink: #0c1d18;
+  --muted: #557068;
+  --line: rgba(16, 112, 88, .13);
+  --line-strong: rgba(16, 112, 88, .24);
+  --mint: #0d9e7c;
+  --mint-strong: #087c62;
+  --mint-soft: rgba(13, 158, 124, .09);
+  --cyan: #168fa3;
+  --accent-2: #2ba5bd;
+  --warm: #2f9f8b;
+  --accent-ink: #f6fffc;
+  --nav-bg: rgba(242, 248, 246, .88);
+  --mobile-menu-bg: rgba(242, 248, 246, .985);
+  --grid-line: rgba(13, 126, 98, .055);
+  --glass: rgba(251, 254, 253, .78);
+  --outline: rgba(12, 29, 24, .30);
+  --shadow: rgba(20, 70, 57, .12);
+}
 * { box-sizing: border-box; }
 html { position: relative; overflow-x: clip; scroll-behavior: smooth; scroll-padding-top: 74px; background: var(--page); }
-body { margin: 0; overflow-x: hidden; background: var(--page); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 16px; -webkit-font-smoothing: antialiased; }
+body { margin: 0; overflow-x: hidden; background: var(--page); color: var(--ink); font-family: Arial, Helvetica, sans-serif; font-size: 16px; -webkit-font-smoothing: antialiased; transition: background-color .3s ease, color .3s ease; }
 body.nav-open { overflow: hidden; }
 a { color: inherit; text-decoration: none; }
 button, a { -webkit-tap-highlight-color: transparent; }
