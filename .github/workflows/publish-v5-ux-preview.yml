@@ -1,0 +1,68 @@
+name: Publish portfolio V5 UX preview
+
+on:
+  push:
+    branches: [portfolio-v5-ux-repair]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: portfolio-v5-ux-preview
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout UX repair source
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: source
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+
+      - name: Install dependencies
+        working-directory: source
+        run: npm ci
+
+      - name: Build isolated UX preview
+        working-directory: source
+        env:
+          PREVIEW_BASE_PATH: "/v5-ux-preview"
+          NEXT_PUBLIC_BASE_PATH: "/v5-ux-preview"
+          NEXT_PUBLIC_BUILD_SHA: ${{ github.sha }}
+        run: npm run build
+
+      - name: Checkout live branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: live
+
+      - name: Replace UX preview only
+        run: |
+          rm -rf live/v5-ux-preview
+          mkdir -p live/v5-ux-preview
+          cp -a source/out/. live/v5-ux-preview/
+          touch live/.nojekyll
+
+      - name: Commit isolated UX preview
+        working-directory: live
+        run: |
+          git config user.name "Adham Elsayed"
+          git config user.email "145601881+AdhamElsayedAI@users.noreply.github.com"
+          git add v5-ux-preview .nojekyll
+          if git diff --cached --quiet; then
+            echo "UX preview is already current."
+          else
+            git commit -m "preview: publish V5 UX repair from ${GITHUB_SHA}"
+            git push origin main
+          fi
