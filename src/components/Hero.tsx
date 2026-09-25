@@ -14,29 +14,39 @@ export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
-  const portraitY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 90]);
-  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 0.94]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -56]);
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 72]);
+  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 0.96]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -36]);
 
   useEffect(() => {
     if (reduced) return;
-    const timer = window.setInterval(() => setRoleIndex((index) => (index + 1) % roles.length), 1900);
+    const timer = window.setInterval(() => setRoleIndex((index) => (index + 1) % roles.length), 2100);
     return () => window.clearInterval(timer);
   }, [reduced]);
 
   return (
-    <section id="home" ref={sectionRef} className="cin-hero">
+    <section id="home" ref={sectionRef} className="cin-hero ux-hero">
       <SignalField />
       <div className="cin-hero-grid" aria-hidden />
-      <div className="cin-hero-index" aria-hidden>01 — IDENTITY</div>
       <motion.div className="cin-hero-copy" style={{ y: copyY }}>
         <p className="cin-overline"><span /> Final-year AI Engineering · Mansoura, Egypt</p>
-        <h1><span className="cin-title-line">ADHAM</span><span className="cin-title-line cin-title-outline">ELSAYED</span></h1>
+        <h1>
+          <span className="cin-title-line">ADHAM</span>
+          <span className="cin-title-line cin-title-outline">ELSAYED</span>
+        </h1>
         <div className="cin-role-line" aria-live="polite">
           <span className="cin-role-label">AI ENGINEER /</span>
           <span className="cin-role-window">
             <AnimatePresence mode="wait" initial={false}>
-              <motion.strong key={roles[roleIndex]} initial={reduced ? false : { y: "105%", rotateX: -35 }} animate={{ y: 0, rotateX: 0 }} exit={reduced ? undefined : { y: "-105%", rotateX: 35 }} transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}>{roles[roleIndex]}</motion.strong>
+              <motion.strong
+                key={roles[roleIndex]}
+                initial={reduced ? false : { y: "105%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={reduced ? undefined : { y: "-105%", opacity: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              >
+                {roles[roleIndex]}
+              </motion.strong>
             </AnimatePresence>
           </span>
         </div>
@@ -51,19 +61,28 @@ export function Hero() {
           </div>
         </div>
       </motion.div>
-      <motion.div className="cin-portrait-stage" style={{ y: portraitY, scale: portraitScale }}>
+
+      <motion.div className="cin-portrait-stage ux-portrait-stage" style={{ y: portraitY, scale: portraitScale }}>
         <div className="cin-portrait-halo" aria-hidden />
-        <div className="cin-portrait-coordinate cin-coordinate-top" aria-hidden>31.0409° N / 31.3785° E</div>
-        <div className="cin-portrait-coordinate cin-coordinate-bottom" aria-hidden>SYSTEMS / EVIDENCE / DEPLOYMENT</div>
-        <motion.img initial={reduced ? false : { clipPath: "inset(100% 0 0 0)", y: 50 }} animate={{ clipPath: "inset(0% 0 0 0)", y: 0 }} transition={{ duration: 1.15, delay: 0.12, ease: [0.22, 1, 0.36, 1] }} src={profile.portrait} alt="Adham Elsayed wearing a light gray suit" width="1254" height="1254" fetchPriority="high" />
-        <div className="cin-portrait-scan" aria-hidden />
+        <motion.img
+          initial={reduced ? false : { clipPath: "inset(100% 0 0 0)", y: 36 }}
+          animate={{ clipPath: "inset(0% 0 0 0)", y: 0 }}
+          transition={{ duration: 1.08, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          src={profile.portrait}
+          alt="Adham Elsayed wearing a light gray suit"
+          width="1254"
+          height="1254"
+          fetchPriority="high"
+        />
       </motion.div>
-      <a href="#projects" className="cin-scroll-cue"><span>Scroll to systems</span><ArrowDownRight aria-hidden size={18} /></a>
-      <div className="cin-proof-rail" aria-label="Selected engineering evidence">
+
+      <a href="#projects" className="cin-scroll-cue"><span>Selected work</span><ArrowDownRight aria-hidden size={18} /></a>
+
+      <div className="cin-proof-rail ux-proof-rail" aria-label="Selected engineering evidence">
         <div><small>RECOGNITION</small><strong>2nd Place</strong><span>AI Hackathon Mansoura 2026</span></div>
         <div><small>RETRIEVAL</small><strong>87.50%</strong><span>MedFlow Hit@4</span></div>
         <div><small>EDGE VISION</small><strong>96.89%</strong><span>Smart Basket mAP@0.5</span></div>
-        <a href="#projects"><small>NEXT</small><strong>Selected systems</strong><ArrowUpRight aria-hidden size={18} /></a>
+        <a href="#projects"><small>SELECTED WORK</small><strong>View systems</strong><ArrowUpRight aria-hidden size={18} /></a>
       </div>
     </section>
   );
