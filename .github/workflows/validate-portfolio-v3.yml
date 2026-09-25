@@ -2,7 +2,7 @@ name: Validate portfolio v3
 
 on:
   push:
-    branches: [portfolio-v3, portfolio-v4-recruiter-grade]
+    branches: [portfolio-v3, portfolio-v4-recruiter-grade, portfolio-v5-ux-repair]
   workflow_dispatch:
 
 permissions:
