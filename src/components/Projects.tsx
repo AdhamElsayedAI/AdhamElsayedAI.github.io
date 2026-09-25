@@ -1,175 +1,77 @@
 "use client";
 
-import {
-  BarChart3,
-  BrainCircuit,
-  ExternalLink,
-  GraduationCap,
-  ScanBarcode,
-  ScanFace,
-  ShieldCheck,
-  ShoppingCart,
-  TrendingDown,
-  UserRoundMinus,
-} from "lucide-react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight, Check, Github } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { medicalplab, medflow, projects, type Project } from "@/data/projects";
-import { Reveal } from "./Reveal";
+import { medicalplab, medflow, projects } from "@/data/projects";
 import { SectionHeading } from "./SectionHeading";
 
-const projectVisuals = {
-  basket: { Primary: ScanBarcode, Secondary: ShoppingCart, label: "VISION CHECKOUT", tone: "orange" },
-  shield: { Primary: ScanFace, Secondary: ShieldCheck, label: "AI PROCTORING", tone: "violet" },
-  chart: { Primary: GraduationCap, Secondary: BarChart3, label: "LEARNING ANALYTICS", tone: "blue" },
-  spark: { Primary: UserRoundMinus, Secondary: TrendingDown, label: "CHURN PREDICTION", tone: "rose" },
-} as const;
+type ProjectImage = { src: string; alt: string };
 
-function ProjectPoster({ project }: { project: Project }) {
-  const visual = projectVisuals[project.icon];
-  const Primary = visual.Primary;
-  const Secondary = visual.Secondary;
-
+function ProductFrame({ images, label }: { images: readonly ProjectImage[]; label: string }) {
+  const [active, setActive] = useState(0);
+  const reduced = useReducedMotion();
   return (
-    <div className={"project-poster-v5 project-poster-" + visual.tone} aria-hidden="true">
-      <div className="project-poster-grid-v5" />
-      <span className="project-poster-orbit-v5 orbit-a" />
-      <span className="project-poster-orbit-v5 orbit-b" />
-      <span className="project-poster-icon-v5">
-        <Primary className="project-poster-icon-primary-v5" strokeWidth={1.6} />
-        <span className="project-poster-mini-v5"><Secondary strokeWidth={1.8} /></span>
-      </span>
-      <span className="project-poster-label-v5">{visual.label}</span>
+    <div className="cin-product-frame">
+      <div className="cin-frame-bar"><span /><span>{label} / PRODUCT EVIDENCE</span><span>{String(active + 1).padStart(2, "0")} — {String(images.length).padStart(2, "0")}</span></div>
+      <div className="cin-product-viewport">
+        <motion.img key={images[active].src} initial={reduced ? false : { scale: 1.035, clipPath: "inset(0 0 100% 0)" }} animate={{ scale: 1, clipPath: "inset(0 0 0% 0)" }} transition={{ duration: .7, ease: [0.22, 1, 0.36, 1] }} src={images[active].src} alt={images[active].alt} width="1440" height="900" loading="lazy" />
+      </div>
+      <div className="cin-frame-thumbs" aria-label={`${label} screenshots`}>
+        {images.map((image, index) => <button key={image.src} onClick={() => setActive(index)} aria-label={`Show ${label} screenshot ${index + 1}`} aria-pressed={index === active} className={index === active ? "is-active" : ""}><img src={image.src} alt="" width="220" height="130" loading="lazy" /><span>{String(index + 1).padStart(2, "0")}</span></button>)}
+      </div>
     </div>
   );
 }
 
+function Architecture({ steps }: { steps: readonly string[] }) {
+  return <div className="cin-architecture" aria-label="System architecture">{steps.map((step, index) => <div key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong>{index < steps.length - 1 ? <i aria-hidden>→</i> : null}</div>)}</div>;
+}
+
 export function Projects() {
-  const [selectedImage, setSelectedImage] = useState(0);
-  const activeImage = medflow.images[selectedImage];
-
   return (
-    <section id="projects" className="section-shell section-shell-projects-v5">
+    <section id="projects" className="section-shell cin-work-section">
       <div className="site-container">
-        <SectionHeading
-          number="01"
-          eyebrow="Selected Work"
-          title="Engineering proof before technology lists."
-          description="Flagship systems first: architecture, measurable behavior, verification boundaries and deployable interfaces — then the supporting project archive."
-          action={
-            <a href="https://github.com/AdhamElsayedAI?tab=repositories" target="_blank" rel="noreferrer" className="button-secondary text-xs">
-              All repositories <ExternalLink aria-hidden className="h-3.5 w-3.5" />
-            </a>
-          }
-        />
+        <SectionHeading number="02" eyebrow="SELECTED WORK / FLAGSHIP SYSTEMS" title="Systems with evidence." description="Two flagship systems lead the story: what they do, how they are structured, what was measured and where they deliberately refuse to overclaim." action={<a className="cin-text-link" href="https://github.com/AdhamElsayedAI?tab=repositories" target="_blank" rel="noreferrer">All repositories <ArrowUpRight size={16} /></a>} />
 
-        <div className="projects-grid-v5">
-          <Reveal className="project-card-v5 project-card-featured-v5 group">
-            <div className="project-featured-media-v5">
-              <img key={activeImage.src} src={activeImage.src} alt={activeImage.alt} className="project-featured-image-v5" width="1400" height="875" />
-              <div className="project-featured-overlay-v5" />
-              <span className="project-featured-logo-v5"><BrainCircuit className="h-7 w-7" /></span>
-              <div className="project-featured-badges-v5">
-                <span>FLAGSHIP · TEAM PROJECT</span>
-                <span>🏆 2ND PLACE</span>
-              </div>
-              <div className="project-featured-caption-v5">
-                <span>MEDFLOW</span>
-                <strong>Evidence-grounded clinical AI</strong>
-              </div>
-            </div>
+        <article className="cin-flagship cin-flagship-medflow">
+          <div className="cin-flagship-copy">
+            <div className="cin-project-sequence"><span>FLAGSHIP SYSTEM</span><strong>01 / 02</strong></div>
+            <p className="cin-project-category">{medflow.category}</p>
+            <h3>{medflow.title}<span>{medflow.subtitle}</span></h3>
+            <p className="cin-project-description">{medflow.description}</p>
+            <div className="cin-metric-grid">{medflow.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>
+            <p className="cin-boundary"><Check size={15} /> Retrieval engineering metrics — not clinical accuracy.</p>
+            <div className="cin-project-tags">{medflow.technologies.map((item) => <span key={item}>{item}</span>)}</div>
+            <div className="cin-project-actions"><Link className="cin-button cin-button-primary" href="/projects/medflow/">View case study <ArrowUpRight size={16} /></Link><a className="cin-button cin-button-quiet" href={medflow.github} target="_blank" rel="noreferrer"><Github size={16} /> Repository</a></div>
+          </div>
+          <div className="cin-flagship-visual"><ProductFrame images={medflow.images} label="MEDFLOW" /><Architecture steps={medflow.architecture} /></div>
+        </article>
 
-            <div className="project-card-body-v5">
-              <div>
-                <p className="project-card-category-v5">{medflow.category}</p>
-                <h3 className="project-card-title-v5">{medflow.title}</h3>
-                <p className="project-card-description-v5">{medflow.description}</p>
-              </div>
+        <article className="cin-flagship cin-flagship-plab">
+          <div className="cin-flagship-copy">
+            <div className="cin-project-sequence"><span>FLAGSHIP SYSTEM</span><strong>02 / 02</strong></div>
+            <p className="cin-project-category">{medicalplab.category}</p>
+            <h3>{medicalplab.title}<span>{medicalplab.subtitle}</span></h3>
+            <p className="cin-project-description">{medicalplab.description}</p>
+            <div className="cin-metric-grid cin-metric-three">{medicalplab.proofs.map((proof) => <div key={proof.label}><strong>{proof.value}</strong><span>{proof.label}</span></div>)}</div>
+            <p className="cin-boundary"><Check size={15} /> Educational and training platform — not a diagnostic device or clinical decision-support system.</p>
+            <div className="cin-project-tags">{medicalplab.technologies.map((item) => <span key={item}>{item}</span>)}</div>
+            <div className="cin-project-actions"><Link className="cin-button cin-button-primary" href="/projects/medicalplab/">View case study <ArrowUpRight size={16} /></Link><a className="cin-button cin-button-quiet" href={medicalplab.github} target="_blank" rel="noreferrer"><Github size={16} /> Repository</a></div>
+          </div>
+          <div className="cin-flagship-visual"><ProductFrame images={medicalplab.images} label="MEDICALPLAB" /><Architecture steps={medicalplab.architecture} /></div>
+        </article>
 
-              <div className="project-metrics-v5">
-                {medflow.metrics.map((metric) => (
-                  <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>
-                ))}
-              </div>
-              <p className="project-metric-note-v5">Retrieval engineering metrics — not clinical accuracy.</p>
-
-              <div className="project-tags-v5">{medflow.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
-
-              <div className="project-featured-footer-v5">
-                <div className="project-gallery-dots-v5" aria-label="MedFlow screenshots">
-                  {medflow.images.map((image, index) => (
-                    <button key={image.src} type="button" onClick={() => setSelectedImage(index)} aria-label={"Show MedFlow screenshot " + (index + 1)} aria-pressed={selectedImage === index} className={selectedImage === index ? "active" : ""} />
-                  ))}
-                </div>
-                <div className="project-action-row-v4">
-                  <Link href="/projects/medflow/" className="project-link-v5">Read case study <span aria-hidden>→</span></Link>
-                  <a href={medflow.github} target="_blank" rel="noreferrer" className="project-link-v5">Repository <ExternalLink className="h-3.5 w-3.5" /></a>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.04} className="project-card-v5 project-card-featured-v5 medicalplab-featured-v4 group">
-            <div className="medicalplab-media-v4">
-              <img src={medicalplab.image} alt="MedicalPlab adaptive learning interface" loading="lazy" />
-              <div className="medicalplab-media-overlay-v4" />
-              <div className="medicalplab-flow-v4" aria-label="MedicalPlab evidence architecture">
-                {medicalplab.architecture.map((step, index) => (
-                  <div key={step} className="medicalplab-flow-node-v4">
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <strong>{step}</strong>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="project-card-body-v5">
-              <div>
-                <p className="project-card-category-v5">{medicalplab.category}</p>
-                <h3 className="project-card-title-v5">{medicalplab.title}</h3>
-                <p className="project-card-description-v5">{medicalplab.description}</p>
-              </div>
-
-              <div className="medicalplab-proof-grid-v4">
-                {medicalplab.proofs.map((proof) => (
-                  <div key={proof.label}><strong>{proof.value}</strong><span>{proof.label}</span></div>
-                ))}
-              </div>
-
-              <div className="medicalplab-boundary-v4">
-                <strong>Safety boundary</strong>
-                <p>Generation is separated from deterministic scoring and evidence verification; unsupported medical claims fail closed to SAFE_FALLBACK.</p>
-              </div>
-
-              <div className="project-tags-v5">{medicalplab.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
-              <p className="project-metric-note-v5">Educational platform engineering — not a diagnostic or clinical decision-support system.</p>
-              <div className="project-action-row-v4">
-                <Link href="/projects/medicalplab/" className="project-link-v5">Read case study <span aria-hidden>→</span></Link>
-                <a href={medicalplab.github} target="_blank" rel="noreferrer" className="project-link-v5">Repository <ExternalLink className="h-3.5 w-3.5" /></a>
-              </div>
-            </div>
-          </Reveal>
-
+        <div className="cin-supporting-head"><span>SUPPORTING SYSTEMS</span><span>04 PROJECTS / SELECTED ARCHIVE</span></div>
+        <div className="cin-project-ledger">
           {projects.map((project, index) => (
-            <Reveal key={project.title} delay={0.06 + index * 0.04} className={"project-card-v5 project-card-" + project.icon + " group"}>
-              <ProjectPoster project={project} />
-              <div className="project-card-body-v5">
-                <div>
-                  <p className="project-card-category-v5">{project.category}</p>
-                  <h3 className="project-card-title-v5">{project.title}</h3>
-                  <p className="project-card-description-v5">{project.description}</p>
-                </div>
-
-                {project.metrics ? (
-                  <div className="project-metrics-v5 project-metrics-compact-v5">
-                    {project.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}
-                  </div>
-                ) : null}
-
-                <div className="project-tags-v5">{project.technologies.map((technology) => <span key={technology}>{technology}</span>)}</div>
-                <a href={project.github} target="_blank" rel="noreferrer" className="project-link-v5">View repository <ExternalLink className="h-3.5 w-3.5" /></a>
-              </div>
-            </Reveal>
+            <motion.article key={project.title} initial={{ x: index % 2 ? 28 : -28, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} viewport={{ once: true, amount: .35 }} transition={{ duration: .65, ease: [0.22, 1, 0.36, 1] }}>
+              <div className="cin-ledger-index">{project.signal}</div>
+              <div className="cin-ledger-copy"><p>{project.category}</p><h3>{project.title}</h3><span>{project.description}</span>{project.flow ? <div className="cin-mini-flow">{project.flow.map((step) => <b key={step}>{step}</b>)}</div> : null}</div>
+              <div className="cin-ledger-evidence">{project.metrics?.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}<div className="cin-project-tags">{project.technologies.map((item) => <span key={item}>{item}</span>)}</div></div>
+              <a href={project.github} target="_blank" rel="noreferrer" aria-label={`${project.title} repository`}><ArrowUpRight size={22} /></a>
+            </motion.article>
           ))}
         </div>
       </div>

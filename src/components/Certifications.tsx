@@ -1,77 +1,31 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
-import { BadgeCheck } from "lucide-react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useMemo, useState } from "react";
-import { certifications, type Certification } from "@/data/certifications";
+import { certifications } from "@/data/certifications";
 import { SectionHeading } from "./SectionHeading";
 
 const filters = ["Selected", "All", "GenAI", "AI / ML", "Data", "Programs"] as const;
 
-function IssuerBrand({ brand, initials, issuer }: Pick<Certification, "brand" | "initials" | "issuer">) {
-  return (
-    <span className={"issuer-brand issuer-brand-" + brand} role="img" aria-label={issuer + " source mark"}>
-      {brand === "microsoft" ? (
-        <span className="issuer-microsoft-grid" aria-hidden><i /><i /><i /><i /></span>
-      ) : (
-        <span className="issuer-brand-symbol" aria-hidden>{initials}</span>
-      )}
-    </span>
-  );
-}
-
 export function Certifications() {
   const [filter, setFilter] = useState<(typeof filters)[number]>("Selected");
   const reduced = useReducedMotion();
-  const visible = useMemo(() => {
-    if (filter === "Selected") return certifications.filter((certificate) => certificate.featured);
-    if (filter === "All") return certifications;
-    return certifications.filter((certificate) => certificate.category === filter);
-  }, [filter]);
-
+  const visible = useMemo(() => filter === "Selected" ? certifications.filter((item) => item.featured) : filter === "All" ? certifications : certifications.filter((item) => item.category === filter), [filter]);
   return (
-    <section id="certifications" className="section-shell section-tint">
+    <section id="certifications" className="section-shell cin-credentials-section">
       <div className="site-container">
-        <SectionHeading
-          number="06"
-          eyebrow="Credentials"
-          title="Selected learning, supporting the engineering work."
-          description="A concise view of the most relevant AI credentials first. The full set remains available by category."
-        />
-
-        <div className="mb-6 flex flex-wrap gap-2" role="group" aria-label="Filter certifications">
-          {filters.map((item) => (
-            <button key={item} type="button" onClick={() => setFilter(item)} aria-pressed={filter === item} className={"filter-pill " + (filter === item ? "filter-pill-active" : "")}>
-              {item}
-            </button>
-          ))}
-        </div>
-
-        <motion.div layout className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((certificate, index) => (
-            <motion.article
-              layout
-              key={certificate.title + "-" + certificate.issuer}
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: reduced ? 0 : index * 0.025 }}
-              className="cert-card group"
-            >
-              <div className="issuer-identity">
-                <IssuerBrand brand={certificate.brand} initials={certificate.initials} issuer={certificate.issuer} />
-                <span className="min-w-0 flex-1">
-                  <span className="issuer-source-label">Issued by</span>
-                  <strong className="issuer-source-name">{certificate.issuer}</strong>
-                </span>
-                <BadgeCheck aria-label="Credential source" className="h-4 w-4 shrink-0 text-accent" />
-              </div>
-              <h3 className="mt-5 text-[15px] font-extrabold leading-6 text-ink">{certificate.title}</h3>
-              <div className="mt-auto flex items-center justify-between border-t border-line pt-4">
-                <span className="font-mono text-[8px] uppercase tracking-[0.17em] text-muted">{certificate.category}</span>
-                {certificate.year ? <span className="font-mono text-[9px] text-accent">{certificate.year}</span> : null}
-              </div>
-            </motion.article>
-          ))}
+        <SectionHeading number="07" eyebrow="SELECTED CREDENTIALS" title="Supporting evidence, kept in proportion." description="Focused learning that supports the engineering work. Selected credentials appear first; the full set is available by category." />
+        <div className="cin-filter-row" role="group" aria-label="Filter credentials">{filters.map((item) => <button key={item} onClick={() => setFilter(item)} aria-pressed={filter === item}>{item}</button>)}</div>
+        <motion.div layout className="cin-credential-list">
+          <AnimatePresence mode="popLayout">
+            {visible.map((certificate, index) => (
+              <motion.article layout key={`${certificate.title}-${certificate.issuer}`} initial={reduced ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={reduced ? undefined : { opacity: 0, y: -12 }} transition={{ duration: .3, delay: reduced ? 0 : index * .025 }}>
+                <span className="cin-credential-number">{String(index + 1).padStart(2, "0")}</span>
+                <div><p>{certificate.issuer}</p><h3>{certificate.title}</h3></div>
+                <div className="cin-credential-meta"><span>{certificate.category}</span>{certificate.year ? <time>{certificate.year}</time> : null}</div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>

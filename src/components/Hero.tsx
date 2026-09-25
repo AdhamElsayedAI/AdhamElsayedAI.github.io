@@ -1,76 +1,69 @@
-import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
-import { heroTags, profile, stats } from "@/data/profile";
+"use client";
+
+import dynamic from "next/dynamic";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowDownRight, ArrowUpRight, Download, Github, Linkedin, Mail } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { profile } from "@/data/profile";
+
+const SignalField = dynamic(() => import("./SignalField").then((module) => module.SignalField), { ssr: false });
+const roles = ["GROUNDED GENAI", "RAG SYSTEMS", "MACHINE LEARNING", "COMPUTER VISION", "EDGE AI", "AI EVALUATION"];
 
 export function Hero() {
+  const [roleIndex, setRoleIndex] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const portraitY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 90]);
+  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 0.94]);
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -56]);
+
+  useEffect(() => {
+    if (reduced) return;
+    const timer = window.setInterval(() => setRoleIndex((index) => (index + 1) % roles.length), 1900);
+    return () => window.clearInterval(timer);
+  }, [reduced]);
+
   return (
-    <section id="home" className="ref-hero-section">
-      <div className="ref-hero-panel">
-        <div aria-hidden className="ref-hero-gradient" />
-        <div aria-hidden className="ref-dot-grid" />
-        <div className="ref-hero-grid">
-          <div className="relative z-10">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="ref-availability">
-                <span className="relative grid h-2 w-2 place-items-center">
-                  <span className="absolute h-2 w-2 animate-ping rounded-full bg-cyan/60" />
-                  <span className="h-1.5 w-1.5 rounded-full bg-cyan" />
-                </span>
-                Final-year AI Engineering · Mansoura University
-              </span>
-              {heroTags.slice(0, 4).map((tag) => <span key={tag} className="chip">{tag}</span>)}
-            </div>
-
-            <p className="hero-role-v4">AI ENGINEER · GROUNDED GENAI · ML · COMPUTER VISION</p>
-            <h1 className="ref-hero-title">Adham <span className="ref-name-glow">Elsayed</span></h1>
-            <p className="ref-tagline">{profile.intro}</p>
-
-            <div className="hero-proof-grid-v4" aria-label="Selected engineering proof">
-              {stats.map((stat) => (
-                <div key={stat.label} className="hero-proof-card-v4">
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
-                  <small>{stat.context}</small>
-                </div>
-              ))}
-            </div>
-
-            <div className="ref-inline-terminal recruiter-terminal-v4">
-              <div className="ref-terminal-head">
-                <span>engineering.signal</span>
-                <span>BUILD → MEASURE → VERIFY → DEPLOY</span>
-              </div>
-              <div className="ref-terminal-body">
-                <p><span className="ref-prompt">$</span> systems <span className="ref-terminal-gold">grounded RAG · adaptive learning · edge vision</span></p>
-                <p><span className="ref-prompt">$</span> principle <span className="text-muted">evidence before output · metrics before claims</span></p>
-                <p><span className="ref-prompt">$</span> recognition <span className="ref-terminal-red">2nd Place · Mansoura AI Hackathon 2026</span></p>
-              </div>
-            </div>
-
-            <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
-              <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-                <a href="#projects" className="button-primary w-full sm:w-auto">Explore Selected Work <ArrowRight className="h-4 w-4" /></a>
-                <a href={profile.cv} download className="button-secondary w-full sm:w-auto"><Download className="h-4 w-4" /> Resume</a>
-              </div>
-              <div className="flex items-center gap-2">
-                <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"><Github className="h-4 w-4" /></a>
-                <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"><Linkedin className="h-4 w-4" /></a>
-                <a href={"mailto:" + profile.email} aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"><Mail className="h-4 w-4" /></a>
-              </div>
-            </div>
-          </div>
-
-          <div className="ref-portrait-wrap">
-            <div aria-hidden className="portrait-soft-glow-v7" />
-            <div className="portrait-frame-soft-v7" aria-label="Adham Elsayed portrait">
-              <span aria-hidden className="portrait-frame-line-v7" />
-              <span aria-hidden className="portrait-frame-corner-v7 portrait-frame-corner-tl-v7" />
-              <span aria-hidden className="portrait-frame-corner-v7 portrait-frame-corner-br-v7" />
-              <div className="portrait-photo-clean-v7">
-                <img src={profile.portrait} alt="Adham Elsayed in a light gray suit" width="1254" height="1254" fetchPriority="high" />
-              </div>
-            </div>
+    <section id="home" ref={sectionRef} className="cin-hero">
+      <SignalField />
+      <div className="cin-hero-grid" aria-hidden />
+      <div className="cin-hero-index" aria-hidden>01 — IDENTITY</div>
+      <motion.div className="cin-hero-copy" style={{ y: copyY }}>
+        <p className="cin-overline"><span /> Final-year AI Engineering · Mansoura, Egypt</p>
+        <h1><span className="cin-title-line">ADHAM</span><span className="cin-title-line cin-title-outline">ELSAYED</span></h1>
+        <div className="cin-role-line" aria-live="polite">
+          <span className="cin-role-label">AI ENGINEER /</span>
+          <span className="cin-role-window">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.strong key={roles[roleIndex]} initial={reduced ? false : { y: "105%", rotateX: -35 }} animate={{ y: 0, rotateX: 0 }} exit={reduced ? undefined : { y: "-105%", rotateX: 35 }} transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}>{roles[roleIndex]}</motion.strong>
+            </AnimatePresence>
+          </span>
+        </div>
+        <p className="cin-hero-intro">{profile.intro}</p>
+        <div className="cin-hero-actions">
+          <a href="#projects" className="cin-button cin-button-primary">Explore work <ArrowDownRight aria-hidden size={17} /></a>
+          <a href={profile.cv} download className="cin-button cin-button-quiet"><Download aria-hidden size={16} /> Resume</a>
+          <div className="cin-socials" aria-label="Professional links">
+            <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={17} /></a>
+            <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={17} /></a>
+            <a href={`mailto:${profile.email}`} aria-label="Email"><Mail size={17} /></a>
           </div>
         </div>
+      </motion.div>
+      <motion.div className="cin-portrait-stage" style={{ y: portraitY, scale: portraitScale }}>
+        <div className="cin-portrait-halo" aria-hidden />
+        <div className="cin-portrait-coordinate cin-coordinate-top" aria-hidden>31.0409° N / 31.3785° E</div>
+        <div className="cin-portrait-coordinate cin-coordinate-bottom" aria-hidden>SYSTEMS / EVIDENCE / DEPLOYMENT</div>
+        <motion.img initial={reduced ? false : { clipPath: "inset(100% 0 0 0)", y: 50 }} animate={{ clipPath: "inset(0% 0 0 0)", y: 0 }} transition={{ duration: 1.15, delay: 0.12, ease: [0.22, 1, 0.36, 1] }} src={profile.portrait} alt="Adham Elsayed wearing a light gray suit" width="1254" height="1254" fetchPriority="high" />
+        <div className="cin-portrait-scan" aria-hidden />
+      </motion.div>
+      <a href="#projects" className="cin-scroll-cue"><span>Scroll to systems</span><ArrowDownRight aria-hidden size={18} /></a>
+      <div className="cin-proof-rail" aria-label="Selected engineering evidence">
+        <div><small>RECOGNITION</small><strong>2nd Place</strong><span>AI Hackathon Mansoura 2026</span></div>
+        <div><small>RETRIEVAL</small><strong>87.50%</strong><span>MedFlow Hit@4</span></div>
+        <div><small>EDGE VISION</small><strong>96.89%</strong><span>Smart Basket mAP@0.5</span></div>
+        <a href="#projects"><small>NEXT</small><strong>Selected systems</strong><ArrowUpRight aria-hidden size={18} /></a>
       </div>
     </section>
   );

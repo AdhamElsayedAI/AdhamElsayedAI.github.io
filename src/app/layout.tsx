@@ -1,14 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { ThemeProvider, themeBootstrapScript } from "@/components/ThemeProvider";
 import "./globals.css";
-import "./reference.css";
-import "./enhancements.css";
-import "./portrait-v4.css";
-import "./showcase-v5.css";
-import "./polish-v6.css";
-import "./portrait-v7.css";
-import "./section-headings-v8.css";
-import "./recruiter-v4.css";
+import "./cinematic-v5.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
@@ -62,10 +54,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f7f6f9" },
-    { media: "(prefers-color-scheme: dark)", color: "#050507" },
-  ],
+  themeColor: "#070a09",
 };
 
 const personSchema = {
@@ -97,13 +86,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const buildSha = process.env.NEXT_PUBLIC_BUILD_SHA ?? "local";
 
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
       </head>
       <body data-build-sha={buildSha}>
-        <ThemeProvider>{children}</ThemeProvider>
+        {children}
       </body>
     </html>
   );

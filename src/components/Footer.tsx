@@ -1,20 +1,21 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+"use client";
+
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { Download } from "lucide-react";
+import { useRef } from "react";
 import { profile } from "@/data/profile";
 
 export function Footer() {
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const adhamX = useTransform(scrollYProgress, [0, 1], [reduced ? 0 : -90, 0]);
+  const elsayedX = useTransform(scrollYProgress, [0, 1], [reduced ? 0 : 90, 0]);
   return (
-    <footer className="border-t border-line py-8">
-      <div className="site-container flex flex-col items-center justify-between gap-5 sm:flex-row">
-        <div className="text-center sm:text-left">
-          <p className="text-sm font-extrabold text-ink">Adham Elsayed <span className="text-accent">·</span> AI Engineer</p>
-          <p className="mt-1 text-xs text-muted">© 2026 · Built for clarity, evidence and real systems.</p>
-        </div>
-        <div className="flex items-center gap-2">
-          <a className="icon-button" href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub profile"><Github aria-hidden className="h-4 w-4" /></a>
-          <a className="icon-button" href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn profile"><Linkedin aria-hidden className="h-4 w-4" /></a>
-          <a className="icon-button" href={`mailto:${profile.email}`} aria-label="Email Adham Elsayed"><Mail aria-hidden className="h-4 w-4" /></a>
-        </div>
-      </div>
+    <footer id="footer" ref={ref} className="cin-footer">
+      <div className="cin-footer-meta"><span>09 — CLOSING FRAME</span><a href={profile.cv} download>Resume <Download size={14} /></a></div>
+      <div className="cin-footer-name" aria-label="Adham Elsayed"><motion.span style={{ x: adhamX }}>ADHAM</motion.span><motion.span className="outline" style={{ x: elsayedX }}>ELSAYED</motion.span></div>
+      <div className="cin-footer-bottom"><p>AI Engineer · Mansoura, Egypt</p><p>© 2026 · Evidence before output. Metrics before claims.</p></div>
     </footer>
   );
 }
