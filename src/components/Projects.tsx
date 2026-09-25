@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Check, Github } from "lucide-react";
+import { ArrowUpRight, Check, Cpu, Database, Github, LineChart, ScanLine } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { medicalplab, medflow, projects } from "@/data/projects";
@@ -58,6 +58,38 @@ function Architecture({ steps }: { steps: readonly string[] }) {
           <strong>{step}</strong>
         </div>
       ))}
+    </div>
+  );
+}
+
+
+const supportingIcons = [ScanLine, Cpu, Database, LineChart];
+
+function SupportingPreview({ project, index }: { project: (typeof projects)[number]; index: number }) {
+  const Icon = supportingIcons[index] ?? Cpu;
+  const metric = project.metrics?.[0];
+  return (
+    <div className="ux-supporting-preview" aria-hidden>
+      <div className="ux-supporting-preview-grid" />
+      <div className="ux-supporting-preview-head">
+        <span><Icon size={18} /> {project.signal}</span>
+        {metric ? <strong>{metric.value}</strong> : <strong>{String(index + 1).padStart(2, "0")}</strong>}
+      </div>
+      {project.flow?.length ? (
+        <div className="ux-supporting-preview-flow">
+          {project.flow.slice(0, 6).map((step, stepIndex) => (
+            <div key={step}>
+              <span>{String(stepIndex + 1).padStart(2, "0")}</span>
+              <b>{step}</b>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="ux-supporting-preview-tech">
+          {project.technologies.slice(0, 6).map((item) => <span key={item}>{item}</span>)}
+        </div>
+      )}
+      <div className="ux-supporting-preview-signal"><i /><i /><i /><i /></div>
     </div>
   );
 }
@@ -130,6 +162,7 @@ export function Projects() {
               viewport={{ once: true, amount: .25 }}
               transition={{ duration: .48, delay: index * .035, ease: [0.22, 1, 0.36, 1] }}
             >
+              <SupportingPreview project={project} index={index} />
               <div className="ux-supporting-top">
                 <span>{project.signal}</span>
                 <a href={project.github} target="_blank" rel="noreferrer" aria-label={`${project.title} repository`}><ArrowUpRight size={18} /></a>
