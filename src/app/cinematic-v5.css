@@ -71,3 +71,39 @@
 @media(max-width:480px){.case-nav>div a{font-size:0}.case-nav>div a svg{width:18px;height:18px}.case-hero{min-height:880px}.case-hero-copy h1{font-size:15vw}.case-hero-links .cin-button{width:100%}.case-hero-visual{bottom:120px}.case-metrics article{min-height:135px;padding:22px 14px}.case-metrics strong{font-size:1.75rem}.case-section{padding:80px 0}.case-screen-grid{gap:14px}.case-window-bar{min-height:34px}.case-footer{min-height:380px;padding-inline:14px}}
 .cin-footer{position:relative}
 @media(max-width:760px){.case-nav>span{display:none}.case-nav>div a:last-child{display:inline-flex}.case-hero{min-height:auto;padding:112px 14px 76px}.case-hero-copy{width:100%}.case-hero-copy h1{font-size:clamp(3rem,13vw,4.6rem)}.case-hero-summary{max-width:100%}.case-hero-visual{position:relative;right:auto;bottom:auto;width:100%;margin-top:42px;opacity:1;transform:none!important}.case-hero-visual::after{display:none}.case-disclaimer{position:relative;left:auto;right:auto;bottom:auto;margin-top:22px}}
+
+
+/* V5.1 unified theme system — one teal/mint family across both modes */
+.cin-scroll-progress{background:linear-gradient(90deg,var(--mint),var(--cyan))}
+.cin-nav.is-scrolled{background:var(--nav-bg)}
+.cin-mobile-menu{background:var(--mobile-menu-bg)}
+.cin-theme-toggle{display:grid;width:40px;height:40px;place-items:center;border:1px solid var(--line-strong);background:var(--glass);color:var(--muted);cursor:pointer;transition:transform .2s ease,color .2s ease,border-color .2s ease,background .2s ease}
+.cin-theme-toggle:hover{transform:translateY(-2px);border-color:var(--mint);color:var(--mint);background:var(--mint-soft)}
+.cin-nav-links a,.cin-overline,.cin-role-label,.cin-hero-intro,.cin-scroll-cue,.cin-proof-rail span,.cin-project-sequence strong,.cin-project-category,.cin-metric-grid span,.cin-boundary,.cin-project-tags span,.cin-supporting-head,.cin-ledger-copy p,.cin-ledger-evidence>div>span,.cin-mini-flow b,.cin-work-feature>p:not(.cin-work-period),.cin-work-feature ul,.cin-experience-tags span,.cin-program-index,.cin-program-top time,.cin-program-copy>strong,.cin-skill-nav button,.cin-skill-cloud span,.cin-filter-row button,.cin-credential-number,.cin-credential-meta,.cin-contact-links a,.cin-footer-meta,.cin-footer-bottom,.case-nav>a,.case-nav div a,.case-nav>span,.case-hero-summary,.case-hero-visual figcaption,.case-screen-grid figcaption,.case-disclaimer,.case-metrics small,.case-context p,.case-decision-grid p,.case-evaluation-grid article>p,.case-decision-grid ul,.case-numbered-list p,.case-stack b{color:var(--muted)}
+.cin-hero-grid,.case-hero-grid{background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px)}
+.cin-hero::before,.case-hero::after{background:radial-gradient(circle,color-mix(in srgb,var(--mint) 17%,transparent),color-mix(in srgb,var(--cyan) 7%,transparent) 42%,transparent 68%)}
+.cin-role-window{background:linear-gradient(90deg,var(--mint),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cin-title-outline,.cin-footer-name .outline{-webkit-text-stroke-color:var(--outline)}
+.cin-button-primary{border-color:transparent;background:linear-gradient(135deg,var(--mint),var(--cyan));color:var(--accent-ink)}
+.cin-button-primary:hover{background:linear-gradient(135deg,var(--mint-strong),var(--mint));color:var(--accent-ink)}
+.cin-button-quiet{background:var(--glass)}
+.cin-proof-rail{background:var(--nav-bg)}
+.cin-work-section,.cin-skills-section,.cin-contact-section,.cin-footer,.case-page{background:var(--page)}
+.cin-experience-section,.cin-credentials-section,.case-metrics,.case-architecture-section,.case-outcomes-section{background:var(--surface)}
+.cin-skills-console,.cin-product-frame,.cin-product-viewport,.cin-frame-thumbs button,.case-hero-visual,.case-screen-grid figure,.case-architecture>div{background:var(--surface-2)}
+.cin-work-feature{background:linear-gradient(150deg,color-mix(in srgb,var(--mint) 11%,transparent),var(--surface) 45%)}
+.cin-contact-primary{background:linear-gradient(135deg,color-mix(in srgb,var(--mint) 14%,transparent),color-mix(in srgb,var(--cyan) 5%,transparent) 58%,transparent)}
+.case-evaluation-section{background:color-mix(in srgb,var(--surface) 90%,var(--mint) 3%)}
+.case-footer{background:linear-gradient(135deg,color-mix(in srgb,var(--mint) 12%,transparent),var(--page) 62%)}
+.case-disclaimer{border-left-color:var(--cyan)}
+.cin-flagship-plab{border-top-color:color-mix(in srgb,var(--cyan) 32%,transparent)}
+.cin-flagship-plab .cin-project-sequence,.cin-flagship-plab .cin-project-category{color:var(--cyan)}
+.cin-type-label[data-type="work"]{color:var(--mint)}
+.cin-type-label[data-type="hackathon"]{color:color-mix(in srgb,var(--mint) 45%,var(--cyan))}
+.cin-type-label[data-type="training"]{color:var(--cyan)}
+.cin-product-frame,.case-hero-visual{box-shadow:0 36px 90px var(--shadow)}
+.light .cin-portrait-stage img{filter:drop-shadow(0 24px 34px rgba(21,75,61,.16))}
+.light .cin-portrait-stage::after{background:linear-gradient(90deg,var(--page) 0%,color-mix(in srgb,var(--page) 80%,transparent) 28%,transparent 70%)}
+.light .cin-frame-thumbs span{color:#f8fffc}
+.light .cin-socials a,.light .cin-nav-resume,.light .cin-theme-toggle,.light .cin-menu-button{background:color-mix(in srgb,var(--surface) 86%,transparent)}
+@media(max-width:900px){.cin-theme-toggle{margin-left:auto}.cin-nav-resume+.cin-theme-toggle{margin-left:auto}.cin-theme-toggle+.cin-menu-button{margin-left:0}}
