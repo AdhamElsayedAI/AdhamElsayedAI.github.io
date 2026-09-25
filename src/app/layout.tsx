@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./cinematic-v5.css";
+import "./ux-repair.css";
 import { ThemeProvider, themeBootstrapScript } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
