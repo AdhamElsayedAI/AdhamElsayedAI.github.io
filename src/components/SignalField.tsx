@@ -42,14 +42,20 @@ export function SignalField() {
           point.x = (point.x + point.vx + width) % width;
           point.y = (point.y + point.vy + height) % height;
         }
-        context.fillStyle = "rgba(115, 235, 185, .45)";
+        const accent = getComputedStyle(document.documentElement).getPropertyValue("--mint").trim() || "#69e1c1";
+        context.globalAlpha = 0.34;
+        context.fillStyle = accent;
         context.fillRect(point.x, point.y, 1.25, 1.25);
+        context.globalAlpha = 1;
         for (let otherIndex = index + 1; otherIndex < points.length; otherIndex += 1) {
           const other = points[otherIndex];
           const distance = Math.hypot(point.x - other.x, point.y - other.y);
           if (distance < 135) {
-            context.strokeStyle = `rgba(115, 235, 185, ${0.08 * (1 - distance / 135)})`;
+            const accent = getComputedStyle(document.documentElement).getPropertyValue("--mint").trim() || "#69e1c1";
+            context.globalAlpha = 0.065 * (1 - distance / 135);
+            context.strokeStyle = accent;
             context.beginPath(); context.moveTo(point.x, point.y); context.lineTo(other.x, other.y); context.stroke();
+            context.globalAlpha = 1;
           }
         }
       }
