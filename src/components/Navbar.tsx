@@ -1,15 +1,17 @@
 "use client";
 
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
-import { ArrowUpRight, Download, Menu, X } from "lucide-react";
+import { ArrowUpRight, Download, Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { navItems, profile } from "@/data/profile";
+import { useTheme } from "./ThemeProvider";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
   const { scrollYProgress } = useScroll();
+  const { theme, mounted, toggleTheme } = useTheme();
   const progress = useSpring(scrollYProgress, { stiffness: 180, damping: 30, mass: 0.25 });
 
   useEffect(() => {
@@ -49,6 +51,7 @@ export function Navbar() {
             {navItems.map((item) => <a key={item.href} href={item.href} aria-current={active === item.href.slice(1) ? "page" : undefined}>{item.label}</a>)}
           </nav>
           <a className="cin-nav-resume" href={profile.cv} download>Resume <Download aria-hidden size={14} /></a>
+          <button className="cin-theme-toggle" type="button" onClick={toggleTheme} aria-label={mounted ? `Switch to ${theme === "dark" ? "light" : "dark"} mode` : "Toggle color theme"} title={mounted ? `${theme === "dark" ? "Light" : "Dark"} mode` : "Theme"}>{mounted && theme === "light" ? <Sun size={17} /> : <Moon size={17} />}</button>
           <button className="cin-menu-button" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open}>{open ? <X size={21} /> : <Menu size={21} />}</button>
         </div>
         <AnimatePresence>
