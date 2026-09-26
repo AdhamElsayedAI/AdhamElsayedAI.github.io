@@ -1,89 +1,98 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowDownRight, ArrowUpRight, Download, Github, Linkedin, Mail } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowDownRight, Download, Github, Linkedin, Mail } from "lucide-react";
 import { profile } from "@/data/profile";
 
-const SignalField = dynamic(() => import("./SignalField").then((module) => module.SignalField), { ssr: false });
-const roles = ["GROUNDED GENAI", "RAG SYSTEMS", "MACHINE LEARNING", "COMPUTER VISION", "EDGE AI", "AI EVALUATION"];
+const evidence = [
+  {
+    value: "2nd",
+    label: "AI Hackathon Mansoura 2026",
+    context: "Team MedFlow · Orange Digital Center Egypt × CREATIVA",
+  },
+  {
+    value: "87.50%",
+    label: "MedFlow Hit@4",
+    context: "200-token chunks · Top-K = 4 · retrieval evaluation",
+  },
+  {
+    value: "96.89%",
+    label: "Smart Basket mAP@0.5",
+    context: "Four-class YOLO detector · edge deployment pipeline",
+  },
+] as const;
 
 export function Hero() {
-  const [roleIndex, setRoleIndex] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
-  const portraitY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 72]);
-  const portraitScale = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 0.96]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -36]);
-
-  useEffect(() => {
-    if (reduced) return;
-    const timer = window.setInterval(() => setRoleIndex((index) => (index + 1) % roles.length), 2100);
-    return () => window.clearInterval(timer);
-  }, [reduced]);
+  const enter = {
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0 },
+  };
 
   return (
-    <section id="home" ref={sectionRef} className="cin-hero ux-hero">
-      <SignalField />
-      <div className="cin-hero-grid" aria-hidden />
-      <motion.div className="cin-hero-copy" style={{ y: copyY }}>
-        <p className="cin-overline"><span /> Final-year AI Engineering · Mansoura, Egypt</p>
-        <h1>
-          <span className="cin-title-line">ADHAM</span>
-          <span className="cin-title-line cin-title-outline">ELSAYED</span>
-        </h1>
-        <div className="cin-role-line" aria-live="polite">
-          <span className="cin-role-label">AI ENGINEER /</span>
-          <span className="cin-role-window">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.strong
-                key={roles[roleIndex]}
-                initial={reduced ? false : { y: "105%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={reduced ? undefined : { y: "-105%", opacity: 0 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {roles[roleIndex]}
-              </motion.strong>
-            </AnimatePresence>
-          </span>
+    <section id="home" className="el-hero">
+      <motion.div
+        className="el-hero-shell"
+        initial={reduced ? undefined : "hidden"}
+        animate={reduced ? undefined : "visible"}
+        transition={{ staggerChildren: 0.09, delayChildren: 0.05 }}
+      >
+        <motion.div className="el-hero-index" variants={enter} transition={{ duration: 0.55 }}>
+          <span>PORTFOLIO / 2026</span>
+          <span>AI ENGINEERING</span>
+          <span>MANSOURA, EGYPT</span>
+        </motion.div>
+
+        <div className="el-hero-main">
+          <motion.div className="el-hero-copy" variants={enter} transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}>
+            <p className="el-kicker">Evidence-grounded AI systems</p>
+            <h1><span>Adham</span><span>Elsayed</span></h1>
+            <p className="el-positioning">
+              I engineer AI systems that make their evidence, evaluation and failure boundaries visible.
+            </p>
+            <p className="el-summary">
+              Generative AI, retrieval, machine learning and computer vision—built from measured models through APIs, edge deployment and product experience.
+            </p>
+            <div className="el-hero-actions">
+              <a href="#projects" className="el-button el-button-primary">Examine the work <ArrowDownRight aria-hidden size={17} /></a>
+              <a href={profile.cv} download className="el-button el-button-secondary"><Download aria-hidden size={16} /> Resume</a>
+            </div>
+          </motion.div>
+
+          <motion.aside className="el-identity" variants={enter} transition={{ duration: 0.72, delay: 0.08, ease: [0.22, 1, 0.36, 1] }} aria-label="Adham Elsayed profile">
+            <div className="el-portrait">
+              <img src={profile.portrait} alt="Adham Elsayed wearing a light gray suit" width="1254" height="1254" fetchPriority="high" />
+              <span aria-hidden>AE / 01</span>
+            </div>
+            <dl>
+              <div><dt>Role</dt><dd>AI Engineer</dd></div>
+              <div><dt>Focus</dt><dd>Grounded GenAI · ML · Vision</dd></div>
+              <div><dt>Education</dt><dd>B.Sc. AI Engineering · Expected 2027</dd></div>
+            </dl>
+            <div className="el-socials" aria-label="Professional links">
+              <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={16} /> GitHub</a>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={16} /> LinkedIn</a>
+              <a href={`mailto:${profile.email}`} aria-label="Email"><Mail size={16} /> Email</a>
+            </div>
+          </motion.aside>
         </div>
-        <p className="cin-hero-intro">{profile.intro}</p>
-        <div className="cin-hero-actions">
-          <a href="#projects" className="cin-button cin-button-primary">Explore work <ArrowDownRight aria-hidden size={17} /></a>
-          <a href={profile.cv} download className="cin-button cin-button-quiet"><Download aria-hidden size={16} /> Resume</a>
-          <div className="cin-socials" aria-label="Professional links">
-            <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub"><Github size={17} /></a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={17} /></a>
-            <a href={`mailto:${profile.email}`} aria-label="Email"><Mail size={17} /></a>
-          </div>
-        </div>
+
+        <motion.div className="el-evidence" variants={enter} transition={{ duration: 0.68, delay: 0.18 }} aria-label="Selected verified evidence">
+          {evidence.map((item, index) => (
+            <motion.article
+              key={item.label}
+              initial={reduced ? undefined : { opacity: 0, y: 16 }}
+              animate={reduced ? undefined : { opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.42 + index * 0.1 }}
+            >
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{item.value}</strong>
+              <h2>{item.label}</h2>
+              <p>{item.context}</p>
+            </motion.article>
+          ))}
+        </motion.div>
       </motion.div>
-
-      <motion.div className="cin-portrait-stage ux-portrait-stage" style={{ y: portraitY, scale: portraitScale }}>
-        <div className="cin-portrait-halo" aria-hidden />
-        <motion.img
-          initial={reduced ? false : { clipPath: "inset(100% 0 0 0)", y: 36 }}
-          animate={{ clipPath: "inset(0% 0 0 0)", y: 0 }}
-          transition={{ duration: 1.08, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          src={profile.portrait}
-          alt="Adham Elsayed wearing a light gray suit"
-          width="1254"
-          height="1254"
-          fetchPriority="high"
-        />
-      </motion.div>
-
-      <a href="#projects" className="cin-scroll-cue"><span>Selected work</span><ArrowDownRight aria-hidden size={18} /></a>
-
-      <div className="cin-proof-rail ux-proof-rail" aria-label="Selected engineering evidence">
-        <div><small>RECOGNITION</small><strong>2nd Place</strong><span>AI Hackathon Mansoura 2026</span></div>
-        <div><small>RETRIEVAL</small><strong>87.50%</strong><span>MedFlow Hit@4</span></div>
-        <div><small>EDGE VISION</small><strong>96.89%</strong><span>Smart Basket mAP@0.5</span></div>
-        <a href="#projects"><small>SELECTED WORK</small><strong>View systems</strong><ArrowUpRight aria-hidden size={18} /></a>
-      </div>
     </section>
   );
 }

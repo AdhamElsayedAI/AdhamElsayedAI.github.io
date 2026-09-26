@@ -1,38 +1,9 @@
-export type SkillGroup = {
-  name: string;
-  description: string;
-  skills: string[];
-};
+export type SkillGroup = { name: string; description: string; evidence: string; skills: string[] };
 
 export const skillGroups: SkillGroup[] = [
-  {
-    name: "Generative AI & RAG",
-    description: "Grounded generation, retrieval pipelines and useful LLM applications.",
-    skills: ["RAG", "LLM APIs", "Prompt Engineering", "Grounded Generation", "BGE Embeddings", "ChromaDB", "BM25", "RRF"],
-  },
-  {
-    name: "AI Evaluation & Safety",
-    description: "Evidence, measurable retrieval quality and fail-closed behavior.",
-    skills: ["Precision@K", "Hit@K", "MRR", "Citation Validation", "Claim Verification", "NLI Verification", "Provenance Gating", "Safety Guardrails", "Fail-Closed Fallbacks"],
-  },
-  {
-    name: "Machine Learning & Vision",
-    description: "Model development across predictive systems and computer vision.",
-    skills: ["PyTorch", "TensorFlow", "Scikit-learn", "YOLO", "OpenCV", "Deep Learning", "CNNs", "Object Detection"],
-  },
-  {
-    name: "Backend & AI Engineering",
-    description: "APIs, service boundaries and production-minded software delivery.",
-    skills: ["Python", "FastAPI", "REST APIs", "Docker", "Git", "GitHub", "Linux", "MLflow"],
-  },
-  {
-    name: "Edge & Applications",
-    description: "On-device inference and connected application delivery.",
-    skills: ["Raspberry Pi 5", "ONNX Runtime", "Firebase", "Flutter", "Next.js", "Three.js"],
-  },
-  {
-    name: "Data & BI",
-    description: "Analysis, business intelligence and scalable data preparation.",
-    skills: ["Pandas", "PySpark", "SQL", "Power BI", "DAX", "Data Cleaning", "Data Validation"],
-  },
+  { name: "Generative AI & RAG", description: "Grounded generation and hybrid retrieval pipelines.", evidence: "MedFlow · MedicalPlab", skills: ["RAG", "LLM APIs", "Prompt Engineering", "Grounded Generation", "BGE Embeddings", "ChromaDB", "BM25", "RRF"] },
+  { name: "AI Evaluation & Safety", description: "Retrieval measurement, claim checks and fail-closed behavior.", evidence: "MedFlow evaluation · MedicalPlab SAFE_FALLBACK", skills: ["Precision@K", "Hit@K", "MRR", "Citation Validation", "Claim Verification", "NLI Verification", "Safety Guardrails", "Fail-Closed Fallbacks"] },
+  { name: "Machine Learning & Vision", description: "Model development for predictive and visual systems.", evidence: "Smart Basket · Code AI Proctor", skills: ["PyTorch", "TensorFlow", "YOLO", "OpenCV", "Deep Learning", "CNNs", "NLP", "Object Detection"] },
+  { name: "Backend, Data & BI", description: "Services, analysis and observable delivery surfaces.", evidence: "FastAPI systems · VOLTIX HR analytics", skills: ["Python", "FastAPI", "REST APIs", "SQL", "Pandas", "Power BI", "DAX", "MLflow"] },
+  { name: "Deployment, Edge & Tools", description: "Static, containerized and on-device delivery.", evidence: "Raspberry Pi 5 edge inference · portfolio static export", skills: ["Docker", "Git", "GitHub", "Azure AI", "Raspberry Pi 5", "ONNX Runtime", "Firebase", "Flutter", "Next.js", "Arduino", "C++"] },
 ];

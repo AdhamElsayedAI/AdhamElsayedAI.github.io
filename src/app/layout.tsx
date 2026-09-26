@@ -1,8 +1,20 @@
 import type { Metadata, Viewport } from "next";
+import { Archivo, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import "./cinematic-v5.css";
-import "./ux-repair.css";
 import { ThemeProvider, themeBootstrapScript } from "@/components/ThemeProvider";
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-mono",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
@@ -57,8 +69,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#07100f" },
-    { media: "(prefers-color-scheme: light)", color: "#f2f8f6" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0d0c" },
+    { media: "(prefers-color-scheme: light)", color: "#f2f0e8" },
   ],
 };
 
@@ -91,7 +103,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   const buildSha = process.env.NEXT_PUBLIC_BUILD_SHA ?? "local";
 
   return (
-    <html lang="en" className="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" className={`${archivo.variable} ${ibmPlexMono.variable} dark`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootstrapScript }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
