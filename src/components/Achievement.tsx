@@ -7,7 +7,7 @@ export function Achievement() {
   return (
     <section id="achievements" className="section-shell el-recognition-section">
       <div className="site-container">
-        <SectionHeading number="04" eyebrow="RECOGNITION" title="A team result, stated precisely." description="Team MedFlow earned 2nd Place at AI Hackathon Mansoura 2026." />
+        <SectionHeading number="02" eyebrow="RECOGNITION" title="A team result, stated precisely." description="Team MedFlow earned 2nd Place at AI Hackathon Mansoura 2026." />
         <div className="el-recognition-grid">
           <figure>
             <img src={assetPath("/images/medflow/team-photo.png")} alt="Team MedFlow at CREATIVA Innovation Hubs after the Mansoura AI Hackathon" width="1400" height="900" loading="lazy" />

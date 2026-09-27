@@ -8,7 +8,7 @@ export function Certifications() {
   return (
     <section id="certifications" className="section-shell el-credentials-section">
       <div className="site-container">
-        <SectionHeading number="07" eyebrow="CREDENTIALS" title="Supporting evidence, not the headline." description="Selected learning relevant to the systems above, followed by a compact record of additional training." />
+        <SectionHeading number="06" eyebrow="CREDENTIALS" title="Supporting evidence, not the headline." description="Selected learning relevant to the systems above, followed by a compact record of additional training." />
         <div className="el-credential-ledger">
           {selected.map((certificate, index) => (
             <article key={`${certificate.title}-${certificate.issuer}`}>

@@ -17,6 +17,8 @@ export const medflow = {
   subtitle: "Evidence-Grounded Clinical AI",
   category: "GENERATIVE AI / RAG / EVALUATION",
   description: "Hybrid retrieval, evidence sufficiency gates, controlled response states and citation validation assembled into one auditable clinical AI prototype.",
+  responsibility: "I built the retrieval experiments, evidence gates, grounded response states, validation path and product integration within Team MedFlow.",
+  metricContext: "Retrieval engineering + grounded validation — not clinical accuracy.",
   technologies: ["BGE", "BM25", "RRF", "ChromaDB", "FastAPI", "Groq", "Python"],
   github: "https://github.com/AdhamElsayedAI/MedFlow-AI",
   images: [
@@ -40,6 +42,8 @@ export const medicalplab = {
   subtitle: "Adaptive Evidence-Grounded Medical Learning",
   category: "ADAPTIVE LEARNING / GROUNDED GENAI",
   description: "A production-oriented learning platform joining learner-state signals, bounded Socratic remediation, transfer verification and an evidence engine with deterministic safety boundaries.",
+  responsibility: "I designed and built the learner-state loop, shared evidence engine, safety boundaries, API services and product handoff across web and mobile.",
+  metricContext: "Software verification + bounded flow signals — not educational efficacy.",
   technologies: ["BM25", "Dense Retrieval", "RRF", "Cross-Encoder", "NLI", "FastAPI", "Next.js", "Three.js"],
   github: "https://github.com/AdhamElsayedAI/MedicalPlab",
   images: [
@@ -52,6 +56,7 @@ export const medicalplab = {
   ],
   architecture: ["Question attempt", "Learner-state signal", "3-turn remediation", "Transfer check", "Hybrid retrieval", "Cross-encoder", "Provenance + NLI", "Grounded tutor / SAFE_FALLBACK"],
   proofs: [
+    { value: "3-turn", label: "bounded remediation", note: "Probe → Guide → Consolidate" },
     { value: "23/23", label: "backend integration tests", note: "tests/integration · repository HEAD" },
     { value: "12/12", label: "mobile contract tests", note: "frozen API contract verification" },
     { value: "8/8", label: "CI quality-gate jobs", note: "engineering confidence gate" },
@@ -85,5 +90,4 @@ export const supportingProjects: Project[] = [
 
 export const legacyProjects: Project[] = [
   { title: "Telco Customer Churn", category: "MACHINE LEARNING / BIG DATA", description: "PySpark pipeline for churn analysis and prediction using encoded customer attributes and logistic regression.", technologies: ["PySpark", "MLlib", "Logistic Regression"], github: "https://github.com/AdhamElsayedAI/Telco-Customer-Churn-Project", signal: "ARCHIVE / 01" },
-  { title: "Student Performance Analysis", category: "DATA ANALYTICS", description: "Exploratory analysis of academic outcomes and study behavior using reproducible Python workflows.", technologies: ["Python", "Pandas", "Matplotlib"], github: "https://github.com/AdhamElsayedAI/Student-Performance-Analysis", signal: "ARCHIVE / 02" },
 ];

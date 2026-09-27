@@ -62,6 +62,9 @@ jobs:
 
           npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="1440,900" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/" qa-screenshots/home-dark-1440x900.png
           npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="1440,900" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/" qa-screenshots/home-light-1440x900.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="1280,800" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/" qa-screenshots/home-dark-1280x800.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="768,1024" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/" qa-screenshots/home-dark-768x1024.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/" qa-screenshots/home-dark-390x844.png
           npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#about" qa-screenshots/about-dark-390x844.png
           npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#about" qa-screenshots/about-light-390x844.png
           npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#skills" qa-screenshots/stack-dark-390x844.png
@@ -70,6 +73,10 @@ jobs:
           npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#certifications" qa-screenshots/credentials-light-390x844.png
           npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#projects" qa-screenshots/projects-dark-390x844.png
           npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/#projects" qa-screenshots/projects-light-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="1280,800" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/projects/medflow/" qa-screenshots/medflow-dark-1280x800.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/projects/medflow/" qa-screenshots/medflow-light-390x844.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=dark --viewport-size="1280,800" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/projects/medicalplab/" qa-screenshots/medicalplab-dark-1280x800.png
+          npx --yes playwright@1.55.0 screenshot --browser=chromium --color-scheme=light --viewport-size="390,844" --wait-for-timeout=1200             "http://127.0.0.1:4173/v5-ux-preview/projects/medicalplab/" qa-screenshots/medicalplab-light-390x844.png
 
       - name: Checkout live branch
         uses: actions/checkout@v4

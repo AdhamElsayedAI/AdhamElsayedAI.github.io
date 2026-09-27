@@ -56,7 +56,7 @@ export function Navbar() {
         </div>
         <AnimatePresence>
           {open ? (
-            <motion.div className="cin-mobile-menu" initial={{ clipPath: "inset(0 0 100% 0)" }} animate={{ clipPath: "inset(0 0 0% 0)" }} exit={{ clipPath: "inset(0 0 100% 0)" }} transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}>
+            <motion.div className="cin-mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }}>
               <nav aria-label="Mobile navigation">
                 {navItems.map((item, index) => <a key={item.href} href={item.href} onClick={() => setOpen(false)}><span>{String(index + 1).padStart(2, "0")}</span>{item.label}<ArrowUpRight aria-hidden size={18} /></a>)}
               </nav>

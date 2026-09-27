@@ -6,7 +6,7 @@ export function Experience() {
   return (
     <section id="experience" className="section-shell el-experience-section">
       <div className="site-container">
-        <SectionHeading number="03" eyebrow="EXPERIENCE" title="Work and applied training." description="Professional delivery, programs and technical training are separated clearly so the scope of each experience remains credible." />
+        <SectionHeading number="05" eyebrow="EXPERIENCE" title="Work and applied training." description="Professional delivery, programs and technical training are separated clearly so the scope of each experience remains credible." />
         <div className="el-experience-ledger">
           {experience.map((item, index) => (
             <article key={item.organization + item.period} className={index === 0 ? "is-primary" : ""}>

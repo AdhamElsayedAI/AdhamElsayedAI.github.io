@@ -16,12 +16,12 @@ export default function HomePage() {
       <Navbar />
       <main id="main-content">
         <Hero />
-        <Projects />
-        <Experience />
         <Achievement />
-        <About />
+        <Projects />
         <Skills />
+        <Experience />
         <Certifications />
+        <About />
         <Contact />
       </main>
       <Footer />

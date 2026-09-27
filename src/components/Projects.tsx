@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ArrowUpRight, Github } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -9,9 +8,9 @@ import { SectionHeading } from "./SectionHeading";
 
 type Flagship = typeof medflow | typeof medicalplab;
 
-function Architecture({ steps }: { steps: readonly string[] }) {
+function Architecture({ steps, flow = false }: { steps: readonly string[]; flow?: boolean }) {
   return (
-    <div className="el-architecture" aria-label={`System flow: ${steps.join(" to ")}`}>
+    <div className={`el-architecture ${flow ? "is-flow" : ""}`} aria-label={`System flow: ${steps.join(" to ")}`}>
       {steps.map((step, index) => (
         <div key={step}>
           <span>{String(index + 1).padStart(2, "0")}</span>
@@ -25,15 +24,17 @@ function Architecture({ steps }: { steps: readonly string[] }) {
 
 function FlagshipProject({ project, href, number }: { project: Flagship; href: string; number: string }) {
   const [activeImage, setActiveImage] = useState(0);
-  const reduced = useReducedMotion();
   const metrics = "metrics" in project ? project.metrics : project.proofs;
 
   return (
-    <article className="el-flagship">
+    <article className={`el-flagship is-${project.title.toLowerCase()}`}>
       <header className="el-flagship-header">
         <div><span>{number}</span><p>{project.category}</p></div>
         <div><h3>{project.title}</h3><p>{project.subtitle}</p></div>
-        <p>{project.description}</p>
+        <div className="el-project-overview">
+          <p>{project.description}</p>
+          <p><span>MY ROLE</span>{project.responsibility}</p>
+        </div>
         <div className="el-project-actions">
           <Link href={href}>Full case study <ArrowUpRight size={15} aria-hidden /></Link>
           <a href={project.github} target="_blank" rel="noreferrer"><Github size={15} aria-hidden /> Repository</a>
@@ -55,11 +56,12 @@ function FlagshipProject({ project, href, number }: { project: Flagship; href: s
         </div>
       </div>
 
+      <div className="el-metric-context"><span>ENGINEERING EVIDENCE</span><p>{project.metricContext}</p></div>
       <div className="el-metric-ledger">
         {metrics.map((metric, index) => (
-          <motion.div key={metric.label} initial={reduced ? undefined : { opacity: 0, y: 12 }} whileInView={reduced ? undefined : { opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.7 }} transition={{ duration: 0.42, delay: index * 0.06 }}>
+          <div key={metric.label}>
             <span>{String(index + 1).padStart(2, "0")}</span><strong>{metric.value}</strong><h4>{metric.label}</h4><p>{metric.note}</p>
-          </motion.div>
+          </div>
         ))}
       </div>
 
@@ -73,7 +75,7 @@ export function Projects() {
   return (
     <section id="projects" className="section-shell el-projects-section">
       <div className="site-container">
-        <SectionHeading number="02" eyebrow="SELECTED WORK" title="Systems with inspectable evidence." description="Flagship work is documented through product interfaces, system architecture and metrics that describe the engineering—not a claim of clinical or educational efficacy." />
+        <SectionHeading number="03" eyebrow="SELECTED WORK" title="Systems with inspectable evidence." description="Flagship work is documented through product interfaces, system architecture and metrics that describe the engineering—not a claim of clinical or educational efficacy." />
         <div className="el-flagship-list">
           <FlagshipProject project={medflow} href="/projects/medflow/" number="PRIMARY / 01" />
           <FlagshipProject project={medicalplab} href="/projects/medicalplab/" number="PRIMARY / 02" />
@@ -85,7 +87,7 @@ export function Projects() {
             <article key={project.title}>
               <div className="el-supporting-title"><span>{project.signal}</span><p>{project.category}</p><h3>{project.title}</h3><p>{project.description}</p></div>
               {project.metrics ? <div className="el-supporting-metrics">{project.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span><p>{metric.note}</p></div>)}</div> : null}
-              {project.flow ? <div className="el-flow-diagram"><span>SYSTEM FLOW DIAGRAM</span><Architecture steps={project.flow} /></div> : null}
+              {project.flow ? <div className="el-flow-diagram"><span>SYSTEM FLOW DIAGRAM</span><Architecture steps={project.flow} flow /></div> : null}
               <div className="el-tech-row">{project.technologies.map((technology) => <b key={technology}>{technology}</b>)}</div>
               <a className="el-repo-link" href={project.github} target="_blank" rel="noreferrer"><Github size={15} /> Examine repository <ArrowUpRight size={14} /></a>
             </article>

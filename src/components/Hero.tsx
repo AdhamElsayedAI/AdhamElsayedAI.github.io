@@ -35,16 +35,16 @@ export function Hero() {
         className="el-hero-shell"
         initial={reduced ? undefined : "hidden"}
         animate={reduced ? undefined : "visible"}
-        transition={{ staggerChildren: 0.09, delayChildren: 0.05 }}
+        transition={{ staggerChildren: 0.04 }}
       >
-        <motion.div className="el-hero-index" variants={enter} transition={{ duration: 0.55 }}>
+        <motion.div className="el-hero-index" variants={enter} transition={{ duration: 0.32 }}>
           <span>PORTFOLIO / 2026</span>
           <span>AI ENGINEERING</span>
           <span>MANSOURA, EGYPT</span>
         </motion.div>
 
         <div className="el-hero-main">
-          <motion.div className="el-hero-copy" variants={enter} transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}>
+          <motion.div className="el-hero-copy" variants={enter} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
             <p className="el-kicker">Evidence-grounded AI systems</p>
             <h1><span>Adham</span><span>Elsayed</span></h1>
             <p className="el-positioning">
@@ -59,7 +59,7 @@ export function Hero() {
             </div>
           </motion.div>
 
-          <motion.aside className="el-identity" variants={enter} transition={{ duration: 0.72, delay: 0.08, ease: [0.22, 1, 0.36, 1] }} aria-label="Adham Elsayed profile">
+          <motion.aside className="el-identity" variants={enter} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }} aria-label="Adham Elsayed profile">
             <div className="el-portrait">
               <img src={profile.portrait} alt="Adham Elsayed wearing a light gray suit" width="1254" height="1254" fetchPriority="high" />
               <span aria-hidden>AE / 01</span>
@@ -77,19 +77,14 @@ export function Hero() {
           </motion.aside>
         </div>
 
-        <motion.div className="el-evidence" variants={enter} transition={{ duration: 0.68, delay: 0.18 }} aria-label="Selected verified evidence">
+        <motion.div className="el-evidence" variants={enter} transition={{ duration: 0.35 }} aria-label="Selected verified evidence">
           {evidence.map((item, index) => (
-            <motion.article
-              key={item.label}
-              initial={reduced ? undefined : { opacity: 0, y: 16 }}
-              animate={reduced ? undefined : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.42 + index * 0.1 }}
-            >
+            <article key={item.label}>
               <span>{String(index + 1).padStart(2, "0")}</span>
               <strong>{item.value}</strong>
               <h2>{item.label}</h2>
               <p>{item.context}</p>
-            </motion.article>
+            </article>
           ))}
         </motion.div>
       </motion.div>

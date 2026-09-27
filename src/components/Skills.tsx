@@ -5,7 +5,7 @@ export function Skills() {
   return (
     <section id="skills" className="section-shell el-skills-section">
       <div className="site-container">
-        <SectionHeading number="06" eyebrow="CAPABILITIES" title="Capabilities tied to shipped systems." description="Tools are grouped by the engineering job they perform—not by logo familiarity or self-scored proficiency." />
+        <SectionHeading number="04" eyebrow="CAPABILITIES" title="Capabilities tied to shipped systems." description="Tools are grouped by the engineering job they perform—not by logo familiarity or self-scored proficiency." />
         <div className="el-capability-ledger">
           {skillGroups.map((group, index) => (
             <article key={group.name}>

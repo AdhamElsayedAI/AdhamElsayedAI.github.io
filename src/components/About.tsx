@@ -13,7 +13,7 @@ export function About() {
   return (
     <section id="about" className="section-shell el-about-section">
       <div className="site-container">
-        <SectionHeading number="05" eyebrow="ABOUT" title="Beyond the model." />
+        <SectionHeading number="07" eyebrow="ABOUT" title="Beyond the model." />
         <div className="el-about-editorial">
           <div className="el-about-copy">
             <p className="el-about-lead">Final-year Artificial Intelligence Engineering student at Mansoura University.</p>
