@@ -1,4 +1,4 @@
-:HL["/_next/static/chunks/3ik0rz1lo8euj.css","style"]
-:HL["/images/adham-portrait-original.jpg","image",{"fetchPriority":"high"}]
+:HL["/_next/static/chunks/1vwgfmyswq-3o.css","style"]
+:HL["/images/adham-portrait-cutout.png","image",{"fetchPriority":"high"}]
 :HL["/images/medflow/team-photo.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"XkeJa7qQG_nuLAjVWQu-1"}
+0:{"tree":{"name":"","param":null,"prefetchHints":4176,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":4256,"slots":null}}},"staleTime":300,"buildId":"absZWxAtKL7XkHoRxOzn3"}
