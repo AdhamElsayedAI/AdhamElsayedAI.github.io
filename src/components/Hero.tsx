@@ -50,12 +50,18 @@ export function Hero() {
 
           <div className="ref-portrait-wrap">
             <div aria-hidden className="portrait-soft-glow-v7" />
-            <div className="portrait-frame-soft-v7" aria-label="Adham Elsayed portrait">
+            <div className="portrait-frame-soft-v7" aria-label="Adham Elsayed professional portrait">
               <span aria-hidden className="portrait-frame-line-v7" />
               <span aria-hidden className="portrait-frame-corner-v7 portrait-frame-corner-tl-v7" />
               <span aria-hidden className="portrait-frame-corner-v7 portrait-frame-corner-br-v7" />
               <div className="portrait-photo-clean-v7">
-                <img src={profile.portrait} alt="Adham Elsayed in his original light gray suit portrait" width="1254" height="1254" fetchPriority="high" />
+                <img
+                  src={profile.portrait}
+                  alt="Adham Elsayed wearing a black suit and white shirt"
+                  width="1122"
+                  height="1402"
+                  fetchPriority="high"
+                />
               </div>
             </div>
           </div>

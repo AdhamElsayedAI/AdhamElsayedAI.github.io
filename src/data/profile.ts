@@ -11,7 +11,7 @@ export const profile = {
   github: "https://github.com/AdhamElsayedAI",
   linkedin: "https://www.linkedin.com/in/adham-elsayed-",
   cv: assetPath("/Adham_Elsayed_CV.pdf"),
-  portrait: assetPath("/images/adham-transparent-v2.png"),
+  portrait: assetPath("/images/adham-portrait-original.jpg"),
   website: "https://adhamelsayedai.github.io/",
 } as const;
 
