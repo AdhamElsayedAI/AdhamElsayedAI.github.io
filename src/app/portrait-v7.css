@@ -242,32 +242,36 @@
 
 @media (max-width: 1023px) {
   .ref-portrait-wrap {
-    min-height: 27rem;
+    order: 0;
+    min-height: 24rem;
+    overflow: hidden;
     overflow: clip;
   }
 
   .portrait-frame-soft-v7 {
-    width: clamp(17.5rem, 50vw, 20.5rem);
+    width: clamp(16.75rem, 45vw, 19.25rem);
   }
 }
 
 @media (max-width: 640px) {
   .ref-portrait-wrap {
-    min-height: 22rem;
+    order: 0;
+    min-height: 19.5rem;
     width: 100%;
     max-width: 100%;
+    overflow: hidden;
     overflow: clip;
   }
 
   .portrait-soft-glow-v7 {
-    width: min(76vw, 19rem);
+    width: min(70vw, 17.5rem);
     filter: blur(34px);
-    opacity: .58;
+    opacity: .52;
   }
 
   .portrait-frame-soft-v7 {
-    width: min(70vw, 17.4rem);
-    max-width: calc(100% - 1rem);
+    width: min(64vw, 16.2rem);
+    max-width: calc(100% - 1.25rem);
     border-radius: 1.5rem;
   }
 

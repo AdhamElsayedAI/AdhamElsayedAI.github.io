@@ -149,18 +149,6 @@
   pointer-events: none;
 }
 
-.contact-grid-motion {
-  position: absolute;
-  inset: -28%;
-  opacity: .15;
-  background-image:
-    linear-gradient(rgb(255 255 255 / .055) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / .055) 1px, transparent 1px);
-  background-size: 34px 34px;
-  mask-image: radial-gradient(circle at 48% 48%, black 28%, transparent 76%);
-  animation: contactGridDrift 18s linear infinite;
-}
-
 .contact-beam-motion {
   position: absolute;
   top: -35%;
@@ -475,11 +463,6 @@
   box-shadow: 0 28px 70px -48px rgb(var(--accent-rgb) / .36);
 }
 
-@keyframes contactGridDrift {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(34px, 34px, 0); }
-}
-
 @keyframes contactBeamSweep {
   0%, 12% { transform: translateX(0) skewX(-16deg); opacity: 0; }
   35% { opacity: .9; }
@@ -535,7 +518,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .contact-grid-motion,
   .contact-beam-motion,
   .contact-orb,
   .contact-ring,
@@ -553,11 +535,172 @@
   }
 }
 
-html.motion-off .contact-grid-motion,
+html.motion-off
 html.motion-off .contact-beam-motion,
 html.motion-off .contact-orb,
 html.motion-off .contact-ring,
 html.motion-off .contact-live-dot::after,
 html.motion-off .contact-primary-action::before {
   animation: none !important;
+}
+
+
+/* Final UI/UX audit refinements */
+
+/* Readability: keep technical labels compact but never microscopic. */
+.project-featured-badges-v5 span,
+.project-card-category-v5,
+.project-tags-v5 span,
+.project-metrics-v5 span,
+.project-metric-note-v5,
+.project-validation-note-v5,
+.experience-period-v5,
+.experience-type-v5,
+.experience-tags-v5 span,
+.issuer-source-label,
+.contact-kicker,
+.contact-focus-pill,
+.contact-direct-note,
+.contact-link-label {
+  font-size: .72rem;
+}
+
+.experience-meta-v5 {
+  font-size: .8rem;
+}
+
+.experience-main-v5 p,
+.experience-card-details-v5 li {
+  font-size: .84rem;
+}
+
+/* Project gallery: 40px touch target while keeping the visual indicator small. */
+.project-gallery-dots-v5 {
+  gap: .08rem;
+}
+
+.project-gallery-dots-v5 button,
+.project-gallery-dots-v5 button.active {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: 0 0 2.5rem;
+}
+
+.project-gallery-dots-v5 button::after {
+  width: .5rem;
+  height: .5rem;
+}
+
+.project-gallery-dots-v5 button.active::after {
+  width: 1.15rem;
+}
+
+/* Skills tabs: explicit horizontal affordance on touch screens. */
+.skill-tabs-shell {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.skill-tabs-strip {
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: .75rem;
+}
+
+.skill-tabs-strip .skill-tab {
+  scroll-snap-align: start;
+}
+
+@media (max-width: 1023px) {
+  .skill-tabs-shell::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2.75rem;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgb(var(--surface-rgb) / .95));
+  }
+}
+
+/* Contact: calmer motion and a true light-mode treatment. */
+.contact-beam-motion {
+  opacity: .64;
+  animation-duration: 11s;
+}
+
+.contact-orb {
+  opacity: .48;
+}
+
+.contact-ring {
+  opacity: .62;
+}
+
+.contact-ring-one,
+.contact-ring-two {
+  animation-duration: 14s;
+}
+
+.light .contact-cta-pro {
+  border-color: rgb(var(--accent-rgb) / .18);
+  background:
+    radial-gradient(circle at 14% 20%, rgb(var(--cyan-rgb) / .07), transparent 34%),
+    radial-gradient(circle at 88% 78%, rgb(var(--accent-rgb) / .055), transparent 32%),
+    linear-gradient(145deg, rgb(255 255 255 / .78), rgb(241 246 249 / .68));
+  box-shadow:
+    0 28px 70px -50px rgb(18 34 48 / .24),
+    inset 0 1px 0 rgb(255 255 255 / .92);
+}
+
+.light .contact-cta-pro::before {
+  background: linear-gradient(
+    115deg,
+    rgb(var(--accent-rgb) / .18),
+    transparent 28%,
+    transparent 72%,
+    rgb(var(--cyan-rgb) / .13)
+  );
+}
+
+.light .contact-kicker {
+  color: var(--accent);
+}
+
+.light .contact-cta-title {
+  color: var(--ink);
+}
+
+.light .contact-cta-copy,
+.light .contact-direct-note {
+  color: var(--muted);
+}
+
+.light .contact-focus-pill {
+  border-color: rgb(var(--line-rgb) / .88);
+  background: rgb(var(--surface-rgb) / .72);
+  color: var(--ink);
+}
+
+.light .contact-ring {
+  border-color: rgb(var(--accent-rgb) / .08);
+}
+
+@media (max-width: 640px) {
+  .project-gallery-dots-v5 {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .project-gallery-dots-v5::-webkit-scrollbar {
+    display: none;
+  }
+
+  .contact-focus-pill {
+    font-size: .7rem;
+  }
 }

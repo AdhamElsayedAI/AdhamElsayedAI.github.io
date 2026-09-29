@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { navItems, profile } from "@/data/profile";
 import { useTheme } from "./ThemeProvider";
 
-const tones = ["ref-nav-red", "ref-nav-gold", "ref-nav-neon"];
+const activeNavClass = "ref-nav-neon";
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -33,7 +33,9 @@ export function Navbar() {
       .filter((section): section is HTMLElement => Boolean(section));
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
         if (visible?.target.id) setActive(visible.target.id);
       },
       { rootMargin: "-18% 0px -68% 0px", threshold: [0, 0.2, 0.55] },
@@ -79,15 +81,15 @@ export function Navbar() {
           <span className="hidden sm:inline">adham.elsayed</span>
         </a>
 
-        <nav className="ml-auto hidden items-center gap-0.5 lg:flex" aria-label="Primary navigation">
-          {navItems.map((item, index) => {
+        <nav className="ml-auto hidden items-center gap-0.5 xl:flex" aria-label="Primary navigation">
+          {navItems.map((item) => {
             const selected = active === item.href.slice(1);
             return (
               <a
                 key={item.href}
                 href={item.href}
                 aria-current={selected ? "page" : undefined}
-                className={`ref-nav-link ${selected ? tones[index % tones.length] : ""}`}
+                className={`ref-nav-link ${selected ? activeNavClass : ""}`}
               >
                 {item.label}
               </a>
@@ -95,7 +97,7 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 lg:ml-3">
+        <div className="ml-auto flex items-center gap-2 xl:ml-3">
           <button className="ref-command hidden md:inline-flex" onClick={() => window.dispatchEvent(new CustomEvent("command:open"))} aria-label="Open command palette">
             <Command className="h-3.5 w-3.5" /> <span>Ctrl K</span>
           </button>
@@ -108,10 +110,16 @@ export function Navbar() {
           <button className="icon-button hidden md:grid" onClick={toggleTheme} aria-label="Toggle theme">
             {mounted && theme === "light" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <a href={profile.cv} download className="button-primary hidden gap-2 lg:inline-flex">
+          <a href={profile.cv} download className="button-primary hidden gap-2 xl:inline-flex">
             <Download className="h-3.5 w-3.5" /> Resume
           </a>
-          <button className="icon-button lg:hidden" onClick={() => setMenuOpen((v) => !v)} aria-label={menuOpen ? "Close menu" : "Open menu"} aria-expanded={menuOpen}>
+          <button
+            className="icon-button xl:hidden"
+            onClick={() => setMenuOpen((value) => !value)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
+          >
             {menuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
@@ -120,21 +128,30 @@ export function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            id="mobile-navigation"
             initial={reduced ? false : { opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={reduced ? undefined : { opacity: 0, y: -8 }}
-            className="border-t border-line bg-surface lg:hidden"
+            className="border-t border-line bg-surface xl:hidden"
           >
-            <nav className="mx-auto grid max-w-6xl grid-cols-2 gap-1 px-4 py-4 sm:grid-cols-4">
-              {navItems.map((item, index) => {
+            <nav className="mx-auto grid max-w-6xl grid-cols-2 gap-1 px-4 py-4 sm:grid-cols-4" aria-label="Mobile navigation">
+              {navItems.map((item) => {
                 const selected = active === item.href.slice(1);
                 return (
-                  <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className={`rounded-md px-3 py-2 text-sm ${selected ? tones[index % tones.length] : "text-muted hover:bg-elevated hover:text-ink"}`}>
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMenuOpen(false)}
+                    aria-current={selected ? "page" : undefined}
+                    className={`rounded-md px-3 py-2 text-sm ${selected ? activeNavClass : "text-muted hover:bg-elevated hover:text-ink"}`}
+                  >
                     {item.label}
                   </a>
                 );
               })}
-              <a href={profile.cv} download className="button-primary col-span-2 mt-2 sm:col-span-1"><Download className="h-3.5 w-3.5" /> Resume</a>
+              <a href={profile.cv} download className="button-primary col-span-2 mt-2 sm:col-span-1">
+                <Download className="h-3.5 w-3.5" /> Resume
+              </a>
               <button className="button-secondary mt-2" onClick={toggleTheme}>Theme</button>
               <button className="button-secondary mt-2" onClick={toggleMotion}>Motion: {motionOn ? "on" : "off"}</button>
               <button className="button-secondary mt-2" onClick={toggleGlow}>Glow: {glow ? "on" : "off"}</button>

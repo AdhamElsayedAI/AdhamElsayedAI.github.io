@@ -1,22 +1,18 @@
-/* V13 — section headings only. Mouse-following dot-matrix letters with layered parallax. */
+/* V14 — calmer section headings. Static dotted wordmark + Reveal entrance only. */
 
 .section-heading-v5 {
-  margin-bottom: clamp(2.7rem, 5vw, 4.3rem);
+  margin-bottom: clamp(2.5rem, 4.5vw, 3.8rem);
 }
 
 .section-dot-banner {
   position: relative;
-  min-height: clamp(8.5rem, 13vw, 11.5rem);
+  min-height: clamp(4.8rem, 8.5vw, 6.8rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
+  overflow: hidden;
   isolation: isolate;
   text-align: center;
-  perspective: 900px;
 }
 
 .section-dot-banner::before {
@@ -24,205 +20,82 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(66rem, 90vw);
-  height: 9.5rem;
+  width: min(58rem, 86vw);
+  height: 6.5rem;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgb(var(--banner-rgb) / .16), transparent 72%);
-  filter: blur(30px);
-  opacity: .86;
+  background: radial-gradient(ellipse at center, rgb(var(--banner-rgb) / .11), transparent 72%);
+  filter: blur(26px);
+  opacity: .64;
   pointer-events: none;
-  animation: sectionBannerAuraV13 4.8s ease-in-out infinite;
 }
 
 .section-dot-banner::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: .25rem;
-  width: min(48rem, 74%);
+  bottom: .3rem;
+  width: min(42rem, 72%);
   height: 1px;
   transform: translateX(-50%);
-  background: linear-gradient(90deg, transparent, rgb(var(--banner-rgb) / .62), transparent);
-  opacity: .55;
+  background: linear-gradient(90deg, transparent, rgb(var(--banner-rgb) / .38), transparent);
+  opacity: .56;
   pointer-events: none;
 }
 
-.section-dot-word-interactive {
+.section-wordmark {
   position: relative;
-  z-index: 2;
-  width: min(100%, 1120px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(.02rem, .24vw, .18rem);
-  transform-style: preserve-3d;
-  transition: transform 180ms cubic-bezier(.2,.7,.2,1);
-  will-change: transform;
-  filter: drop-shadow(0 0 18px rgb(var(--banner-rgb) / .14));
-}
-
-.section-letter-svg {
-  display: block;
-  flex: 1 1 0;
-  min-width: 0;
-  max-width: 92px;
-  height: auto;
-  overflow: visible;
-  transform-style: preserve-3d;
-  transition: transform 190ms cubic-bezier(.2,.7,.2,1), filter 190ms ease;
-  will-change: transform;
-}
-
-.section-letter-svg:hover {
-  filter: drop-shadow(0 0 12px rgb(var(--banner-rgb) / .45));
-}
-
-.section-letter-mask-text,
-.section-letter-silhouette {
+  z-index: 1;
+  max-width: 100%;
+  white-space: nowrap;
   font-family: Inter, Aptos, "Segoe UI", system-ui, sans-serif;
-  font-size: 124px;
+  font-size: clamp(1.65rem, 8.2vw, 5.4rem);
   font-weight: 950;
-  letter-spacing: -4px;
-}
-
-.section-letter-mask-text {
-  fill: white;
-  stroke: white;
-  stroke-width: 1.35px;
-}
-
-.section-letter-silhouette {
-  fill: rgb(var(--banner-rgb) / .035);
-  stroke: rgb(var(--banner-rgb) / .15);
-  stroke-width: 1px;
-}
-
-.section-svg-dot-primary { fill: rgb(var(--banner-rgb)); }
-.section-svg-dot-secondary { fill: rgb(var(--cyan-rgb)); }
-.section-svg-dot-tertiary { fill: rgb(var(--warm-rgb)); }
-.section-svg-dot-soft { opacity: .84; }
-
-.section-letter-dot-field {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: sectionLetterFieldFloatV13 3.8s ease-in-out infinite;
-}
-
-.section-letter-dot-field rect {
-  animation: sectionLetterTextureDriftV13 5.2s linear infinite;
-}
-
-.section-letter-scan-layer {
-  mix-blend-mode: screen;
-  pointer-events: none;
-}
-
-.section-letter-scan {
-  fill: rgb(255 255 255 / .22);
-  filter: blur(9px);
-  opacity: 0;
-  animation: sectionLetterScanV13 4.1s cubic-bezier(.42,0,.24,1) infinite;
+  line-height: .9;
+  letter-spacing: -.065em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(var(--banner-rgb) / .16);
+  background-image:
+    radial-gradient(circle, rgb(var(--banner-rgb) / .74) 1.05px, transparent 1.3px),
+    linear-gradient(90deg, rgb(var(--banner-rgb) / .48), rgb(var(--cyan-rgb) / .68));
+  background-size: 7px 7px, 100% 100%;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  opacity: .76;
+  filter: drop-shadow(0 0 16px rgb(var(--banner-rgb) / .10));
 }
 
 .section-heading-v5[data-tone="cyan"] { --banner-rgb: 34 211 238; }
-.section-heading-v5[data-tone="amber"] { --banner-rgb: 251 191 36; }
 .section-heading-v5[data-tone="gold"] { --banner-rgb: 250 204 21; }
-.section-heading-v5[data-tone="rose"] { --banner-rgb: 251 113 133; }
-.section-heading-v5[data-tone="violet"] { --banner-rgb: 196 181 253; }
-.section-heading-v5[data-tone="lime"] { --banner-rgb: 163 230 53; }
-.section-heading-v5[data-tone="blue"] { --banner-rgb: 96 165 250; }
 
 .section-heading-v5-copy {
-  margin-top: .85rem;
-}
-
-@keyframes sectionLetterFieldFloatV13 {
-  0%, 100% { transform: translateY(0) scale(1); opacity: .9; }
-  35% { transform: translateY(-2.2px) scale(1.008); opacity: 1; }
-  68% { transform: translateY(1.6px) scale(.997); opacity: .91; }
-}
-
-@keyframes sectionLetterTextureDriftV13 {
-  0% { transform: translate3d(-7px,-5px,0); }
-  25% { transform: translate3d(5px,-9px,0); }
-  50% { transform: translate3d(10px,3px,0); }
-  75% { transform: translate3d(-3px,9px,0); }
-  100% { transform: translate3d(-7px,-5px,0); }
-}
-
-@keyframes sectionLetterScanV13 {
-  0%, 10% { transform: translateX(0); opacity: 0; }
-  22% { opacity: .18; }
-  46% { opacity: .72; }
-  72% { opacity: .35; }
-  88%, 100% { transform: translateX(150px); opacity: 0; }
-}
-
-@keyframes sectionBannerAuraV13 {
-  0%, 100% { opacity: .64; transform: translate(-50%, -50%) scale(.96); }
-  50% { opacity: .94; transform: translate(-50%, -50%) scale(1.05); }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .section-dot-banner-interactive {
-    cursor: default;
-  }
-}
-
-@media (max-width: 900px) {
-  .section-dot-banner {
-    min-height: clamp(7rem, 17vw, 9.5rem);
-  }
-  .section-letter-mask-text,
-  .section-letter-silhouette {
-    font-size: 116px;
-  }
+  margin-top: .7rem;
 }
 
 @media (max-width: 768px) {
+  .section-heading-v5 {
+    margin-bottom: 2.6rem;
+  }
+
   .section-dot-banner {
-    min-height: clamp(6rem, 21vw, 8rem);
-    overflow: hidden;
+    min-height: clamp(4rem, 15vw, 5.4rem);
   }
-  .section-dot-word-interactive {
-    width: 108%;
-    max-width: none !important;
+
+  .section-wordmark {
+    font-size: clamp(1.55rem, 8vw, 3.4rem);
+    background-size: 6px 6px, 100% 100%;
+    letter-spacing: -.055em;
   }
-  .section-letter-mask-text,
-  .section-letter-silhouette {
-    font-size: 108px;
-    letter-spacing: -3px;
+
+  .section-dot-banner::before {
+    height: 4.6rem;
+    opacity: .5;
   }
 }
 
 @media (max-width: 440px) {
-  .section-dot-banner { min-height: 5.5rem; }
-  .section-dot-word-interactive { width: 116%; }
-  .section-letter-mask-text,
-  .section-letter-silhouette { font-size: 101px; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .section-dot-word-interactive,
-  .section-letter-svg,
-  .section-letter-dot-field,
-  .section-letter-dot-field rect,
-  .section-letter-scan,
-  .section-dot-banner::before {
-    animation: none !important;
-    transition: none !important;
+  .section-wordmark {
+    font-size: clamp(1.45rem, 7.7vw, 2.2rem);
   }
-  .section-svg-dot animate { display: none; }
-}
-
-html.motion-off .section-dot-word-interactive,
-html.motion-off .section-letter-svg,
-html.motion-off .section-letter-dot-field,
-html.motion-off .section-letter-dot-field rect,
-html.motion-off .section-letter-scan,
-html.motion-off .section-dot-banner::before {
-  animation: none !important;
-  transition: none !important;
-  transform: none !important;
 }

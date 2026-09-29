@@ -22,22 +22,24 @@ export function Skills() {
         />
 
         <div className="panel-card grid overflow-hidden lg:grid-cols-[310px_1fr]">
-          <div className="scrollbar-none flex gap-2 overflow-x-auto border-b border-line p-3 lg:block lg:space-y-1 lg:border-b-0 lg:border-r lg:p-4">
-            {skillGroups.map((group, index) => (
-              <button
-                key={group.name}
-                type="button"
-                onClick={() => setActiveIndex(index)}
-                aria-pressed={index === activeIndex}
-                className={`skill-tab ${index === activeIndex ? "skill-tab-active" : ""}`}
-              >
-                <span className="font-mono text-[10px] opacity-60">{String(index + 1).padStart(2, "0")}</span>
-                <span className="whitespace-nowrap lg:whitespace-normal">{group.name}</span>
-              </button>
-            ))}
+          <div className="skill-tabs-shell border-b border-line lg:border-b-0 lg:border-r">
+            <div className="skill-tabs-strip scrollbar-none flex gap-2 overflow-x-auto p-3 lg:block lg:space-y-1 lg:overflow-visible lg:p-4">
+              {skillGroups.map((group, index) => (
+                <button
+                  key={group.name}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-pressed={index === activeIndex}
+                  className={`skill-tab ${index === activeIndex ? "skill-tab-active" : ""}`}
+                >
+                  <span className="font-mono text-[11px] opacity-60">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="whitespace-nowrap lg:whitespace-normal">{group.name}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="min-h-[410px] p-5 sm:p-7 lg:p-9">
+          <div className="min-h-0 p-5 sm:p-7 lg:min-h-[410px] lg:p-9">
             <motion.div
               key={active.name}
               initial={reduced ? false : { opacity: 0, y: 10 }}
@@ -46,7 +48,7 @@ export function Skills() {
             >
               <div className="flex flex-col gap-3 border-b border-line pb-6 sm:flex-row sm:items-end sm:justify-between">
                 <div>
-                  <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">Selected discipline</p>
+                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">Selected discipline</p>
                   <h3 className="mt-2 text-2xl font-black tracking-[-0.035em] text-ink sm:text-3xl">{active.name}</h3>
                 </div>
                 <p className="max-w-sm text-sm leading-6 text-muted sm:text-right">{active.description}</p>

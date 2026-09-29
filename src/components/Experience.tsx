@@ -6,8 +6,6 @@ import { useState } from "react";
 import { experience } from "@/data/experience";
 import { SectionHeading } from "./SectionHeading";
 
-const tones = ["cyan", "violet", "gold"] as const;
-
 export function Experience() {
   const [openIndex, setOpenIndex] = useState(0);
   const reduced = useReducedMotion();
@@ -26,9 +24,8 @@ export function Experience() {
           <span className="experience-line-v5" aria-hidden />
           {experience.map((item, index) => {
             const isOpen = openIndex === index;
-            const tone = tones[index % tones.length];
             return (
-              <article key={item.organization + "-" + item.period} className="experience-row-v5" data-tone={tone}>
+              <article key={item.organization + "-" + item.period} className="experience-row-v5" data-tone="cyan">
                 <div className="experience-marker-v5" aria-hidden>
                   <span />
                 </div>
@@ -63,7 +60,7 @@ export function Experience() {
                         initial={reduced ? false : { height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={reduced ? undefined : { height: 0, opacity: 0 }}
-                        transition={{ duration: 0.28 }}
+                        transition={{ duration: 0.24 }}
                         className="overflow-hidden"
                       >
                         <div className="experience-card-details-v5">

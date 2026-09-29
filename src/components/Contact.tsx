@@ -26,7 +26,6 @@ export function Contact() {
         <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
           <Reveal className="contact-cta contact-cta-pro min-w-0 overflow-hidden p-7 sm:p-10">
             <div className="contact-ambient" aria-hidden="true">
-              <span className="contact-grid-motion" />
               <span className="contact-beam-motion" />
               <span className="contact-orb contact-orb-cyan" />
               <span className="contact-orb contact-orb-violet" />
