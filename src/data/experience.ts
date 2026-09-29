@@ -2,6 +2,8 @@ export type ExperienceItem = {
   period: string;
   organization: string;
   role: string;
+  type: "WORK" | "PROGRAM" | "HACKATHON" | "TRAINING";
+  location: string;
   summary: string;
   details: string[];
   tags: string[];
@@ -9,38 +11,72 @@ export type ExperienceItem = {
 
 export const experience: ExperienceItem[] = [
   {
-    period: "Aug 2026",
-    organization: "Orange Digital Center Egypt × Creativa Innovation Hubs",
-    role: "AI Hackathons Participant",
+    period: "Sep 2026",
+    organization: "EraaSoft × iCareer",
+    role: "AI Track Participant — Digitera Bootcamp (YIEP 2026)",
+    type: "PROGRAM",
+    location: "Egypt",
     summary:
-      "Participated in the AI Hackathons program organized through Orange Digital Center Egypt and Creativa Innovation Hubs, with ecosystem partners shown in the official event material.",
+      "Joined the AI track of a career-focused bootcamp centered on workplace simulation and industry-focused preparation.",
     details: [
-      "Worked in a hackathon environment focused on building and presenting applied AI solutions under time constraints.",
-      "Developed stronger skills in teamwork, rapid prototyping, technical communication and solution evaluation.",
+      "Worked through career-focused activities designed around realistic workplace expectations.",
+      "Strengthened practical problem framing, communication and applied AI presentation skills.",
     ],
-    tags: ["AI Hackathon", "Rapid Prototyping", "Teamwork", "Problem Solving", "Presentation"],
+    tags: ["Artificial Intelligence", "Workplace Simulation", "Industry Preparation"],
+  },
+  {
+    period: "2026",
+    organization: "VOLTIX",
+    role: "Data Analysis Intern",
+    type: "WORK",
+    location: "Egypt",
+    summary:
+      "Cleaned and validated workforce data, then delivered a Power BI HR Attrition dashboard with DAX KPIs.",
+    details: [
+      "Cleaned and validated data for 1,470 employees.",
+      "Analyzed overtime, tenure, compensation and satisfaction through an interactive BI workflow.",
+    ],
+    tags: ["Power BI", "DAX", "Data Cleaning", "HR Analytics"],
+  },
+  {
+    period: "Aug 2026",
+    organization: "Orange Digital Center Egypt × CREATIVA Innovation Hubs",
+    role: "AI Hackathons Program Participant",
+    type: "HACKATHON",
+    location: "Egypt",
+    summary:
+      "Applied AI / rapid-prototyping program focused on building and presenting a solution under a fixed hackathon timeline.",
+    details: [
+      "Prototyped and presented an applied AI solution under time constraints.",
+      "Practiced rapid iteration, teamwork, technical communication and solution evaluation.",
+    ],
+    tags: ["Applied AI", "Rapid Prototyping", "Teamwork", "Presentation"],
   },
   {
     period: "Sep 2025 — Jul 2026",
     organization: "Digital Egypt Pioneers Initiative (DEPI)",
-    role: "Machine Learning Engineering Trainee",
+    role: "Machine Learning Engineering Trainee — Microsoft Machine Learning Engineer Track",
+    type: "TRAINING",
+    location: "Egypt — Remote",
     summary:
-      "Microsoft AI & Data Science track focused on the applied machine-learning lifecycle.",
+      "Completed a 10-month AI & Data Science program spanning the applied ML lifecycle from preprocessing through evaluation and MLOps.",
     details: [
-      "Worked across preprocessing, training, validation, evaluation and performance analysis.",
-      "Studied deep learning, scalable data solutions, Azure AI concepts, MLOps, MLflow and Hugging Face.",
+      "Covered preprocessing, model training, evaluation, deep learning, NLP and computer vision.",
+      "Studied Azure AI, MLOps, MLflow and Hugging Face workflows.",
     ],
-    tags: ["Machine Learning", "Deep Learning", "MLOps", "Azure AI", "Hugging Face"],
+    tags: ["Machine Learning", "Deep Learning", "NLP", "Computer Vision", "Azure AI", "MLflow"],
   },
   {
     period: "Jul 2025 — Sep 2025",
     organization: "ST Smart",
     role: "Robotics Software Engineering Trainee",
+    type: "TRAINING",
+    location: "Mansoura, Egypt — Onsite",
     summary:
-      "50+ hours of practical robotics training across control logic and hardware-software integration.",
+      "Completed 50+ hours of robotics training across sensors, motor control, C++/Arduino and hardware-software integration.",
     details: [
-      "Covered sensors, motor control, robot movement logic and C++ Arduino control.",
-      "Completed more than 20 simulation scenarios for real-time robotic decisions.",
+      "Worked with sensors, motor control and C++/Arduino control logic.",
+      "Tested 20+ simulation scenarios in object tracking and real-time robotic decisions.",
     ],
     tags: ["Robotics", "C++", "Arduino", "Sensors", "Real-time Control"],
   },

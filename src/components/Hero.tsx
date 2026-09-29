@@ -29,9 +29,9 @@ export function Hero() {
                 <span>AI ENGINEER</span>
               </div>
               <div className="ref-terminal-body">
-                <p><span className="ref-prompt">$</span> focus <span className="ref-terminal-gold">Generative AI · RAG · Computer Vision</span></p>
-                <p><span className="ref-prompt">$</span> build <span className="text-muted">models → evaluation → APIs → products</span></p>
-                <p><span className="ref-prompt">$</span> latest <span className="ref-terminal-red">2nd Place · Mansoura AI Hackathon 2026</span></p>
+                <p><span className="ref-prompt">$</span> focus <span className="ref-terminal-gold">Generative AI · ML · Computer Vision</span></p>
+                <p><span className="ref-prompt">$</span> build <span className="text-muted">retrieval → evaluation → APIs → deployment</span></p>
+                <p><span className="ref-prompt">$</span> latest <span className="ref-terminal-red">2nd Place · AI Hackathon Mansoura 2026</span></p>
               </div>
             </div>
 
@@ -43,7 +43,7 @@ export function Hero() {
               <div className="flex items-center gap-2">
                 <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"><Github className="h-4 w-4" /></a>
                 <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"><Linkedin className="h-4 w-4" /></a>
-                <a href={`mailto:${profile.email}`} aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"><Mail className="h-4 w-4" /></a>
+                <a href={"mailto:" + profile.email} aria-label="Email" className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition-colors hover:border-accent hover:text-accent"><Mail className="h-4 w-4" /></a>
               </div>
             </div>
           </div>

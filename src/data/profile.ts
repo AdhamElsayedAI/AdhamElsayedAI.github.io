@@ -3,11 +3,11 @@ import { assetPath } from "@/lib/assetPath";
 export const profile = {
   name: "Adham Elsayed",
   role: "AI Engineer",
-  tagline: "AI Engineer | Generative AI · RAG · Computer Vision",
+  tagline: "AI Engineer | Generative AI, Machine Learning & Computer Vision",
   intro:
-    "I build intelligent systems that connect AI models with real-world applications — from evidence-grounded GenAI and RAG systems to computer vision and edge AI.",
+    "Final-year AI Engineering student building complete AI systems across evidence-grounded GenAI/RAG, machine learning, computer vision, evaluation and edge deployment.",
   email: "adhamelsayed515@gmail.com",
-  location: "Egypt",
+  location: "Mansoura, Egypt",
   github: "https://github.com/AdhamElsayedAI",
   linkedin: "https://www.linkedin.com/in/adham-elsayed-",
   cv: assetPath("/Adham_Elsayed_CV.pdf"),
@@ -29,15 +29,15 @@ export const navItems = [
 export const heroTags = [
   "Generative AI",
   "RAG",
+  "Machine Learning",
   "Computer Vision",
-  "LLM APIs",
-  "AI Agents",
+  "AI Evaluation",
   "Edge AI",
 ];
 
 export const stats = [
-  { value: "2nd", label: "Mansoura AI Hackathon 2026" },
-  { value: "5", label: "Featured AI systems" },
-  { value: "1,470", label: "MedFlow indexed chunks" },
+  { value: "2nd", label: "AI Hackathon Mansoura 2026" },
+  { value: "4", label: "Featured AI systems" },
+  { value: "7/7", label: "MedFlow grounded cases" },
   { value: "2027", label: "Expected graduation" },
 ];

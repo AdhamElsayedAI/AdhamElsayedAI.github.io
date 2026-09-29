@@ -18,8 +18,8 @@ export function Experience() {
         <SectionHeading
           number="05"
           eyebrow="Experience"
-          title="Training and applied AI experience."
-          description="Relevant technical programs, hackathon work and hands-on engineering experience — kept distinct from project ownership or employment claims."
+          title="Applied experience across AI, analytics and engineering."
+          description="Internship, technical programs and hackathon work — kept distinct from project ownership and full-time employment claims."
         />
 
         <div className="experience-timeline-v5">
@@ -28,7 +28,7 @@ export function Experience() {
             const isOpen = openIndex === index;
             const tone = tones[index % tones.length];
             return (
-              <article key={`${item.organization}-${item.period}`} className="experience-row-v5" data-tone={tone}>
+              <article key={item.organization + "-" + item.period} className="experience-row-v5" data-tone={tone}>
                 <div className="experience-marker-v5" aria-hidden>
                   <span />
                 </div>
@@ -45,16 +45,16 @@ export function Experience() {
                     <div className="experience-main-v5">
                       <div className="experience-title-row-v5">
                         <h3>{item.role}</h3>
-                        <span className="experience-type-v5">{index === 0 ? "AI / HACKATHON" : index === 1 ? "AI / ML" : "ROBOTICS"}</span>
+                        <span className="experience-type-v5">{item.type}</span>
                       </div>
                       <div className="experience-meta-v5">
                         <strong>{item.organization}</strong>
-                        <span><MapPin className="h-3.5 w-3.5" /> Egypt</span>
+                        <span><MapPin className="h-3.5 w-3.5" /> {item.location}</span>
                       </div>
                       <p>{item.summary}</p>
                     </div>
 
-                    <ChevronDown aria-hidden className={`experience-chevron-v5 ${isOpen ? "open" : ""}`} />
+                    <ChevronDown aria-hidden className={"experience-chevron-v5 " + (isOpen ? "open" : "")} />
                   </button>
 
                   <AnimatePresence initial={false}>

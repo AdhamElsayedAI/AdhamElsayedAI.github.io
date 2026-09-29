@@ -8,12 +8,13 @@ import "./showcase-v5.css";
 import "./polish-v6.css";
 import "./portrait-v7.css";
 import "./section-headings-v8.css";
+import "./cv-refresh.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://adhamelsayedai.github.io"),
   title: "Adham Elsayed | AI Engineer",
   description:
-    "AI Engineer focused on Generative AI, RAG, Computer Vision, Edge AI and intelligent systems.",
+    "AI Engineer building systems across Generative AI, RAG, machine learning, computer vision, AI evaluation and edge deployment.",
   alternates: { canonical: "https://adhamelsayedai.github.io/" },
   authors: [{ name: "Adham Elsayed", url: "https://adhamelsayedai.github.io/" }],
   keywords: [
@@ -21,10 +22,10 @@ export const metadata: Metadata = {
     "AI Engineer",
     "Generative AI",
     "RAG",
-    "Computer Vision",
-    "Edge AI",
     "Machine Learning",
+    "Computer Vision",
     "AI Evaluation",
+    "Edge AI",
   ],
   openGraph: {
     type: "website",
@@ -33,20 +34,20 @@ export const metadata: Metadata = {
     siteName: "Adham Elsayed · AI Engineer",
     title: "Adham Elsayed | AI Engineer",
     description:
-      "Generative AI, RAG, Computer Vision, Edge AI and intelligent systems built around measurable behavior.",
+      "Generative AI, RAG, machine learning, computer vision, AI evaluation and edge deployment.",
     images: [
       {
         url: "/og-image.svg",
         width: 1200,
         height: 630,
-        alt: "Adham Elsayed — AI Engineer focused on Generative AI, RAG and Computer Vision",
+        alt: "Adham Elsayed — AI Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Adham Elsayed | AI Engineer",
-    description: "Generative AI · RAG · Computer Vision · Edge AI",
+    description: "Generative AI · RAG · Machine Learning · Computer Vision · Edge AI",
     images: ["/og-image.svg"],
   },
   icons: { icon: "/favicon.svg", shortcut: "/favicon.svg", apple: "/favicon.svg" },

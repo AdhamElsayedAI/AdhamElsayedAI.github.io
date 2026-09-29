@@ -1,0 +1,106 @@
+/* Scoped V3 content-refresh polish. Keeps the approved visual system intact. */
+
+.project-featured-badges-v5 span {
+  font-size: .62rem;
+  line-height: 1.25;
+}
+
+.project-card-category-v5 {
+  font-size: .62rem;
+}
+
+.project-card-description-v5 {
+  font-size: .84rem;
+}
+
+.project-tags-v5 span {
+  font-size: .68rem;
+}
+
+.project-metrics-v5 span {
+  font-size: .58rem;
+  line-height: 1.35;
+}
+
+.project-metric-note-v5,
+.project-validation-note-v5 {
+  color: var(--muted);
+  font-size: .68rem;
+  line-height: 1.55;
+}
+
+.project-validation-note-v5 {
+  margin-top: -.35rem;
+  border-left: 2px solid rgb(var(--accent-rgb) / .35);
+  padding-left: .75rem;
+}
+
+.project-featured-actions-v5 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .8rem;
+}
+
+.project-gallery-dots-v5 {
+  align-items: center;
+  gap: .05rem;
+}
+
+.project-gallery-dots-v5 button,
+.project-gallery-dots-v5 button.active {
+  position: relative;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.project-gallery-dots-v5 button::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: .48rem;
+  height: .48rem;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: rgb(var(--muted-rgb) / .35);
+  transition: width .18s ease, background-color .18s ease;
+}
+
+.project-gallery-dots-v5 button.active::after {
+  width: 1.15rem;
+  background: var(--accent);
+}
+
+.experience-period-v5 { font-size: .68rem; }
+.experience-type-v5 { font-size: .6rem; }
+.experience-meta-v5 { font-size: .75rem; }
+.experience-main-v5 p { font-size: .82rem; }
+.experience-card-details-v5 li { font-size: .78rem; }
+.experience-tags-v5 span { font-size: .64rem; }
+.issuer-source-label { font-size: .62rem; }
+.filter-pill { min-height: 2.5rem; }
+
+@media (max-width: 640px) {
+  .project-featured-footer-v5 {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .project-featured-actions-v5 {
+    justify-content: flex-start;
+  }
+
+  .project-featured-media-v5 {
+    min-height: 16rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-gallery-dots-v5 button::after {
+    transition: none;
+  }
+}

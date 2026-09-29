@@ -10,8 +10,8 @@ export function Achievement() {
         <SectionHeading
           number="04"
           eyebrow="Achievement"
-          title="2nd Place · Mansoura AI Hackathon 2026"
-          description="A team achievement for MedFlow, an evidence-grounded clinical AI prototype built around retrieval quality, traceable citations and safety-aware behavior."
+          title="2nd Place · AI Hackathon Mansoura 2026"
+          description="A Team MedFlow achievement through Orange Digital Center Egypt and CREATIVA Innovation Hubs, built around retrieval quality, traceable citations and safety-aware behavior."
         />
 
         <Reveal className="achievement-card overflow-hidden">
@@ -19,14 +19,14 @@ export function Achievement() {
             <div className="relative min-h-[280px] overflow-hidden border-b border-line lg:min-h-[430px] lg:border-b-0 lg:border-r">
               <img
                 src={assetPath("/images/medflow/team-photo.png")}
-                alt="The MedFlow team at the Mansoura AI Hackathon"
+                alt="The MedFlow team at AI Hackathon Mansoura 2026"
                 className="absolute inset-0 h-full w-full object-cover"
                 width="1400"
                 height="900"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#06100c]/90 via-transparent to-transparent" />
               <div className="absolute inset-x-5 bottom-5 text-white sm:inset-x-7 sm:bottom-7">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.18em] backdrop-blur">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] backdrop-blur">
                   <Users aria-hidden className="h-3 w-3" /> Team Project
                 </span>
               </div>
@@ -40,15 +40,15 @@ export function Achievement() {
                     <Trophy aria-hidden className="h-5 w-5" />
                   </span>
                   <span>
-                    <span className="block font-mono text-[9px] uppercase tracking-[0.2em] text-muted">Placement</span>
+                    <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-muted">Placement</span>
                     <strong className="block text-xl font-black text-warm">2nd Place</strong>
                   </span>
                 </div>
 
-                <p className="mt-8 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-accent">Mansoura AI Hackathon 2026</p>
-                <h3 className="mt-2 text-3xl font-black leading-tight tracking-[-0.05em] text-ink sm:text-4xl">MedFlow — Evidence-Grounded Clinical AI</h3>
+                <p className="mt-8 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-accent">AI Hackathon Mansoura 2026</p>
+                <h3 className="mt-2 text-3xl font-black leading-tight tracking-[-0.05em] text-ink sm:text-4xl">MedFlow — Evidence-Grounded Clinical RAG</h3>
                 <p className="mt-5 max-w-2xl leading-8 text-muted">
-                  The team developed a clinical AI prototype that connects hybrid retrieval, evidence sufficiency checks, grounded generation, citation resolution and safety validation into one auditable workflow.
+                  The team developed a clinical AI prototype connecting hybrid retrieval, evidence sufficiency checks, grounded generation, citation resolution and safety validation into one auditable workflow.
                 </p>
 
                 <div className="mt-7 grid gap-3 sm:grid-cols-3">
@@ -59,7 +59,7 @@ export function Achievement() {
                   ].map(({ icon: Icon, label, value }) => (
                     <div key={label} className="rounded-xl border border-line bg-elevated p-4">
                       <Icon aria-hidden className="h-4 w-4 text-accent" />
-                      <span className="mt-3 block font-mono text-[8px] uppercase tracking-[0.16em] text-muted">{label}</span>
+                      <span className="mt-3 block font-mono text-[10px] uppercase tracking-[0.14em] text-muted">{label}</span>
                       <strong className="mt-1 block text-sm text-ink">{value}</strong>
                     </div>
                   ))}

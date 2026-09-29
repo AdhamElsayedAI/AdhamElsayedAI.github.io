@@ -10,7 +10,7 @@ const filters = ["All", "GenAI", "AI / ML", "Data", "Programs"] as const;
 
 function IssuerBrand({ brand, initials, issuer }: Pick<Certification, "brand" | "initials" | "issuer">) {
   return (
-    <span className={`issuer-brand issuer-brand-${brand}`} role="img" aria-label={`${issuer} source mark`}>
+    <span className={"issuer-brand issuer-brand-" + brand} role="img" aria-label={issuer + " source mark"}>
       {brand === "microsoft" ? (
         <span className="issuer-microsoft-grid" aria-hidden>
           <i /><i /><i /><i />
@@ -47,7 +47,7 @@ export function Certifications() {
               type="button"
               onClick={() => setFilter(item)}
               aria-pressed={filter === item}
-              className={`filter-pill ${filter === item ? "filter-pill-active" : ""}`}
+              className={"filter-pill " + (filter === item ? "filter-pill-active" : "")}
             >
               {item}
             </button>
@@ -58,7 +58,7 @@ export function Certifications() {
           {visible.map((certificate, index) => (
             <motion.article
               layout
-              key={`${certificate.title}-${certificate.issuer}`}
+              key={certificate.title + "-" + certificate.issuer}
               initial={reduced ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: reduced ? 0 : index * 0.025 }}
@@ -74,8 +74,8 @@ export function Certifications() {
               </div>
               <h3 className="mt-5 text-[15px] font-extrabold leading-6 text-ink">{certificate.title}</h3>
               <div className="mt-auto flex items-center justify-between border-t border-line pt-4">
-                <span className="font-mono text-[8px] uppercase tracking-[0.17em] text-muted">{certificate.category}</span>
-                {certificate.year ? <span className="font-mono text-[9px] text-accent">{certificate.year}</span> : null}
+                <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">{certificate.category}</span>
+                {certificate.year ? <span className="font-mono text-[10px] text-accent">{certificate.year}</span> : null}
               </div>
             </motion.article>
           ))}

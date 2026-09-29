@@ -4,7 +4,7 @@ import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
 const links = [
-  { icon: Mail, label: "Email", value: profile.email, href: `mailto:${profile.email}` },
+  { icon: Mail, label: "Email", value: profile.email, href: "mailto:" + profile.email },
   { icon: Github, label: "GitHub", value: "github.com/AdhamElsayedAI", href: profile.github },
   { icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/adham-elsayed-", href: profile.linkedin },
   { icon: MapPin, label: "Location", value: profile.location },
@@ -18,7 +18,7 @@ export function Contact() {
           number="07"
           eyebrow="Contact"
           title="Let’s build something useful."
-          description="Open to AI engineering opportunities, technical collaborations and projects involving Generative AI, RAG, computer vision or edge AI."
+          description="Open to AI engineering opportunities, technical collaborations and projects involving Generative AI, RAG, machine learning, computer vision or edge AI."
         />
 
         <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)]">
@@ -33,7 +33,7 @@ export function Contact() {
               <p className="mt-5 max-w-xl leading-7 text-white/70">
                 Send a short note about the system, role or collaboration. Email is the fastest direct route.
               </p>
-              <a href={`mailto:${profile.email}`} className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-5 text-sm font-black text-[#07110d] transition-transform hover:-translate-y-0.5">
+              <a href={"mailto:" + profile.email} className="mt-8 inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-5 text-sm font-black text-[#07110d] transition-transform hover:-translate-y-0.5">
                 Email Adham <ArrowUpRight aria-hidden className="h-4 w-4" />
               </a>
             </div>
@@ -48,7 +48,7 @@ export function Contact() {
                       <Icon aria-hidden className="h-4 w-4" />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block font-mono text-[8px] uppercase tracking-[0.18em] text-muted">{label}</span>
+                      <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-muted">{label}</span>
                       <span className="mt-1 block break-words text-sm font-bold text-ink">{value}</span>
                     </span>
                     {href ? <ArrowUpRight aria-hidden className="h-4 w-4 shrink-0 text-muted" /> : null}

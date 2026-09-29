@@ -6,38 +6,28 @@ export type SkillGroup = {
 
 export const skillGroups: SkillGroup[] = [
   {
-    name: "Generative AI",
-    description: "Grounded generation and useful LLM applications.",
-    skills: ["RAG", "LLM APIs", "Prompt Engineering", "AI Agents", "Hugging Face", "Grounded Generation"],
+    name: "Generative AI & LLM Engineering",
+    description: "Grounded generation, retrieval and practical LLM application engineering.",
+    skills: ["RAG", "LLM APIs", "Prompt Engineering", "Grounded Generation", "BGE Embeddings", "ChromaDB", "BM25", "RRF", "NLI Verification", "Hugging Face"],
   },
   {
-    name: "Retrieval & LLM Engineering",
-    description: "Search, fusion and measurable retrieval pipelines.",
-    skills: ["ChromaDB", "Vector Databases", "BGE Embeddings", "Semantic Search", "BM25", "Reciprocal Rank Fusion", "Retrieval Evaluation"],
+    name: "AI Evaluation & Safety",
+    description: "Measurable retrieval quality, claim verification and fail-closed behavior.",
+    skills: ["Precision@K", "Hit@K", "MRR", "Citation Validation", "Claim Verification", "Safety Guardrails", "Fail-Closed Fallbacks"],
   },
   {
-    name: "AI / Machine Learning",
-    description: "Model development across vision and predictive systems.",
-    skills: ["PyTorch", "TensorFlow", "Scikit-learn", "YOLO", "OpenCV"],
+    name: "Machine Learning & Computer Vision",
+    description: "Model development across predictive, visual and deep-learning systems.",
+    skills: ["PyTorch", "TensorFlow", "YOLO", "OpenCV", "Deep Learning", "CNNs", "NLP", "Object Detection"],
   },
   {
-    name: "AI Evaluation",
-    description: "Evidence, confidence and failure-aware evaluation.",
-    skills: ["Precision@K", "Hit@K", "MRR", "Retrieval Evaluation", "Citation Validation", "Evidence Verification", "Confidence Thresholding", "Safety Guardrails"],
+    name: "Backend, Data & BI",
+    description: "APIs, data workflows and decision-focused analytics delivery.",
+    skills: ["Python", "FastAPI", "REST APIs", "SQL", "Pandas", "Power BI", "DAX", "MLflow"],
   },
   {
-    name: "Backend / Engineering",
-    description: "APIs and practical software delivery.",
-    skills: ["Python", "FastAPI", "REST APIs", "Docker", "Git", "GitHub", "Linux"],
-  },
-  {
-    name: "Edge / Applications",
-    description: "On-device inference and connected applications.",
-    skills: ["Raspberry Pi", "Firebase", "Flutter", "ONNX Runtime"],
-  },
-  {
-    name: "Data",
-    description: "Analysis and scalable data preparation.",
-    skills: ["Pandas", "PySpark", "SQL", "Data Analysis"],
+    name: "Deployment, Edge & Tools",
+    description: "Containerized, cloud-connected and on-device delivery workflows.",
+    skills: ["Docker", "Git", "GitHub", "Azure AI", "Raspberry Pi 5", "ONNX Runtime", "Firebase", "Flutter", "Next.js", "Arduino", "C++"],
   },
 ];
