@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">
+<title id="title">Adham Elsayed — AI Engineer</title>
+<desc id="desc">A minimal dark portfolio identity with a cyan accent and an evidence-grounded AI system diagram.</desc>
+<defs>
+  <linearGradient id="background" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#070b12"/><stop offset=".65" stop-color="#0b111a"/><stop offset="1" stop-color="#101324"/></linearGradient>
+  <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#3cf3e8"/><stop offset="1" stop-color="#a3a5ff"/></linearGradient>
+  <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#182330"/><stop offset="1" stop-color="#101823"/></linearGradient>
+  <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse"><path d="M36 0H0V36" fill="none" stroke="#7c94b3" stroke-opacity=".08"/></pattern>
+  <filter id="soft"><feGaussianBlur stdDeviation="30"/></filter>
+</defs>
+<rect width="1280" height="400" rx="22" fill="url(#background)"/>
+<rect width="1280" height="400" rx="22" fill="url(#grid)"/>
+<ellipse cx="960" cy="170" rx="220" ry="140" fill="#00d9d3" opacity=".06" filter="url(#soft)"/>
+<path d="M63 41H1217" stroke="#bac7e1" stroke-opacity=".16"/>
+<path d="M63 360H1217" stroke="#bac7e1" stroke-opacity=".16"/>
+<rect x="63" y="64" width="34" height="34" rx="8" fill="#1a333b" stroke="#49efe7" stroke-opacity=".55"/>
+<text x="80" y="86" fill="#58f5ef" font-family="Arial, sans-serif" font-size="14" font-weight="800" text-anchor="middle">AE</text>
+<text x="113" y="85" fill="#93abc0" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="3">ENGINEERING PORTFOLIO</text>
+<rect x="63" y="143" width="51" height="4" rx="2" fill="url(#accent)"/>
+<text x="63" y="220" fill="#f6f8fc" font-family="Arial, Helvetica, sans-serif" font-size="61" letter-spacing="-2.9" font-weight="800">Adham Elsayed</text>
+<text x="65" y="270" fill="#5dece6" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="22">AI Engineer</text>
+<text x="207" y="270" fill="#7188a3" font-family="Arial, sans-serif" font-size="19">/</text>
+<text x="226" y="270" fill="#c8d6e9" font-family="Arial, sans-serif" font-size="19">Generative AI · RAG · Machine Learning</text>
+<text x="65" y="333" fill="#8294aa" font-family="monospace" font-size="14" letter-spacing=".5">DESIGN.   EVALUATE.   DEPLOY.</text>
+<g transform="translate(854 101)">
+  <rect x="0" y="0" width="327" height="210" rx="16" fill="#101923" stroke="#657894" stroke-opacity=".29"/>
+  <path d="M28 49H299" stroke="#71879e" stroke-opacity=".22"/>
+  <text x="27" y="32" fill="#d6e4f4" font-family="monospace" font-size="12" letter-spacing="1.5">RELIABLE AI SYSTEMS</text>
+  <rect x="27" y="76" width="113" height="41" rx="8" fill="url(#panel)" stroke="#52d7da" stroke-opacity=".54"/>
+  <text x="83" y="101" fill="#dbe9f2" font-family="monospace" font-size="12" text-anchor="middle">RETRIEVAL</text>
+  <path d="M140 97H184" stroke="#7de8e5" stroke-width="1.4" stroke-opacity=".85"/>
+  <path d="m179 92 5 5-5 5" fill="none" stroke="#7de8e5" stroke-width="1.4"/>
+  <rect x="185" y="76" width="113" height="41" rx="8" fill="url(#panel)" stroke="#a5a8ef" stroke-opacity=".55"/>
+  <text x="241" y="101" fill="#dbe9f2" font-family="monospace" font-size="12" text-anchor="middle">EVALUATION</text>
+  <path d="M241 117V145H83V117" fill="none" stroke="#7fa1b3" stroke-opacity=".5" stroke-dasharray="4 5"/>
+  <rect x="76" y="148" width="171" height="35" rx="8" fill="#13302f" stroke="#63eee5" stroke-opacity=".55"/>
+  <circle cx="98" cy="165.5" r="4" fill="#53e4d6"/>
+  <text x="118" y="170" fill="#d4fffb" font-family="monospace" font-size="12">GROUNDED OUTPUT</text>
+</g>
+<text x="1178" y="334" text-anchor="end" fill="#61778e" font-family="monospace" font-size="11">01 / 04</text>
+</svg>
