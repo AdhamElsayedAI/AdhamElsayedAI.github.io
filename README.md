@@ -32,36 +32,36 @@ This repository holds the **published Next.js static export**, not the original 
 
 | File or folder | Role |
 | --- | --- |
-| \`index.html\` | Exported homepage |
-| \`_next/\` | Required compiled assets (do not edit manually) |
-| \`images/\` | Project evidence and portrait |
-| \`portfolio-v3-fixes.css\` | Responsive layout and legibility fixes |
-| \`portfolio-v3-motion.css\` / \`.js\` | Card tilt and scroll reveal |
-| \`portfolio-v3-section-titles.css\` | Visible section heading fallback |
-| \`portfolio-v3-creative-letters.css\` / \`.js\` | Animated typography enhancement |
-| \`Adham_Elsayed_CV.pdf\` | Current résumé |
-| \`.nojekyll\`, \`404.html\` | GitHub Pages support |
+| `index.html` | Exported homepage |
+| `_next/` | Required compiled assets (do not edit manually) |
+| `images/` | Project evidence and portrait |
+| `portfolio-v3-fixes.css` | Responsive layout and legibility fixes |
+| `portfolio-v3-motion.css` / `.js` | Card tilt and scroll reveal |
+| `portfolio-v3-section-titles.css` | Visible section heading fallback |
+| `portfolio-v3-creative-letters.css` / `.js` | Animated typography enhancement |
+| `Adham_Elsayed_CV.pdf` | Current résumé |
+| `.nojekyll`, `404.html` | GitHub Pages support |
 
 ## Preview locally
 
 This is an already-built static site; no npm install is needed:
 
-\`\`\`bash
+```bash
 python -m http.server 4173
-\`\`\`
+```
 
-Visit http://localhost:4173/. Serve at the **site root**, since the export uses root-relative assets (such as \`/_next/\`).
+Visit http://localhost:4173/. Serve at the **site root**, since the export uses root-relative assets (such as `/_next/`).
 
 ## Maintenance & deployment
 
 1. Back up the current production branch before updates.
-2. Keep \`index.html\`, \`_next/\`, \`images/\`, CSS/JS enhancement files and PDF together.
+2. Keep `index.html`, `_next/`, `images/`, CSS/JS enhancement files and PDF together.
 3. Test at common mobile and desktop widths with both themes.
 4. Verify all project screenshots, menu links, section animations and the resume download.
 5. Confirm reduced-motion accessibility and browser console output.
 6. Publish the static files through GitHub Pages.
 
-> Because this branch is a compiled export, future Next.js builds could replace changes made directly to \`index.html\`. Port design and motion changes into the editable source before regenerating the export.
+> Because this branch is a compiled export, future Next.js builds could replace changes made directly to `index.html`. Port design and motion changes into the editable source before regenerating the export.
 
 ---
 
