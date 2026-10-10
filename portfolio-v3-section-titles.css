@@ -1,0 +1,71 @@
+/* Correct the actual bug: old dotted background-clip made each section name transparent.
+   The DOM text itself is now fully readable even when JavaScript is disabled. */
+.section-heading-v5 .section-dot-banner {
+ position:relative;display:flex;align-items:center;justify-content:center;isolation:isolate;
+ min-height:clamp(6rem,10vw,8.8rem);padding:1.05rem 1rem;overflow:hidden;
+ border:1px solid rgb(var(--banner-rgb,6 255 240)/.24);border-radius:1.2rem;
+ background:linear-gradient(125deg,rgb(var(--surface-rgb)/.58),rgb(var(--banner-rgb,6 255 240)/.075) 48%,rgb(var(--surface-rgb)/.5));
+ box-shadow:inset 0 1px 0 rgb(255 255 255/.05),0 16px 44px -38px rgb(var(--banner-rgb,6 255 240)/.38);
+}
+.section-heading-v5 .section-dot-banner::before{
+ content:"";position:absolute;left:-150%;top:0;width:150%;height:100%;z-index:0;
+ border:0;border-radius:0;filter:none;opacity:0;transform:translateX(0);
+ background:linear-gradient(112deg,transparent 30%,rgb(var(--banner-rgb,6 255 240)/.13) 48%,rgb(255 255 255/.075) 53%,transparent 74%);
+ pointer-events:none;
+}
+.section-heading-v5 .section-dot-banner::after{
+ content:"";position:absolute;inset:auto 18% .8rem;width:auto;height:1px;transform:none;
+ opacity:.72;border-radius:0;background:linear-gradient(90deg,transparent,rgb(var(--banner-rgb,6 255 240)/.7),transparent);
+ pointer-events:none;
+}
+.section-heading-v5 .section-dot-banner .section-wordmark {
+ position:relative!important;z-index:2!important;display:block!important;
+ max-width:100%!important;width:auto!important;height:auto!important;
+ padding:.05em .12em!important;overflow:visible!important;white-space:nowrap!important;
+ text-align:center!important;font-family:Inter,Aptos,"Segoe UI",system-ui,sans-serif!important;
+ font-size:clamp(1.85rem,6.2vw,4.65rem)!important;font-weight:900!important;
+ letter-spacing:-.065em!important;line-height:1.08!important;
+ color:#f1fbff!important;-webkit-text-fill-color:#f1fbff!important;
+ background:none!important;background-image:none!important;
+ -webkit-background-clip:border-box!important;background-clip:border-box!important;
+ -webkit-text-stroke:0 transparent!important;-webkit-mask:none!important;mask:none!important;
+ filter:none!important;opacity:1!important;visibility:visible!important;
+ text-shadow:0 2px 18px rgb(var(--banner-rgb,6 255 240)/.24),0 10px 45px rgb(var(--banner-rgb,6 255 240)/.12)!important;
+}
+.section-heading-v5 .section-dot-banner .section-wordmark::before,
+.section-heading-v5 .section-dot-banner .section-wordmark::after{content:none!important;display:none!important}
+.light .section-heading-v5 .section-dot-banner {
+ border-color:rgb(var(--banner-rgb,6 255 240)/.29);
+ background:linear-gradient(125deg,rgb(var(--surface-rgb)/.9),rgb(var(--banner-rgb,6 255 240)/.085),rgb(var(--surface-rgb)/.85));
+}
+.light .section-heading-v5 .section-dot-banner .section-wordmark{
+ color:#102530!important;-webkit-text-fill-color:#102530!important;
+ text-shadow:0 2px 21px rgb(var(--banner-rgb,6 255 240)/.19)!important;
+}
+@media(prefers-reduced-motion:no-preference){
+ .section-heading-v5 .section-dot-banner.is-title-visible::before{animation:v3TitleSheen 3.1s cubic-bezier(.15,.65,.3,1) .18s both}
+ .section-heading-v5 .section-dot-banner.is-title-visible .section-wordmark{animation:v3TitleEntrance .9s cubic-bezier(.16,1,.3,1) both}
+ .section-heading-v5 .section-dot-banner.is-title-visible::after{animation:v3TitleUnderline 1.45s cubic-bezier(.16,1,.3,1) .15s both}
+}
+@keyframes v3TitleEntrance{from{translate:0 12px;letter-spacing:-.08em}to{translate:0 0;letter-spacing:-.065em}}
+@keyframes v3TitleSheen{0%{opacity:0;transform:translateX(0)}35%{opacity:.9}100%{opacity:0;transform:translateX(210%)}}
+@keyframes v3TitleUnderline{from{opacity:.1;scale:.1 1}to{opacity:.72;scale:1 1}}
+@media(hover:hover) and (pointer:fine){
+ .section-heading-v5 .section-dot-banner{transition:border-color .26s ease,box-shadow .35s ease,translate .25s ease}
+ .section-heading-v5 .section-dot-banner:hover{translate:0 -3px;border-color:rgb(var(--banner-rgb,6 255 240)/.55);
+ box-shadow:0 22px 56px -38px rgb(var(--banner-rgb,6 255 240)/.45)}
+}
+@media(max-width:767px){
+ .section-heading-v5 .section-dot-banner{min-height:5.3rem;padding:.8rem .45rem}
+ .section-heading-v5 .section-dot-banner .section-wordmark{font-size:clamp(1.8rem,7.3vw,3.1rem)!important;letter-spacing:-.055em!important}
+}
+@media(max-width:380px){
+ .section-heading-v5 .section-dot-banner .section-wordmark{font-size:clamp(1.45rem,7vw,2.1rem)!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .section-heading-v5 .section-dot-banner *, .section-heading-v5 .section-dot-banner::before,
+ .section-heading-v5 .section-dot-banner::after{animation:none!important}
+}
+html.motion-off .section-heading-v5 .section-dot-banner *,
+html.motion-off .section-heading-v5 .section-dot-banner::before,
+html.motion-off .section-heading-v5 .section-dot-banner::after{animation:none!important}

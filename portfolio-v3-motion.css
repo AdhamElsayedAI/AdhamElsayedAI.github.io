@@ -1,0 +1,82 @@
+/* Motion polish for the existing V3 portfolio. No layout, content or palette changes.
+   Works on the exported website and does not need rebuilding Next.js. */
+@media (hover: hover) and (pointer: fine) {
+  .motion-card {
+    position: relative;
+    isolation: isolate;
+    rotate: 0 0 1 0deg;
+    translate: 0 0;
+    transition: rotate 160ms ease-out, translate 230ms cubic-bezier(.22,1,.36,1),
+                border-color 250ms ease, box-shadow 300ms ease;
+    transform-style: preserve-3d;
+    --motion-x: 50%;
+    --motion-y: 50%;
+  }
+  .motion-card.is-motion-hover {
+    translate: 0 -4px;
+    border-color: rgb(var(--accent-rgb)/.47);
+    box-shadow: 0 20px 48px -31px rgb(var(--accent-rgb)/.3), 0 17px 45px -34px rgb(0 0 0/.4);
+  }
+  .motion-card.is-motion-settling {
+    transition: rotate 540ms cubic-bezier(.18,.85,.22,1), translate 380ms ease-out,
+                border-color 330ms ease, box-shadow 380ms ease;
+  }
+  .motion-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 8;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(350px circle at var(--motion-x) var(--motion-y),
+       rgb(var(--accent-rgb)/.09), transparent 72%);
+    transition: opacity 260ms ease-out;
+  }
+  .light .motion-card::after {
+    background: radial-gradient(340px circle at var(--motion-x) var(--motion-y),
+       rgb(var(--accent-rgb)/.09), transparent 72%);
+  }
+  .motion-card.is-motion-hover::after { opacity: 1; }
+  .project-card-v5.is-motion-hover .project-featured-image-v5 { transform: scale(1.028); }
+  .project-featured-image-v5 { transition: transform 530ms cubic-bezier(.22,1,.36,1); }
+  /* Tiny interactive surfaces are allowed to lift, but never become unreadable. */
+  .project-metrics-v5 > div, .project-tags-v5 > span, .experience-tags-v5 > span,
+  .skill-tab, .project-gallery-dots-v5 button, .contact-link-arrow,
+  .ref-hero-panel .chip, .certificate-icon {
+    transition: translate 240ms ease, transform 240ms ease, color 240ms ease, background-color 240ms ease, border-color 240ms ease;
+  }
+  .project-metrics-v5 > div:hover, .project-tags-v5 > span:hover,
+  .experience-tags-v5 > span:hover, .skill-tab:hover,
+  .ref-hero-panel .chip:hover { translate: 0 -3px; }
+  .certificate-icon:hover { translate: 0 -4px; }
+  .button-primary, .button-secondary, .icon-button, .project-link-v5,
+  .ref-header a, .contact-row { transition: translate 210ms ease, box-shadow 220ms ease, color 180ms ease, background-color 180ms ease; }
+  .button-primary:hover, .button-secondary:hover, .project-link-v5:hover,
+  .icon-button:hover { translate: 0 -3px; }
+  .button-primary:active, .button-secondary:active, .icon-button:active { translate: 0 0; scale: .985; }
+}
+
+/* Motion only arms in a JS-capable browser and after intersection observer is installed.
+   This ensures content stays readable with JS disabled. */
+@media (prefers-reduced-motion: no-preference) {
+  html.motion-v3-on .motion-reveal:not([data-motion-visible="true"]) {
+    opacity: .25;
+    translate: 0 22px;
+  }
+  html.motion-v3-on .motion-reveal {
+    transition: opacity 650ms cubic-bezier(.22,1,.36,1),
+                translate 650ms cubic-bezier(.22,1,.36,1);
+  }
+  html.motion-v3-on .motion-reveal[data-motion-visible="true"] {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+  .motion-card, .motion-card.is-motion-hover { rotate: none !important; translate: 0 0 !important; }
+  .motion-card::after { display: none !important; }
+}
+html.motion-off .motion-card, html.motion-off .motion-card.is-motion-hover { rotate: none !important; translate: 0 0 !important; }
+html.motion-off .motion-card::after { display: none !important; }
+html.motion-off .motion-reveal { opacity: 1 !important; translate: 0 0 !important; }

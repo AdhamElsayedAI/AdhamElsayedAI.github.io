@@ -1,0 +1,62 @@
+/* Non-destructive V3 repair layer: preserve existing exported React layout and palette. */
+html { scroll-padding-top:5.5rem; } html,body { max-width:100%; }
+:where(a,button,input,summary):focus-visible {outline:2px solid var(--accent);outline-offset:3px}
+.ref-header-inner {min-height:4.25rem;height:auto;padding-block:.42rem}
+.ref-header .icon-button {width:2.7rem;height:2.7rem}
+.ref-header .ref-command {display:none!important}
+.ref-hero-section {padding-top:6.2rem;padding-bottom:2rem}
+.ref-hero-grid {gap:clamp(1.3rem,3vw,2.5rem)}
+.ref-hero-grid>:first-child {min-width:0}
+.ref-hero-title {font-size:clamp(2.15rem,4.45vw,3.65rem);line-height:1.08;letter-spacing:-.047em;text-wrap:balance}
+.ref-tagline {font-size:clamp(.98rem,1.38vw,1.11rem);line-height:1.7}
+.ref-terminal-body {font-size:.77rem;line-height:1.6}
+.ref-terminal-head {font-size:.73rem}
+.ref-hero-panel .button-primary,.ref-hero-panel .button-secondary {min-height:2.9rem;font-size:.87rem}
+.ref-portrait-wrap {min-width:0}
+.portrait-frame-soft-v7 {animation-duration:10s}
+.portrait-frame-line-v7::before {animation-duration:25s;opacity:.25}
+.portrait-soft-glow-v7 {opacity:.65}
+.project-card-category-v5,.project-featured-caption-v5 span {font-size:.76rem;line-height:1.5}
+.project-card-description-v5 {font-size:.94rem;line-height:1.7}
+.project-tags-v5 span {font-size:.76rem;line-height:1.4}
+.project-metrics-v5 span {font-size:.75rem;line-height:1.5}
+.project-metric-note-v5,.project-validation-note-v5 {font-size:.81rem;line-height:1.7}
+.project-featured-badges-v5 span {font-size:.72rem}
+.project-gallery-dots-v5 button,.project-gallery-dots-v5 button.active {width:2.75rem;height:2.75rem}
+.experience-period-v5,.experience-type-v5,.issuer-source-label {font-size:.77rem}
+.experience-meta-v5,.experience-main-v5 p {font-size:.91rem;line-height:1.7}
+.experience-card-details-v5 li {font-size:.87rem;line-height:1.65}
+.experience-tags-v5 span {font-size:.76rem}
+@media(min-width:768px) and (max-width:1023px){
+.ref-hero-grid{grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr)}
+.ref-hero-grid .ref-portrait-wrap{order:initial;min-height:20rem}
+.portrait-frame-soft-v7{width:min(33vw,20rem)}
+}
+@media(max-width:767px){
+.ref-header-inner{min-height:4rem;padding-block:.4rem;gap:.5rem}
+.ref-header-inner>a>span.hidden{display:inline!important;font-size:.8rem}
+.ref-header-inner button[aria-label="Toggle motion"],.ref-header-inner button[aria-label="Toggle cursor glow"]{display:none!important}
+.ref-header-inner button[aria-label="Toggle theme"]{display:grid!important;margin-left:auto}
+.ref-hero-section{padding-top:5.2rem;padding-bottom:1.25rem}
+.ref-hero-panel{padding:1.05rem 1.12rem 1.2rem}
+.ref-hero-grid{grid-template-columns:minmax(0,1fr);gap:1rem}
+.ref-hero-grid>:first-child{order:1}
+.ref-hero-grid>.ref-portrait-wrap{order:0;min-height:14.4rem}
+.portrait-frame-soft-v7{width:min(58vw,13.6rem)}
+.ref-hero-grid .chip{display:none}
+.ref-hero-title{font-size:clamp(2.15rem,8.5vw,2.85rem)}
+.ref-tagline{font-size:.94rem}
+.ref-hero-panel .ref-inline-terminal{display:none}
+.section-shell{padding-block:3.75rem}
+.project-card-v5{min-width:0}
+.project-card-body-v5{padding:1.25rem}
+.project-featured-media-v5{min-height:14rem}
+.project-featured-badges-v5{flex-wrap:wrap}
+}
+@media(max-width:420px){
+#certifications .site-container>.grid{grid-template-columns:minmax(0,1fr);min-width:0}
+#certifications .cert-card{min-width:0!important;width:100%;max-width:100%}
+#certifications .cert-card>*{min-width:0}
+#certifications .cert-card h3{overflow-wrap:anywhere}
+}
+@media(prefers-reduced-motion:reduce){.portrait-frame-soft-v7,.portrait-frame-line-v7::before{animation:none!important}}
