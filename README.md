@@ -1,70 +1,139 @@
-# Adham Elsayed — AI Engineering Portfolio
+<div align="center">
 
-**Generative AI · RAG Systems · Machine Learning · Computer Vision**
+<img src="./readme-cover.svg" alt="Adham Elsayed — AI Engineering Portfolio" width="100%" />
 
-[**Visit the live portfolio →**](https://adhamelsayedai.github.io/)
+<br />
 
-Explore my work developing evidence-grounded AI systems from retrieval and evaluation to API integration, edge deployment, and product experiences.
+**Evidence-grounded AI. Designed, evaluated, and built for real-world use.**
 
-## Featured projects
+Generative AI · RAG Systems · Machine Learning · Computer Vision · AI Evaluation
 
-| Project | What I built | Stack |
-| --- | --- | --- |
-| **[MedFlow](https://github.com/AdhamElsayedAI/MedFlow-AI)** | Evidence-grounded clinical RAG prototype with retrieval fusion, citation checks, and controlled response states | BGE, BM25, RRF, ChromaDB, FastAPI |
-| **[MedicalPlab](https://github.com/AdhamElsayedAI/MedicalPlab)** | Adaptive medical tutoring, bounded Socratic remediation, hybrid retrieval, NLI and safety fallback | RAG, BM25, Cross-Encoder, NLI, FastAPI, Next.js |
-| **[Smart Basket](https://github.com/AdhamElsayedAI/Smart-Basket)** | YOLO-based edge checkout with ONNX on Raspberry Pi 5 and Firebase-synced cart | YOLO, ONNX, Raspberry Pi, Flutter |
-| **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype with threshold alerts and auditable services | YOLO, PyTorch, FastAPI, Docker |
+<br />
 
-**Metrics with context:** MedFlow reports 53.12% Precision@4, 87.50% Hit@4, and ≈0.7031 MRR on its documented retrieval setup. A 7-case grounding validation reported citation integrity; neither these figures nor other prototype measurements establish clinical effectiveness. Smart Basket reports 96.89% mAP@0.5 and 84.79% mAP@0.5:0.95 in its four-class detector evaluation.
+[**Explore Portfolio ↗**](https://adhamelsayedai.github.io/) &nbsp; · &nbsp; [**View Résumé ↗**](./Adham_Elsayed_CV.pdf) &nbsp; · &nbsp; [**LinkedIn ↗**](https://www.linkedin.com/in/adham-elsayed-/) &nbsp; · &nbsp; [**Get in Touch ↗**](mailto:adhamelsayed515@gmail.com)
 
-## Portfolio features
+</div>
 
-- **Responsive:** mobile, tablet and desktop layouts
-- **Themes:** light/dark modes with persistent preferences
-- **Interaction:** mouse-following 3D card motion, section reveals, individually animated section-heading letters
-- **Accessibility:** keyboard focus, semantic sections, and reduced-motion support
-- **Evidence:** original project screenshots and source links
-- **Résumé:** [Download the current CV](./Adham_Elsayed_CV.pdf)
+---
 
-## Structure
+### About
 
-This repository holds the **published Next.js static export**, not the original editable source application.
+I'm an AI Engineering student at **Mansoura University** focused on designing complete intelligent systems, from retrieval and model behavior to evaluation, APIs, and product integration. My work explores how Generative AI and computer vision can deliver practical, verifiable results—not just compelling demos.
 
-| File or folder | Role |
-| --- | --- |
-| `index.html` | Exported homepage |
-| `_next/` | Required compiled assets (do not edit manually) |
-| `images/` | Project evidence and portrait |
-| `portfolio-v3-fixes.css` | Responsive layout and legibility fixes |
-| `portfolio-v3-motion.css` / `.js` | Card tilt and scroll reveal |
-| `portfolio-v3-section-titles.css` | Visible section heading fallback |
-| `portfolio-v3-creative-letters.css` / `.js` | Animated typography enhancement |
-| `Adham_Elsayed_CV.pdf` | Current résumé |
-| `.nojekyll`, `404.html` | GitHub Pages support |
+This portfolio brings together the systems I've built, the engineering decisions behind them, and the evidence used to assess their behavior.
 
-## Preview locally
+### Selected work
 
-This is an already-built static site; no npm install is needed:
+<table>
+<tr>
+<td width="50%" valign="top">
+
+<a href="https://github.com/AdhamElsayedAI/MedFlow-AI"><img src="./images/medflow/rag-chat.png" alt="MedFlow real grounded RAG chat interface" width="100%" /></a>
+
+**01 / [MedFlow — Evidence-Grounded Clinical RAG](https://github.com/AdhamElsayedAI/MedFlow-AI)**
+
+Hybrid dense and sparse retrieval with RRF fusion, evidence gates, citation validation, and bounded response states: answer, caution, abstain, or redirect.
+
+<sub>Python · BGE · BM25 · RRF · ChromaDB · FastAPI</sub>
+
+</td>
+<td width="50%" valign="top">
+
+<a href="https://github.com/AdhamElsayedAI/MedicalPlab"><img src="./images/medicalplab/home.png" alt="MedicalPlab real adaptive learning platform interface" width="100%" /></a>
+
+**02 / [MedicalPlab — Adaptive Grounded Learning](https://github.com/AdhamElsayedAI/MedicalPlab)**
+
+An adaptive medical learning experience with learner-state tracking, three-turn Socratic remediation, hybrid retrieval, NLI verification, and evidence-safe fallback.
+
+<sub>Generative AI · RAG · Cross-Encoder · NLI · FastAPI · Next.js</sub>
+
+</td>
+</tr>
+</table>
+
+| | Additional systems | |
+|:--|:--|:--|
+| **03** | **[Smart Basket](https://github.com/AdhamElsayedAI/Smart-Basket)** | YOLO detection and ONNX edge inference on Raspberry Pi 5, connected to a Flutter/Firebase cart |
+| **04** | **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype, threshold alerts, and an auditable FastAPI workflow |
+
+<details>
+<summary><strong>Engineering evidence & measurement scope</strong></summary>
+
+<br />
+
+- **MedFlow retrieval:** Precision@4 **53.12%**, Hit@4 **87.50%**, and MRR **≈0.7031** on the documented 200-token, Top-K=4 setup.
+- **MedFlow grounding:** A bounded seven-case evaluation reported valid citations and coverage across all seven cases. This is **not a clinical accuracy measurement**.
+- **Smart Basket detection:** Reported results for a four-class evaluation: **96.89% mAP@0.5** and **84.79% mAP@0.5:0.95**.
+- **MedicalPlab:** Safety behavior, the bounded tutoring flow, and verification architecture describe engineering design—not proven clinical or educational effectiveness.
+
+</details>
+
+### Engineering focus
+
+| AI Systems | Implementation & Delivery |
+|---|---|
+| Grounded generation, hybrid RAG, embeddings, reranking | Python, FastAPI, REST APIs, SQL |
+| Retrieval and citation evaluation, NLI, safety boundaries | PyTorch, YOLO, OpenCV, ONNX |
+| Adaptive AI, computer vision, edge inference | Docker, Git, Firebase, Azure AI |
+
+### The portfolio experience
+
+<div align="center">
+
+<img src="./images/medflow/rag-architecture-ui.png" alt="Actual MedFlow architecture interface" width="83%" />
+
+<sub>Authentic project UI used in the portfolio — not a generated mockup.</sub>
+
+</div>
+
+<br />
+
+The website uses a dark/light theme, responsive layouts, accessible navigation, authentic project imagery, and subtle interface motion. Interactive cards respond to pointer position; animated section typography is a progressive enhancement and respects reduced-motion settings.
+
+### For developers
+
+This repository is the **published Next.js static export** served by GitHub Pages. It contains compiled assets rather than the original editable application source.
+
+<details>
+<summary><strong>Run locally and maintain the site</strong></summary>
+
+<br />
+
+From the repository root:
 
 ```bash
 python -m http.server 4173
 ```
 
-Visit http://localhost:4173/. Serve at the **site root**, since the export uses root-relative assets (such as `/_next/`).
+Visit **http://localhost:4173/**. A local server is necessary because assets use root-relative paths.
 
-## Maintenance & deployment
+**Key files**
 
-1. Back up the current production branch before updates.
-2. Keep `index.html`, `_next/`, `images/`, CSS/JS enhancement files and PDF together.
-3. Test at common mobile and desktop widths with both themes.
-4. Verify all project screenshots, menu links, section animations and the resume download.
-5. Confirm reduced-motion accessibility and browser console output.
-6. Publish the static files through GitHub Pages.
+```text
+index.html                         Published homepage
+_next/                             Compiled Next.js assets
+images/                            Original project imagery
+portfolio-v3-fixes.css             Responsive refinements
+portfolio-v3-motion.css / .js      Interaction and reveal motion
+portfolio-v3-section-titles.css    Readable heading fallback
+portfolio-v3-creative-letters.*    Per-letter heading animation
+Adham_Elsayed_CV.pdf               Current downloadable résumé
+```
 
-> Because this branch is a compiled export, future Next.js builds could replace changes made directly to `index.html`. Port design and motion changes into the editable source before regenerating the export.
+Do not edit hashed files under `_next/`. For major redesigns or content updates, make changes in the editable Next.js source and regenerate the export. Port any static-export enhancements into that source before rebuilding, or they may be overwritten.
+
+**Pre-publish checks:** verify mobile and desktop layouts, light/dark themes, links and images, résumé download, keyboard interactions, and reduced-motion behavior.
+
+</details>
 
 ---
 
-[LinkedIn](https://www.linkedin.com/in/adham-elsayed-/) · [GitHub](https://github.com/AdhamElsayedAI) · [Email](mailto:adhamelsayed515@gmail.com)
+<div align="center">
 
-**Adham Elsayed** · Mansoura, Egypt · © 2026
+**Adham Elsayed** · AI Engineer · Mansoura, Egypt
+
+[Website](https://adhamelsayedai.github.io/) &nbsp;·&nbsp; [GitHub](https://github.com/AdhamElsayedAI) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/adham-elsayed-/) &nbsp;·&nbsp; [Email](mailto:adhamelsayed515@gmail.com)
+
+<sub>Built with a focus on measurable engineering, clear evidence, and responsible AI systems.</sub>
+
+</div>
