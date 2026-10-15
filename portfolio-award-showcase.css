@@ -1,238 +1,61 @@
-/* MedFlow 2026 award: real organizer announcement and unaltered certificate.
-   The old team photograph remains in the compiled React markup but is never displayed. */
-#achievements .achievement-card .award-media,
-#achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"]) {
-  isolation: isolate;
-  background: #06143a;
+/* MedFlow achievement — a single restrained evidence strip, never overlaid. */
+#achievements .award-media {background:#10215d;isolation:isolate}
+#achievements .award-media::before {content:none!important;display:none!important}
+#achievements .award-media > img.award-poster-image {
+  opacity:1!important;visibility:visible!important;object-fit:cover!important;
+  object-position:center!important;transform:none!important;transition:none!important;
+  z-index:1
 }
-#achievements .achievement-card .award-media::before,
-#achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"])::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: url('/images/medflow/top-5-teams-2026.webp') center center / cover no-repeat;
-}
-#achievements .award-media > img[src="/images/medflow/team-photo.png"],
-#achievements .achievement-card .relative > img[src="/images/medflow/team-photo.png"] {
-  opacity: 0 !important;
-}
-#achievements .award-media > .award-poster-image {
-  opacity: 1 !important;
-  z-index: 1;
-  object-position: center center;
-  transition: transform 850ms cubic-bezier(.2,.8,.2,1);
-}
-#achievements .award-media:hover > .award-poster-image { transform: scale(1.018); }
-/* Reduce the legacy photograph's heavy gradient and avoid obscuring the artwork. */
-#achievements .award-media > img + div {
-  z-index: 2;
-  pointer-events: none;
-  opacity: .25;
-}
-#achievements .award-media > div.absolute.inset-x-5 { display: none !important; }
-
-/*
-  Hanging certificate: keep the official Top 5 announcement readable.
-  Deliberately sized smaller than the former 75% card.
-  The certificate remains a link to the unaltered full-resolution image.
-*/
-#achievements .award-certificate-link {
-  --award-rope: 78px;
-  position: absolute;
-  z-index: 4;
-  left: 67%;
-  top: 58.5%;
-  right: auto;
-  bottom: auto;
-  width: 54%;
-  aspect-ratio: 4 / 3;
-  display: block;
-  padding: 4px;
-  border: 1px solid rgba(255, 226, 188, .8);
-  border-radius: 7px;
-  background: linear-gradient(145deg,#eac18b,#936138 18%,#f6d6a3 55%,#795135);
-  box-shadow: 0 18px 42px rgba(0,0,0,.52), 0 0 0 2px rgba(255,211,159,.09);
-  transform: translateX(-50%) rotate(-2deg);
-  transform-origin: 50% calc(-1 * var(--award-rope));
-  animation: awardHangSway 6.4s ease-in-out infinite;
-  cursor: zoom-in;
-  will-change: transform;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-/* A pair of fine suspension wires, part of the same gently swaying card. */
-#achievements .award-certificate-link::before,
-#achievements .award-certificate-link::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: calc(-1 * var(--award-rope));
-  height: calc(var(--award-rope) + 1px);
-  width: 2px;
-  pointer-events: none;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #765b48, #ffe3b4 55%, #725544);
-  box-shadow: 0 0 5px rgba(255,212,152,.28);
-}
-#achievements .award-certificate-link::before {
-  left: 19%;
-  transform: rotate(-9deg);
-  transform-origin: bottom center;
-}
-#achievements .award-certificate-link::after {
-  right: 19%;
-  transform: rotate(9deg);
-  transform-origin: bottom center;
-}
-#achievements .award-certificate-link > img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  border-radius: 3px;
-  background: #123b82;
-}
-#achievements .award-certificate-link-label {
-  display: none !important;
-}
-#achievements .award-certificate-link:hover,
-#achievements .award-certificate-link:focus-visible {
-  animation-play-state: paused;
-  box-shadow: 0 25px 54px rgba(0,0,0,.62), 0 0 0 3px rgba(255,211,159,.16);
-}
-#achievements .award-certificate-link:focus-visible {
-  outline: 3px solid #ffda96;
-  outline-offset: 7px;
-}
-@keyframes awardHangSway {
-  0%,100% { transform: translateX(-50%) rotate(-2deg); }
-  25% { transform: translateX(-50%) rotate(.5deg); }
-  50% { transform: translateX(-50%) rotate(2.3deg); }
-  75% { transform: translateX(-50%) rotate(-.3deg); }
-}
-@media (max-width: 767px) {
-  #achievements .achievement-card .award-media,
-  #achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"]) {
-    min-height: 420px;
-  }
-  #achievements .award-certificate-link {
-    --award-rope: 43px;
-    left: 65%;
-    top: 58%;
-    width: 57%;
-    padding: 3px;
-    animation-duration: 7s;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  #achievements .award-media > .award-poster-image {
-    transition: none !important;
-    transform: none !important;
-  }
-  #achievements .award-certificate-link {
-    animation: none !important;
-    transition: none !important;
-    transform: translateX(-50%) rotate(-1deg) !important;
-    will-change: auto;
-  }
-}
-
-/* Editorial credential layout, replacing the floating suspension treatment. */
-#achievements .award-media > .award-certificate-link { display:none !important; }
-#achievements .award-media > .award-poster-image {
-  object-fit:contain !important;
-  transform:none !important;
-  transition:none !important;
-}
-#achievements .award-media:hover > .award-poster-image { transform:none !important; }
+#achievements .award-media > div.absolute {display:none!important}
+#achievements .award-certificate-link {display:none!important}
 #achievements .award-proof-strip {
-  display:grid;
-  grid-template-columns:minmax(170px,232px) minmax(0,1fr);
-  gap:clamp(16px,3vw,30px);
-  align-items:center;
-  margin-top:16px;
-  padding:clamp(15px,2.2vw,22px);
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:linear-gradient(120deg,rgb(var(--surface-rgb) / .96),rgb(var(--elevated-rgb) / .76));
+  display:grid!important;grid-template-columns:190px minmax(0,1fr) auto!important;
+  align-items:center;gap:24px;margin-top:16px;padding:18px;
+  border:1px solid var(--line);border-radius:16px;
+  background:rgb(var(--surface-rgb)/.91);
+  overflow:hidden;max-width:100%;min-width:0;
 }
-#achievements .award-proof-strip .award-certificate-link {
-  position:static !important;
-  inset:auto !important;
-  display:block !important;
-  width:100% !important;
-  aspect-ratio:4/3;
-  padding:0;
-  transform:none !important;
-  transform-origin:center !important;
-  animation:none !important;
-  transition:border-color .2s ease !important;
-  border:1px solid var(--line);
-  border-radius:10px;
-  overflow:hidden;
-  background:#143b83;
-  box-shadow:none !important;
-  will-change:auto;
+#achievements .award-proof-thumb {
+  display:block;width:190px;max-width:100%;aspect-ratio:4/3;
+  overflow:hidden;border:1px solid var(--line);border-radius:9px;
+  background:#163b82;box-shadow:none;transform:none;
 }
-#achievements .award-proof-strip .award-certificate-link::before,
-#achievements .award-proof-strip .award-certificate-link::after {display:none !important;}
-#achievements .award-proof-strip .award-certificate-link:hover,
-#achievements .award-proof-strip .award-certificate-link:focus-visible {
-  transform:none !important;
-  border-color:var(--accent);
+#achievements .award-proof-thumb img {
+  display:block;width:100%;height:100%;object-fit:contain;
 }
-#achievements .award-proof-strip .award-certificate-link img {
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-#achievements .award-proof-copy { min-width:0; }
-#achievements .award-proof-copy .award-proof-kicker {
-  display:block;
-  font:700 11px/1.5 ui-monospace,Consolas,monospace;
-  text-transform:uppercase;
-  letter-spacing:.12em;
-  color:var(--accent);
+#achievements .award-proof-copy {min-width:0}
+#achievements .award-proof-kicker {
+  color:var(--accent);font:700 11px/1.5 ui-monospace,Consolas,monospace;
+  letter-spacing:.12em;text-transform:uppercase
 }
 #achievements .award-proof-copy h3 {
-  margin:8px 0 6px;
-  color:var(--ink);
-  font-size:clamp(19px,2vw,25px);
-  line-height:1.2;
-  letter-spacing:-.03em;
-  font-weight:800;
+  color:var(--ink);font-size:clamp(18px,2vw,24px);
+  font-weight:800;line-height:1.2;letter-spacing:-.03em;margin:8px 0 6px;
 }
-#achievements .award-proof-copy p {
-  margin:0 0 7px;
-  color:var(--muted);
-  font-size:14px;
-  line-height:1.6;
+#achievements .award-proof-copy p {margin:0 0 6px;color:var(--muted);font-size:14px;line-height:1.6}
+#achievements .award-proof-subtext {color:var(--muted);font-size:12px;line-height:1.6}
+#achievements .award-proof-action {
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  white-space:nowrap;min-height:42px;padding:10px 14px;
+  border:1px solid var(--line);border-radius:9px;color:var(--ink);
+  font-size:13px;font-weight:700;text-decoration:none;
 }
-#achievements .award-proof-copy .award-proof-caption {
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
+#achievements .award-proof-action:hover,
+#achievements .award-proof-action:focus-visible {
+  border-color:var(--accent);color:var(--accent);
 }
-#achievements .award-proof-open {
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  margin-top:12px;
-  font-size:13px;
-  font-weight:700;
-  color:var(--ink);
-  text-decoration:underline;
-  text-decoration-color:var(--line);
-  text-underline-offset:5px;
+#achievements .award-proof-thumb:focus-visible,
+#achievements .award-proof-action:focus-visible {outline:2px solid var(--accent);outline-offset:3px}
+@media(max-width:900px){
+  #achievements .award-proof-strip {grid-template-columns:160px minmax(0,1fr)!important;gap:16px}
+  #achievements .award-proof-thumb {width:160px}
+  #achievements .award-proof-action {grid-column:2;justify-self:start}
 }
-#achievements .award-proof-open:hover {color:var(--accent);}
-@media(max-width:600px) {
-  #achievements .achievement-card .award-media { min-height:clamp(400px,125vw,650px); }
-  #achievements .award-proof-strip { grid-template-columns:minmax(0,1fr);padding:16px; }
-  #achievements .award-proof-strip .award-certificate-link { max-width:350px; }
+@media(max-width:600px){
+  #achievements .award-proof-strip {grid-template-columns:minmax(0,1fr)!important;gap:12px;padding:14px}
+  #achievements .award-proof-thumb {width:100%;max-width:290px}
+  #achievements .award-proof-action {grid-column:1;justify-self:stretch}
 }
-@media(prefers-reduced-motion:reduce) {
-  #achievements .award-proof-strip .award-certificate-link {transition:none !important;}
+@media(prefers-reduced-motion:reduce){
+  #achievements .award-media > img.award-poster-image {transition:none!important}
 }
