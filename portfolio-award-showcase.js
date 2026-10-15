@@ -1,87 +1,69 @@
-/* Enhancement for the published Next.js static export.
-   Runs after hydration; keeps original React markup intact. */
+/* MedFlow achievement enhancement — idempotent and hydration-safe.
+   The published site is a Next.js static export without its editable source. */
 (() => {
   'use strict';
   const poster = '/images/medflow/top-5-teams-2026.webp';
   const certificate = '/images/medflow/certificate-of-excellence-2026.webp';
-  const original = '/images/medflow/team-photo.png';
+  const project = 'https://github.com/AdhamElsayedAI/MedFlow-AI';
 
   function enhance() {
     const section = document.getElementById('achievements');
-    if (!section) return;
-    // Keep the exported React markup unchanged; update the action after hydration.
-    const projectAction = section.querySelector('.achievement-card a.button-secondary[href="https://github.com/AdhamElsayedAI/MedFlow-AI"]');
-    if (projectAction) {
-      const textNode = Array.from(projectAction.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
-      if (textNode && textNode.textContent.trim() !== 'Open Project') {
-        textNode.textContent = 'Open Project ';
-      }
-      projectAction.setAttribute('aria-label', 'Open the MedFlow project on GitHub');
-      projectAction.title = 'Open MedFlow project';
+    const card = section?.querySelector('.achievement-card');
+    if (!card) return;
+
+    const projectLink = card.querySelector('a.button-secondary[href="' + project + '"]');
+    if (projectLink) {
+      const node = Array.from(projectLink.childNodes).find(n => n.nodeType === 3);
+      if (node && node.textContent.trim() !== 'Open Project') node.textContent = 'Open Project ';
+      projectLink.setAttribute('aria-label', 'Open the MedFlow project on GitHub');
     }
-    const media = section.querySelector('.achievement-card .relative:has(> img[src="' + original + '"]), .achievement-card .award-media');
-    if (!media) return;
-    media.classList.add('award-media');
-    const photo = media.querySelector(':scope > img');
-    if (photo && photo.getAttribute('src') !== poster) {
-      photo.setAttribute('src', poster);
-      photo.setAttribute('alt', 'Official Top 5 Teams announcement featuring MedFlow at Orange Digital Center and CREATIVA');
-      photo.setAttribute('loading', 'lazy');
-      photo.classList.add('award-poster-image');
-    }
-    if (!media.querySelector('.award-certificate-link')) {
-      const a = document.createElement('a');
-      a.className = 'award-certificate-link';
-      a.href = certificate;
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      a.setAttribute('aria-label', 'Open the original Certificate of Excellence for Adham Elsayed');
-      a.title = 'View the original award certificate';
-      const img = document.createElement('img');
-      img.src = certificate;
-      img.alt = 'Certificate of Excellence for Adham Elsayed, Best Participant Award and Top 5 Teams';
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      a.appendChild(img);
-      const tag = document.createElement('span');
-      tag.className = 'award-certificate-link-label';
-      tag.textContent = 'VIEW CERTIFICATE ↗';
-      a.appendChild(tag);
-      media.appendChild(a);
-    }
-    const link = media.querySelector('.award-certificate-link');
-    if (link) {
-      let strip = section.querySelector('.award-proof-strip');
-      if (!strip) {
-        strip = document.createElement('div');
-        strip.className = 'award-proof-strip';
-        const copy = document.createElement('div');
-        copy.className = 'award-proof-copy';
-        copy.innerHTML = '<span class="award-proof-kicker">Official recognition</span><h3>Certificate of Excellence</h3><p>Top 5 Teams · Best Participant Award</p><span class="award-proof-caption">Orange Digital Center · CREATIVA Hub, Mansoura</span><a class="award-proof-open" href="/images/medflow/certificate-of-excellence-2026.webp" target="_blank" rel="noopener noreferrer">View original certificate ↗</a>';
-        strip.appendChild(copy);
-      }
-      if (link.parentElement !== strip) strip.insertBefore(link, strip.firstChild);
-      if (strip.previousElementSibling !== section.querySelector('.achievement-card')) {
-        section.querySelector('.achievement-card').insertAdjacentElement('afterend', strip);
+
+    const media = card.querySelector('.award-media, .relative:has(> img[src="/images/medflow/team-photo.png"])');
+    if (media) {
+      media.classList.add('award-media');
+      const picture = media.querySelector(':scope > img');
+      if (picture) {
+        if (picture.getAttribute('src') !== poster) picture.setAttribute('src', poster);
+        picture.alt = 'Official Orange Digital Center Top 5 Teams poster including MedFlow';
+        picture.classList.add('award-poster-image');
       }
     }
+
+    // Remove any legacy suspended thumbnails. Never move or duplicate an existing link.
+    section.querySelectorAll('.award-certificate-link').forEach(el => el.remove());
+
+    // Only create one independent, non-React-managed evidence row.
+    if (section.querySelector('.award-proof-strip[data-award-version="2"]')) return;
+    section.querySelectorAll('.award-proof-strip').forEach(el => el.remove());
+
+    const strip = document.createElement('div');
+    strip.className = 'award-proof-strip';
+    strip.dataset.awardVersion = '2';
+    strip.innerHTML = `
+      <a class="award-proof-thumb" href="${certificate}" target="_blank"
+         rel="noopener noreferrer" aria-label="View the original Certificate of Excellence">
+        <img src="${certificate}" alt="Original Certificate of Excellence for Adham Elsayed"
+             width="1448" height="1086" loading="lazy" decoding="async" />
+      </a>
+      <div class="award-proof-copy">
+        <span class="award-proof-kicker">Official recognition</span>
+        <h3>Certificate of Excellence</h3>
+        <p>Top 5 Teams · Best Participant Award</p>
+        <span class="award-proof-subtext">Orange Digital Center · CREATIVA Hub, Mansoura</span>
+      </div>
+      <a class="award-proof-action" href="${certificate}" target="_blank"
+         rel="noopener noreferrer" aria-label="Open the original certificate full size">
+         View certificate <span aria-hidden="true">↗</span>
+      </a>`;
+    card.insertAdjacentElement('afterend', strip);
   }
 
-  // Wait until the Next.js client has had a chance to hydrate.
+  // Wait for the Next.js page to hydrate, then recheck twice without observers.
   function start() {
-    window.setTimeout(enhance, 600);
-    window.setTimeout(enhance, 1800);
-    const section = document.getElementById('achievements');
-    if (section && typeof MutationObserver !== 'undefined') {
-      let scheduled = false;
-      const observer = new MutationObserver(() => {
-        if (scheduled) return;
-        scheduled = true;
-        window.requestAnimationFrame(() => { scheduled = false; enhance(); });
-      });
-      observer.observe(section, { childList: true, subtree: true });
-    }
+    window.setTimeout(enhance, 500);
+    window.setTimeout(enhance, 1400);
+    window.setTimeout(enhance, 3000);
   }
   if (document.readyState === 'complete') start();
-  else window.addEventListener('load', start, { once: true });
+  else window.addEventListener('load', start, {once: true});
 })();
