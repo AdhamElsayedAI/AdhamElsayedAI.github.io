@@ -1,61 +1,111 @@
-/* MedFlow achievement — a single restrained evidence strip, never overlaid. */
-#achievements .award-media {background:#10215d;isolation:isolate}
-#achievements .award-media::before {content:none!important;display:none!important}
+/* MedFlow award: the authentic organizer poster plus one subtly swinging certificate. */
+#achievements .achievement-card .award-media,
+#achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"]) {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:#111f59;
+}
+/* Display the real poster even while the exported Next.js page hydrates. */
+#achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"])::before {
+  content:"";
+  position:absolute;
+  z-index:1;
+  inset:0;
+  background:url('/images/medflow/top-5-teams-2026.webp') center / contain no-repeat;
+}
+#achievements .achievement-card .relative > img[src="/images/medflow/team-photo.png"] {
+  visibility:hidden!important;
+}
+#achievements .achievement-card .award-media::before {content:none!important;}
 #achievements .award-media > img.award-poster-image {
-  opacity:1!important;visibility:visible!important;object-fit:cover!important;
-  object-position:center!important;transform:none!important;transition:none!important;
-  z-index:1
+  position:absolute;
+  display:block;
+  width:100%;height:100%;inset:0;
+  object-fit:contain!important;
+  object-position:center;
+  opacity:1!important;
+  visibility:visible!important;
+  transform:none!important;
+  transition:none!important;
+  z-index:1;
 }
-#achievements .award-media > div.absolute {display:none!important}
-#achievements .award-certificate-link {display:none!important}
-#achievements .award-proof-strip {
-  display:grid!important;grid-template-columns:190px minmax(0,1fr) auto!important;
-  align-items:center;gap:24px;margin-top:16px;padding:18px;
-  border:1px solid var(--line);border-radius:16px;
-  background:rgb(var(--surface-rgb)/.91);
-  overflow:hidden;max-width:100%;min-width:0;
+#achievements .award-media > div.absolute {display:none!important;}
+#achievements .award-proof-strip {display:none!important;}
+
+/* A modest print-style frame, suspended by two fine wires; no glows or 3-D effect. */
+#achievements .award-media > .award-certificate-link {
+  --hang-wire:53px;
+  position:absolute!important;
+  display:block!important;
+  z-index:5;
+  top:61%;left:82%;right:auto!important;bottom:auto!important;
+  width:33%;max-width:205px;
+  aspect-ratio:4/3;
+  padding:3px;
+  border:1px solid #cbbca7;
+  border-radius:3px;
+  background:#0f2860;
+  box-shadow:0 11px 24px rgba(0,0,0,.4),0 1px 3px rgba(0,0,0,.3);
+  transform:translateX(-50%) rotate(-1.5deg);
+  transform-origin:50% calc(-1 * var(--hang-wire));
+  animation:medflowCertificatePendulum 6.2s ease-in-out infinite;
+  cursor:zoom-in;
+  text-decoration:none;
+  will-change:transform;
 }
-#achievements .award-proof-thumb {
-  display:block;width:190px;max-width:100%;aspect-ratio:4/3;
-  overflow:hidden;border:1px solid var(--line);border-radius:9px;
-  background:#163b82;box-shadow:none;transform:none;
+#achievements .award-media > .award-certificate-link::before,
+#achievements .award-media > .award-certificate-link::after {
+  content:"";
+  position:absolute;
+  top:calc(-1 * var(--hang-wire));
+  height:var(--hang-wire);
+  width:1px;
+  z-index:0;
+  background:rgba(226,227,230,.85);
+  box-shadow:1px 0 1px rgba(0,0,0,.3);
+  pointer-events:none;
 }
-#achievements .award-proof-thumb img {
-  display:block;width:100%;height:100%;object-fit:contain;
+#achievements .award-media > .award-certificate-link::before {
+  left:20%;transform:rotate(-7deg);transform-origin:bottom center;
 }
-#achievements .award-proof-copy {min-width:0}
-#achievements .award-proof-kicker {
-  color:var(--accent);font:700 11px/1.5 ui-monospace,Consolas,monospace;
-  letter-spacing:.12em;text-transform:uppercase
+#achievements .award-media > .award-certificate-link::after {
+  right:20%;transform:rotate(7deg);transform-origin:bottom center;
 }
-#achievements .award-proof-copy h3 {
-  color:var(--ink);font-size:clamp(18px,2vw,24px);
-  font-weight:800;line-height:1.2;letter-spacing:-.03em;margin:8px 0 6px;
+#achievements .award-media > .award-certificate-link > img {
+  display:block;
+  width:100%;height:100%;
+  object-fit:contain;
+  border-radius:1px;
+  background:#153c81;
 }
-#achievements .award-proof-copy p {margin:0 0 6px;color:var(--muted);font-size:14px;line-height:1.6}
-#achievements .award-proof-subtext {color:var(--muted);font-size:12px;line-height:1.6}
-#achievements .award-proof-action {
-  display:inline-flex;align-items:center;justify-content:center;gap:9px;
-  white-space:nowrap;min-height:42px;padding:10px 14px;
-  border:1px solid var(--line);border-radius:9px;color:var(--ink);
-  font-size:13px;font-weight:700;text-decoration:none;
+#achievements .award-media > .award-certificate-link-label,
+#achievements .award-media > .award-certificate-link > span {display:none!important;}
+#achievements .award-media > .award-certificate-link:hover,
+#achievements .award-media > .award-certificate-link:focus-visible {
+  animation-play-state:paused;
+  border-color:#fff1d9;
 }
-#achievements .award-proof-action:hover,
-#achievements .award-proof-action:focus-visible {
-  border-color:var(--accent);color:var(--accent);
+#achievements .award-media > .award-certificate-link:focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:5px;
 }
-#achievements .award-proof-thumb:focus-visible,
-#achievements .award-proof-action:focus-visible {outline:2px solid var(--accent);outline-offset:3px}
-@media(max-width:900px){
-  #achievements .award-proof-strip {grid-template-columns:160px minmax(0,1fr)!important;gap:16px}
-  #achievements .award-proof-thumb {width:160px}
-  #achievements .award-proof-action {grid-column:2;justify-self:start}
+@keyframes medflowCertificatePendulum {
+  0%,100% {transform:translateX(-50%) rotate(-1.5deg);}
+  50% {transform:translateX(-50%) rotate(1.5deg);}
 }
-@media(max-width:600px){
-  #achievements .award-proof-strip {grid-template-columns:minmax(0,1fr)!important;gap:12px;padding:14px}
-  #achievements .award-proof-thumb {width:100%;max-width:290px}
-  #achievements .award-proof-action {grid-column:1;justify-self:stretch}
+@media(max-width:767px) {
+  #achievements .award-media {min-height:clamp(400px,115vw,670px);}
+  #achievements .award-media > .award-certificate-link {
+    --hang-wire:38px;
+    top:63%;left:81%;width:37%;max-width:178px;
+    padding:2px;
+  }
 }
-@media(prefers-reduced-motion:reduce){
-  #achievements .award-media > img.award-poster-image {transition:none!important}
+@media(prefers-reduced-motion:reduce) {
+  #achievements .award-media > .award-certificate-link {
+    animation:none!important;
+    transform:translateX(-50%) rotate(-1deg)!important;
+    will-change:auto;
+  }
 }
