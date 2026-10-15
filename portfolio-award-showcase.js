@@ -9,6 +9,16 @@
   function enhance() {
     const section = document.getElementById('achievements');
     if (!section) return;
+    // Keep the exported React markup unchanged; update the action after hydration.
+    const projectAction = section.querySelector('.achievement-card a.button-secondary[href="https://github.com/AdhamElsayedAI/MedFlow-AI"]');
+    if (projectAction) {
+      const textNode = Array.from(projectAction.childNodes).find(node => node.nodeType === Node.TEXT_NODE);
+      if (textNode && textNode.textContent.trim() !== 'Open Project') {
+        textNode.textContent = 'Open Project ';
+      }
+      projectAction.setAttribute('aria-label', 'Open the MedFlow project on GitHub');
+      projectAction.title = 'Open MedFlow project';
+    }
     const media = section.querySelector('.achievement-card .relative:has(> img[src="' + original + '"]), .achievement-card .award-media');
     if (!media) return;
     media.classList.add('award-media');
