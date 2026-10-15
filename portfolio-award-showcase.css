@@ -31,61 +31,110 @@
   opacity: .25;
 }
 #achievements .award-media > div.absolute.inset-x-5 { display: none !important; }
+
+/*
+  Hanging certificate: keep the official Top 5 announcement readable.
+  Deliberately sized smaller than the former 75% card.
+  The certificate remains a link to the unaltered full-resolution image.
+*/
 #achievements .award-certificate-link {
+  --award-rope: 78px;
   position: absolute;
   z-index: 4;
-  right: 4.7%;
-  bottom: 5.3%;
-  width: 77%;
+  left: 67%;
+  top: 58.5%;
+  right: auto;
+  bottom: auto;
+  width: 54%;
   aspect-ratio: 4 / 3;
   display: block;
-  padding: 5px;
-  border: 1px solid rgba(255,230,182,.85);
-  border-radius: 8px;
-  background: linear-gradient(135deg,#f6d9a1 0%,#8c5837 26%,#ffca79 54%,#70483c 100%);
-  box-shadow: 0 16px 45px rgba(0,0,0,.62), 0 0 0 4px rgba(255,210,148,.11), 0 0 35px rgba(241,151,58,.2);
-  transform: rotate(-3deg);
-  transform-origin: center 80%;
-  transition: transform 330ms cubic-bezier(.2,.85,.25,1), box-shadow 330ms ease;
+  padding: 4px;
+  border: 1px solid rgba(255, 226, 188, .8);
+  border-radius: 7px;
+  background: linear-gradient(145deg,#eac18b,#936138 18%,#f6d6a3 55%,#795135);
+  box-shadow: 0 18px 42px rgba(0,0,0,.52), 0 0 0 2px rgba(255,211,159,.09);
+  transform: translateX(-50%) rotate(-2deg);
+  transform-origin: 50% calc(-1 * var(--award-rope));
+  animation: awardHangSway 6.4s ease-in-out infinite;
   cursor: zoom-in;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
-#achievements .award-certificate-link:hover,
-#achievements .award-certificate-link:focus-visible {
-  transform: rotate(-.5deg) scale(1.025);
-  box-shadow: 0 20px 55px rgba(0,0,0,.7), 0 0 0 4px rgba(255,210,148,.2), 0 0 40px rgba(241,151,58,.35);
+
+/* A pair of fine suspension wires, part of the same gently swaying card. */
+#achievements .award-certificate-link::before,
+#achievements .award-certificate-link::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(-1 * var(--award-rope));
+  height: calc(var(--award-rope) + 1px);
+  width: 2px;
+  pointer-events: none;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #765b48, #ffe3b4 55%, #725544);
+  box-shadow: 0 0 5px rgba(255,212,152,.28);
 }
-#achievements .award-certificate-link:focus-visible { outline: 3px solid #ffda96; outline-offset: 6px; }
+#achievements .award-certificate-link::before {
+  left: 19%;
+  transform: rotate(-9deg);
+  transform-origin: bottom center;
+}
+#achievements .award-certificate-link::after {
+  right: 19%;
+  transform: rotate(9deg);
+  transform-origin: bottom center;
+}
 #achievements .award-certificate-link > img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 3px;
+  background: #123b82;
 }
 #achievements .award-certificate-link-label {
-  position: absolute;
-  right: 8px;
-  top: -27px;
-  padding: 5px 9px;
-  border-radius: 6px 6px 0 0;
-  background: rgba(6,13,34,.94);
-  border: 1px solid rgba(255,208,149,.48);
-  border-bottom: none;
-  color: #ffe7c0;
-  font: 700 10px/1.3 ui-monospace, SFMono-Regular, Consolas, monospace;
-  letter-spacing: .08em;
-  white-space: nowrap;
+  display: none !important;
 }
-@media (min-width: 1024px) {
-  #achievements .award-certificate-link { width: 75%; right: 5%; bottom: 4.8%; }
+#achievements .award-certificate-link:hover,
+#achievements .award-certificate-link:focus-visible {
+  animation-play-state: paused;
+  box-shadow: 0 25px 54px rgba(0,0,0,.62), 0 0 0 3px rgba(255,211,159,.16);
+}
+#achievements .award-certificate-link:focus-visible {
+  outline: 3px solid #ffda96;
+  outline-offset: 7px;
+}
+@keyframes awardHangSway {
+  0%,100% { transform: translateX(-50%) rotate(-2deg); }
+  25% { transform: translateX(-50%) rotate(.5deg); }
+  50% { transform: translateX(-50%) rotate(2.3deg); }
+  75% { transform: translateX(-50%) rotate(-.3deg); }
 }
 @media (max-width: 767px) {
   #achievements .achievement-card .award-media,
-  #achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"]) { min-height: 420px; }
-  #achievements .award-certificate-link { width: 71%; right: 5%; bottom: 4%; padding: 4px; transform: rotate(-2deg); }
-  #achievements .award-certificate-link-label { font-size: 9px; top: -24px; }
+  #achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"]) {
+    min-height: 420px;
+  }
+  #achievements .award-certificate-link {
+    --award-rope: 43px;
+    left: 65%;
+    top: 58%;
+    width: 57%;
+    padding: 3px;
+    animation-duration: 7s;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  #achievements .award-media > .award-poster-image,
-  #achievements .award-certificate-link { transition: none !important; transform: none !important; }
+  #achievements .award-media > .award-poster-image {
+    transition: none !important;
+    transform: none !important;
+  }
+  #achievements .award-certificate-link {
+    animation: none !important;
+    transition: none !important;
+    transform: translateX(-50%) rotate(-1deg) !important;
+    will-change: auto;
+  }
 }
