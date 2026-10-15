@@ -24,11 +24,7 @@ This portfolio brings together the systems I've built, the engineering decisions
 
 ### Selected work
 
-<table>
-<tr>
-<td width="50%" valign="top">
-
-<a href="https://github.com/AdhamElsayedAI/MedFlow-AI"><img src="./images/medflow/rag-chat.png" alt="MedFlow real grounded RAG chat interface" width="100%" /></a>
+<a href="https://github.com/AdhamElsayedAI/MedFlow-AI"><img src="./images/medflow/rag-chat.png" alt="MedFlow real grounded RAG chat interface" width="83%" /></a>
 
 **01 / [MedFlow — Evidence-Grounded Clinical RAG](https://github.com/AdhamElsayedAI/MedFlow-AI)**
 
@@ -36,25 +32,10 @@ Hybrid dense and sparse retrieval with RRF fusion, evidence gates, citation vali
 
 <sub>Python · BGE · BM25 · RRF · ChromaDB · FastAPI</sub>
 
-</td>
-<td width="50%" valign="top">
-
-<a href="https://github.com/AdhamElsayedAI/MedicalPlab"><img src="./images/medicalplab/home.png" alt="MedicalPlab real adaptive learning platform interface" width="100%" /></a>
-
-**02 / [MedicalPlab — Adaptive Grounded Learning](https://github.com/AdhamElsayedAI/MedicalPlab)**
-
-An adaptive medical learning experience with learner-state tracking, three-turn Socratic remediation, hybrid retrieval, NLI verification, and evidence-safe fallback.
-
-<sub>Generative AI · RAG · Cross-Encoder · NLI · FastAPI · Next.js</sub>
-
-</td>
-</tr>
-</table>
-
 | | Additional systems | |
 |:--|:--|:--|
-| **03** | **[Smart Basket](https://github.com/AdhamElsayedAI/Smart-Basket)** | YOLO detection and ONNX edge inference on Raspberry Pi 5, connected to a Flutter/Firebase cart |
-| **04** | **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype, threshold alerts, and an auditable FastAPI workflow |
+| **02** | **[Smart Basket](https://github.com/AdhamElsayedAI/Smart-Basket)** | YOLO detection and ONNX edge inference on Raspberry Pi 5, connected to a Flutter/Firebase cart |
+| **03** | **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype, threshold alerts, and an auditable FastAPI workflow |
 
 <details>
 <summary><strong>Engineering evidence & measurement scope</strong></summary>
@@ -64,7 +45,6 @@ An adaptive medical learning experience with learner-state tracking, three-turn 
 - **MedFlow retrieval:** Precision@4 **53.12%**, Hit@4 **87.50%**, and MRR **≈0.7031** on the documented 200-token, Top-K=4 setup.
 - **MedFlow grounding:** A bounded seven-case evaluation reported valid citations and coverage across all seven cases. This is **not a clinical accuracy measurement**.
 - **Smart Basket detection:** Reported results for a four-class evaluation: **96.89% mAP@0.5** and **84.79% mAP@0.5:0.95**.
-- **MedicalPlab:** Safety behavior, the bounded tutoring flow, and verification architecture describe engineering design—not proven clinical or educational effectiveness.
 
 </details>
 
