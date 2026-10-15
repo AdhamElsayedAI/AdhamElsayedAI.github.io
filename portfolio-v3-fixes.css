@@ -60,3 +60,9 @@ html { scroll-padding-top:5.5rem; } html,body { max-width:100%; }
 #certifications .cert-card h3{overflow-wrap:anywhere}
 }
 @media(prefers-reduced-motion:reduce){.portrait-frame-soft-v7,.portrait-frame-line-v7::before{animation:none!important}}
+/* Retired portfolio entry: MedicalPlab (published Next.js static export).
+   Keep the compiled React tree intact to avoid hydration mismatches. */
+#projects .projects-grid-v5 > .project-card-featured-v5:has(> .project-featured-media-v5 > img[src="/images/medicalplab/home.png"]),
+#projects .projects-grid-v5 > .project-card-featured-v5:nth-child(2) {
+  display: none !important;
+}
