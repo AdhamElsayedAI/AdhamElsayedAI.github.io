@@ -1,0 +1,40 @@
+/* Smart Basket — showcase visual from the approved blue/cyan artwork.
+   Media-only treatment: real project description, metrics, tags and links remain HTML.
+   No JavaScript / no changes to Next.js hydration. */
+#projects .project-card-basket .project-poster-v5 {
+  display: block;
+  min-height: 0;
+  width: 100%;
+  aspect-ratio: 1195 / 691;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #082550;
+  background-image: url('/images/smart-basket/vision-checkout-hero.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+  border-bottom: 1px solid rgb(var(--line-rgb) / .8);
+}
+/* Remove the retired orange gradient, orbit animations, grid, icon, and duplicate label. */
+#projects .project-card-basket .project-poster-v5::before,
+#projects .project-card-basket .project-poster-v5::after,
+#projects .project-card-basket .project-poster-v5 > * {
+  display: none !important;
+  content: none !important;
+  animation: none !important;
+}
+@media (max-width: 900px) {
+  #projects .project-card-basket .project-poster-v5 {
+    aspect-ratio: 1195 / 691;
+  }
+}
+@media (max-width: 420px) {
+  #projects .project-card-basket,
+  #projects .project-card-basket .project-card-body-v5 {
+    min-width: 0;
+  }
+  #projects .project-card-basket .project-poster-v5 {
+    aspect-ratio: 1195 / 691;
+  }
+}
