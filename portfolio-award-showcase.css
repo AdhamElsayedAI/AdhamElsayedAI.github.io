@@ -1,0 +1,91 @@
+/* MedFlow 2026 award: real organizer announcement and unaltered certificate.
+   The old team photograph remains in the compiled React markup but is never displayed. */
+#achievements .achievement-card .award-media,
+#achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"]) {
+  isolation: isolate;
+  background: #06143a;
+}
+#achievements .achievement-card .award-media::before,
+#achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"])::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url('/images/medflow/top-5-teams-2026.webp') center center / cover no-repeat;
+}
+#achievements .award-media > img[src="/images/medflow/team-photo.png"],
+#achievements .achievement-card .relative > img[src="/images/medflow/team-photo.png"] {
+  opacity: 0 !important;
+}
+#achievements .award-media > .award-poster-image {
+  opacity: 1 !important;
+  z-index: 1;
+  object-position: center center;
+  transition: transform 850ms cubic-bezier(.2,.8,.2,1);
+}
+#achievements .award-media:hover > .award-poster-image { transform: scale(1.018); }
+/* Reduce the legacy photograph's heavy gradient and avoid obscuring the artwork. */
+#achievements .award-media > img + div {
+  z-index: 2;
+  pointer-events: none;
+  opacity: .25;
+}
+#achievements .award-media > div.absolute.inset-x-5 { display: none !important; }
+#achievements .award-certificate-link {
+  position: absolute;
+  z-index: 4;
+  right: 4.7%;
+  bottom: 5.3%;
+  width: 77%;
+  aspect-ratio: 4 / 3;
+  display: block;
+  padding: 5px;
+  border: 1px solid rgba(255,230,182,.85);
+  border-radius: 8px;
+  background: linear-gradient(135deg,#f6d9a1 0%,#8c5837 26%,#ffca79 54%,#70483c 100%);
+  box-shadow: 0 16px 45px rgba(0,0,0,.62), 0 0 0 4px rgba(255,210,148,.11), 0 0 35px rgba(241,151,58,.2);
+  transform: rotate(-3deg);
+  transform-origin: center 80%;
+  transition: transform 330ms cubic-bezier(.2,.85,.25,1), box-shadow 330ms ease;
+  cursor: zoom-in;
+}
+#achievements .award-certificate-link:hover,
+#achievements .award-certificate-link:focus-visible {
+  transform: rotate(-.5deg) scale(1.025);
+  box-shadow: 0 20px 55px rgba(0,0,0,.7), 0 0 0 4px rgba(255,210,148,.2), 0 0 40px rgba(241,151,58,.35);
+}
+#achievements .award-certificate-link:focus-visible { outline: 3px solid #ffda96; outline-offset: 6px; }
+#achievements .award-certificate-link > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 3px;
+}
+#achievements .award-certificate-link-label {
+  position: absolute;
+  right: 8px;
+  top: -27px;
+  padding: 5px 9px;
+  border-radius: 6px 6px 0 0;
+  background: rgba(6,13,34,.94);
+  border: 1px solid rgba(255,208,149,.48);
+  border-bottom: none;
+  color: #ffe7c0;
+  font: 700 10px/1.3 ui-monospace, SFMono-Regular, Consolas, monospace;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+@media (min-width: 1024px) {
+  #achievements .award-certificate-link { width: 75%; right: 5%; bottom: 4.8%; }
+}
+@media (max-width: 767px) {
+  #achievements .achievement-card .award-media,
+  #achievements .achievement-card .relative:has(> img[src="/images/medflow/team-photo.png"]) { min-height: 420px; }
+  #achievements .award-certificate-link { width: 71%; right: 5%; bottom: 4%; padding: 4px; transform: rotate(-2deg); }
+  #achievements .award-certificate-link-label { font-size: 9px; top: -24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #achievements .award-media > .award-poster-image,
+  #achievements .award-certificate-link { transition: none !important; transform: none !important; }
+}
