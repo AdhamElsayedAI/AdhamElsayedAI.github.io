@@ -49,6 +49,22 @@
       a.appendChild(tag);
       media.appendChild(a);
     }
+    const link = media.querySelector('.award-certificate-link');
+    if (link) {
+      let strip = section.querySelector('.award-proof-strip');
+      if (!strip) {
+        strip = document.createElement('div');
+        strip.className = 'award-proof-strip';
+        const copy = document.createElement('div');
+        copy.className = 'award-proof-copy';
+        copy.innerHTML = '<span class="award-proof-kicker">Official recognition</span><h3>Certificate of Excellence</h3><p>Top 5 Teams · Best Participant Award</p><span class="award-proof-caption">Orange Digital Center · CREATIVA Hub, Mansoura</span><a class="award-proof-open" href="/images/medflow/certificate-of-excellence-2026.webp" target="_blank" rel="noopener noreferrer">View original certificate ↗</a>';
+        strip.appendChild(copy);
+      }
+      if (link.parentElement !== strip) strip.insertBefore(link, strip.firstChild);
+      if (strip.previousElementSibling !== section.querySelector('.achievement-card')) {
+        section.querySelector('.achievement-card').insertAdjacentElement('afterend', strip);
+      }
+    }
   }
 
   // Wait until the Next.js client has had a chance to hydrate.
