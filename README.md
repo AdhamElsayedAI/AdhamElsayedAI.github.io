@@ -35,7 +35,8 @@ Hybrid dense and sparse retrieval with RRF fusion, evidence gates, citation vali
 | | Additional systems | |
 |:--|:--|:--|
 | **02** | **[Smart Basket](https://github.com/AdhamElsayedAI/Smart-Basket)** | YOLO detection and ONNX edge inference on Raspberry Pi 5, connected to a Flutter/Firebase cart |
-| **03** | **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype, threshold alerts, and an auditable FastAPI workflow |\n| **04** | **[Smart Attendance System](https://github.com/AdhamElsayedAI/Smart-Attendance-System)** | Face recognition, blink-based liveness checks, exam-scoped attendance, and Streamlit/SQLite records |
+| **03** | **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype, threshold alerts, and an auditable FastAPI workflow |
+| **04** | **[Smart Attendance System](https://github.com/AdhamElsayedAI/Smart-Attendance-System)** | Face recognition, blink-based liveness checks, exam-scoped attendance, and Streamlit/SQLite records |
 
 <details>
 <summary><strong>Engineering evidence & measurement scope</strong></summary>
@@ -68,7 +69,7 @@ Hybrid dense and sparse retrieval with RRF fusion, evidence gates, citation vali
 
 <br />
 
-The website uses a dark/light theme, responsive layouts, accessible navigation, authentic project imagery, and subtle interface motion. Interactive cards respond to pointer position; animated section typography is a progressive enhancement and respects reduced-motion settings.
+The website uses a dark/light theme, responsive layouts, accessible navigation, authentic project imagery, and subtle interface motion. Section dividers have warm plum / champagne particle typography, and in-page navigation uses a short cinematic transition; both progressively disable for reduced motion. Interactive cards respond to pointer position; animated section typography is a progressive enhancement and respects reduced-motion settings.
 
 ### For developers
 
@@ -96,7 +97,9 @@ images/                            Original project imagery
 portfolio-v3-fixes.css             Responsive refinements
 portfolio-v3-motion.css / .js      Interaction and reveal motion
 portfolio-v3-section-titles.css    Readable heading fallback
-portfolio-v3-creative-letters.*    Per-letter heading animation\nportfolio-smart-attendance.*      Hydration-safe Smart Attendance project card
+portfolio-v3-creative-letters.*    Per-letter heading animation
+portfolio-smart-attendance.*      Hydration-safe Smart Attendance project card
+portfolio-cinematic-sections.*     Particle section titles and section navigation overlay
 Adham_Elsayed_CV.pdf               Current downloadable résumé
 ```
 
