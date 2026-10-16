@@ -1,0 +1,45 @@
+name: Portfolio Browser QA
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'portfolio-*.js'
+      - 'portfolio-*.css'
+      - 'images/**'
+      - '_next/**'
+      - '.github/workflows/portfolio-qa.yml'
+      - 'scripts/portfolio-smoke-test.cjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Playwright and browser
+        run: |
+          npm install --no-save --prefix /tmp/portfolio-qa playwright@1.56.1
+          /tmp/portfolio-qa/node_modules/.bin/playwright install chromium --with-deps
+      - name: Serve static-export website
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/portfolio-http.log 2>&1 &
+          sleep 2
+          curl --fail -sI http://127.0.0.1:4173/ | head -n 1
+      - name: Test desktop tablet mobile and animations
+        env:
+          NODE_PATH: /tmp/portfolio-qa/node_modules
+        run: node scripts/portfolio-smoke-test.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portfolio-browser-screenshots
+          path: qa-screenshots/
+          if-no-files-found: ignore
