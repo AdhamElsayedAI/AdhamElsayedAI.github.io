@@ -8,9 +8,9 @@
   const cardHTML = `
     <div class="project-poster-v5 attendance-poster-v1">
       <img class="attendance-project-art"
-           src="/images/smart-attendance/verification-overview.svg"
-           alt="Illustrative Smart Attendance dashboard showing face matching, a blink liveness step, and exam-scoped attendance records; not an application screenshot"
-           width="1195" height="692" loading="lazy" decoding="async" />
+           src="/images/smart-attendance/attendanceos-portfolio.webp"
+           alt="Illustrative AttendanceOS interface concept showing face recognition, eye-blink verification, and attendance tracking; not an actual app screenshot"
+           width="480" height="278" loading="lazy" decoding="async" />
       <span class="attendance-concept-label">INTERFACE CONCEPT</span>
     </div>
     <div class="project-card-body-v5">
