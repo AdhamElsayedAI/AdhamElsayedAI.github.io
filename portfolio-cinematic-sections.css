@@ -154,3 +154,36 @@ html.light .section-heading-v5 .section-dot-banner .section-wordmark .v3-letter 
 @media(prefers-reduced-motion:reduce){
   html.light .section-heading-v5 .section-dot-banner canvas.cinema-particles {filter:none!important}
 }
+/* Clean typography-only section headings; keep canvas pointer interaction intact. */
+.section-heading-v5 .section-dot-banner,
+html.light .section-heading-v5 .section-dot-banner {
+  min-height:clamp(6.7rem,12.5vw,10rem)!important;
+  padding:clamp(.35rem,1vw,.7rem) 0!important;
+  background:transparent!important;
+  background-image:none!important;
+  background-color:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  outline:0!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  translate:0 0!important;
+}
+.section-heading-v5 .section-dot-banner::before,
+.section-heading-v5 .section-dot-banner::after,
+html.light .section-heading-v5 .section-dot-banner::before,
+html.light .section-heading-v5 .section-dot-banner::after {
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  animation:none!important;
+}
+@media(max-width:767px){
+  .section-heading-v5 .section-dot-banner,
+  html.light .section-heading-v5 .section-dot-banner{
+    min-height:clamp(5.5rem,22vw,7.75rem)!important;
+    padding:.2rem 0!important;
+  }
+}

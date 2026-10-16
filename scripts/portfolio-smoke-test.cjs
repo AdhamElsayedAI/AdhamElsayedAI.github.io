@@ -41,6 +41,17 @@ async function inspect(browser, title, viewport, mobile) {
 
   await page.locator('#projects').scrollIntoViewIfNeeded();
   await page.waitForTimeout(1000);
+  for(const sectionId of ids.slice(1)){
+    const a=await page.locator('#'+sectionId+' .section-dot-banner').evaluate(el=>{
+      const c=getComputedStyle(el);
+      return {bg:c.backgroundImage,fill:c.backgroundColor,border:c.borderTopWidth,shadow:c.boxShadow,
+        radius:c.borderTopLeftRadius,before:getComputedStyle(el,'::before').display,
+        after:getComputedStyle(el,'::after').display};
+    });
+    assert(a.bg==='none'&&a.fill==='rgba(0, 0, 0, 0)'&&a.border==='0px'&&
+      a.shadow==='none'&&a.radius==='0px'&&a.before==='none'&&a.after==='none',
+      title+' '+sectionId+' transparent heading',JSON.stringify(a));
+  }
   assert(await page.locator('#projects .project-card-attendance').count() === 1, title + ' Smart Attendance card');
   assert(await page.locator('#projects .project-card-v5').count() >= 4, title + ' project cards preserved');
   assert(!await page.getByText('LIVE ·', { exact: false }).isVisible().catch(() => false), title + ' LIVE removed');
@@ -129,8 +140,15 @@ async function inspect(browser, title, viewport, mobile) {
         bg:getComputedStyle(e).backgroundImage,
         radius:getComputedStyle(e).borderTopLeftRadius
       }));
-      assert(lightSurface.bg.includes('rgb(247, 245, 249)'),title+' light header matches light page',lightSurface.bg);
-      assert(lightSurface.radius!=='0px',title+' light header soft corners',lightSurface.radius);
+      assert(lightSurface.bg==='none',title+' light header no background',lightSurface.bg);
+      assert(lightSurface.radius==='0px',title+' light header no card outline',lightSurface.radius);
+      const allTransparent=await page.locator('.section-heading-v5 .section-dot-banner').evaluateAll(nodes=>nodes.every(el=>{
+        const c=getComputedStyle(el);
+        return c.backgroundImage==='none'&&c.backgroundColor==='rgba(0, 0, 0, 0)'&&
+          c.borderTopWidth==='0px'&&c.boxShadow==='none'&&
+          getComputedStyle(el,'::before').display==='none'&&getComputedStyle(el,'::after').display==='none';
+      }));
+      assert(allTransparent,title+' all sections unboxed in light mode');
       const ink=await about.locator('canvas.cinema-particles').evaluate(el=>{
         const d=el.getContext('2d').getImageData(0,0,el.width,el.height).data;
         let n=0,y=0;
@@ -146,7 +164,7 @@ async function inspect(browser, title, viewport, mobile) {
       await page.waitForTimeout(160);
       assert(await page.locator('html').evaluate(e=>e.classList.contains('dark')),title+' return to dark mode');
       const darkBg=await page.locator('#projects .section-dot-banner').evaluate(e=>getComputedStyle(e).backgroundImage);
-      assert(darkBg.includes('rgb(9, 11, 22)'),title+' dark mode background preserved');
+      assert(darkBg==='none',title+' background absent when toggling back to dark');
     }
   }
   await context.close();
