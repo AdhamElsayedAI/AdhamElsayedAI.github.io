@@ -69,7 +69,7 @@ Hybrid dense and sparse retrieval with RRF fusion, evidence gates, citation vali
 
 <br />
 
-The website uses a dark/light theme, responsive layouts, accessible navigation, authentic project imagery, and subtle interface motion. Section dividers use continuously animated multicolor particle typography, pointer-reactive motion and a cinematic in-page navigation transition. With reduced motion, the particle titles remain visible without animation. Interactive cards respond to pointer position; animated section typography is a progressive enhancement and respects reduced-motion settings.
+The website uses a dark/light theme, responsive layouts, accessible navigation, authentic project imagery, and subtle interface motion. Section dividers use continuously animated multicolor particle typography with a visible traveling deformation wave, stronger cursor interaction and a cinematic in-page navigation transition. With reduced motion, the particle titles remain visible without animation. Interactive cards respond to pointer position; animated section typography is a progressive enhancement and respects reduced-motion settings.
 
 ### For developers
 

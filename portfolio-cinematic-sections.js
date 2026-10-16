@@ -16,24 +16,31 @@ function particles(canvas,word,kind){
     const c=canvas.getContext('2d');if(!c)return;
     c.clearRect(0,0,state.width,state.height);
     const arrival=clamp((now-state.t0)/770,0,1);
-    const swatches=[[255,92,173],[155,115,255],[84,229,220],[93,185,255],[255,185,111]];
-    const ease=1-Math.pow(1-arrival,3),hot=fine.matches&&enabled()&&now-state.moved<1800;
+    const ease=1-Math.pow(1-arrival,3);
+    // Continuous sweeping ripple, with a clear assembly/disassembly effect.
+    const seconds=now*.001,phase=1-Math.abs(1-((seconds*.46)%2));
+    const hot=fine.matches&&enabled()&&now-state.moved<2300;
+    const radius=kind==='veil'?230:215;
     for(let i=0;i<state.dots.length;i++){
       const p=state.dots[i],dx=p.x-state.mx,dy=p.y-state.my,d=Math.hypot(dx,dy)||1;
-      const proximity=hot?Math.max(0,1-d/(kind==='veil'?194:158)):0;
-      const jump=proximity*proximity*(kind==='veil'?54:43);
+      const proximity=hot?Math.max(0,1-d/radius):0;
+      const jump=proximity*proximity*(kind==='veil'?68:54);
       p.dx+=((dx/d)*jump-p.dx)*.16;p.dy+=((dy/d)*jump-p.dy)*.16;
-      const progress=clamp((ease-p.j*.38)/(1-p.j*.38),0,1);if(!progress)continue;
+      const progress=clamp((ease-p.j*.38)/(1-p.j*.38),0,1);
+      if(!progress)continue;
       const spread=(1-progress)*(18+p.j*23);
-      const x=p.x+(p.j-.5)*spread*1.25+p.dx;
-      const wave=Math.sin(now*.004+p.x*.025+p.y*.017+p.j*5.8);
-      const y=p.y+Math.sin(i*12.9898)*spread+p.dy+wave*2.6*progress;
-      const phase=(p.x/state.width*3.2+now*.00046+p.j*.28+.14*Math.sin(now*.0015+p.y*.032))%swatches.length;
-      const shade=Math.floor(phase),mix=phase-shade,one=swatches[shade],two=swatches[(shade+1)%swatches.length];
-      const rr=Math.round(one[0]+(two[0]-one[0])*mix),gg=Math.round(one[1]+(two[1]-one[1])*mix),bb=Math.round(one[2]+(two[2]-one[2])*mix);
-      c.globalAlpha=(.45+.55*progress)*(.73+.27*wave);
-      c.fillStyle='rgb('+rr+','+gg+','+bb+')';
-      c.beginPath();c.arc(x,y,p.r*(1+.16*wave),0,Math.PI*2);c.fill();
+      const normalized=p.x/Math.max(1,state.width);
+      const beam=Math.exp(-Math.pow((normalized-phase)*9.4,2));
+      const breath=Math.sin(seconds*4.9+normalized*9+p.j*6.28);
+      const x=p.x+(p.j-.5)*spread*1.25+p.dx+
+        Math.sin(seconds*3.7+p.y*.036+p.j*5)*4.2+beam*(p.j-.5)*42;
+      const y=p.y+Math.sin(i*12.9898)*spread+p.dy+
+        Math.cos(seconds*4.4+p.x*.032+p.j*6)*4.5+beam*(p.j-.5)*58;
+      const hue=(normalized*290+seconds*112+p.j*39+360)%360;
+      const light=clamp(62+beam*20+breath*6,48,88);
+      c.globalAlpha=clamp(progress*(.75+.23*breath)+beam*.16,0,1);
+      c.fillStyle='hsl('+hue.toFixed(1)+' 98% '+light.toFixed(1)+'%)';
+      c.beginPath();c.arc(x,y,p.r*(1+.26*beam+.17*breath),0,Math.PI*2);c.fill();
     }c.globalAlpha=1;
     canvas.__cinemaFrames=(canvas.__cinemaFrames||0)+1;
   }
@@ -64,7 +71,7 @@ function particles(canvas,word,kind){
   function stepFrame(now){
     state.frame=0;
     if(!state.visible||!enabled()||document.hidden)return;
-    const limit=window.innerWidth<600?32:22;
+    const limit=window.innerWidth<600?33:26;
     if(!state.lastPaint||now-state.lastPaint>=limit){state.lastPaint=now;draw(now);}
     // Continue animating while the title is visible, not only for its entrance or cursor movement.
     schedule();
@@ -170,9 +177,20 @@ function start(){
   if('ResizeObserver' in window){
     const ro=new ResizeObserver(resized);states.forEach((s,b)=>ro.observe(b));
   }
-  reduced.addEventListener?.('change',()=>states.forEach(s=>{if(!enabled())s.hide();else if(!observer)s.show();}));
-  new MutationObserver(()=>states.forEach(s=>{if(!enabled())s.hide();else if(!observer)s.show();}))
+  // Respect a deliberate "Motion off", but reliably restart when turned on again.
+  function syncMotionPreference(){
+    const paused=!enabled();
+    document.documentElement.classList.toggle('cinema-motion-paused',paused);
+    states.forEach(s=>{
+      if(paused){s.hide();return;}
+      const rect=s.canvas.getBoundingClientRect();
+      if(rect.bottom>0&&rect.top<innerHeight)s.show();
+    });
+  }
+  reduced.addEventListener?.('change',syncMotionPreference);
+  new MutationObserver(syncMotionPreference)
     .observe(document.documentElement,{attributes:true,attributeFilter:['class']});
+  syncMotionPreference();
 }
 if(document.readyState==='complete')setTimeout(start,900);
 else window.addEventListener('load',()=>setTimeout(start,900),{once:true});
