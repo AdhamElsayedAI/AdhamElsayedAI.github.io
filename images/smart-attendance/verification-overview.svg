@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1195 692" role="img" aria-labelledby="title desc">
+<title id="title">Smart Attendance — conceptual verification dashboard</title>
+<desc id="desc">Illustration of an exam attendance dashboard with facial recognition, blink liveness check and audit records. This is not a captured application screen.</desc>
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#102b32"/><stop offset="1" stop-color="#07141f"/></linearGradient>
+  <linearGradient id="cam" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#16383c"/><stop offset="1" stop-color="#0c202b"/></linearGradient>
+  <radialGradient id="halo"><stop stop-color="#66bfb2" stop-opacity=".24"/><stop offset="1" stop-color="#66bfb2" stop-opacity="0"/></radialGradient>
+  <clipPath id="window"><rect x="47" y="42" width="1101" height="604" rx="21"/></clipPath>
+</defs>
+<rect width="1195" height="692" fill="url(#bg)"/>
+<circle cx="405" cy="321" r="440" fill="url(#halo)"/>
+<g opacity=".09" stroke="#c1f1e8" stroke-width="1"><path d="M0 105h1195M0 208h1195M0 311h1195M0 414h1195M0 517h1195M0 620h1195M121 0v692M271 0v692M421 0v692M571 0v692M721 0v692M871 0v692M1021 0v692"/></g>
+<rect x="47" y="42" width="1101" height="604" rx="21" fill="#0e1e28" stroke="#4f7376" stroke-opacity=".58" stroke-width="2"/>
+<g clip-path="url(#window)">
+  <rect x="47" y="42" width="1101" height="67" fill="#122731"/>
+  <path d="M47 109h1101" stroke="#3d525b"/>
+  <circle cx="79" cy="77" r="6" fill="#66998f"/><circle cx="101" cy="77" r="6" fill="#55747d"/><circle cx="123" cy="77" r="6" fill="#55747d"/>
+  <g fill="#e5f7f3" font-family="Inter,Segoe UI,Arial,sans-serif" font-weight="700"><text x="155" y="84" font-size="20" letter-spacing=".8">SMART ATTENDANCE</text></g>
+  <rect x="922" y="61" width="191" height="32" rx="8" fill="#1c383f" stroke="#3c6464"/>
+  <text x="1017" y="82" text-anchor="middle" fill="#9addd2" font-family="Consolas,monospace" font-size="13" letter-spacing=".6">EXAM WORKFLOW</text>
+  <rect x="47" y="109" width="226" height="537" fill="#0b1b24"/>
+  <path d="M273 109v537" stroke="#304c54"/>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text x="80" y="153" fill="#688d93" font-size="14" letter-spacing="1.6" font-weight="600">WORKSPACE</text>
+    <rect x="71" y="180" width="177" height="48" rx="9" fill="#1b4445" stroke="#397e79"/>
+    <rect x="88" y="193" width="22" height="22" rx="5" fill="none" stroke="#a3eadd" stroke-width="2"/>
+    <circle cx="99" cy="204" r="4" fill="#a3eadd"/>
+    <text x="123" y="209" fill="#e3fbf5" font-size="17" font-weight="600">Live check</text>
+    <g fill="#94abb2" font-size="16">
+      <circle cx="99" cy="273" r="7" fill="none" stroke="#729aa0" stroke-width="2"/><text x="123" y="279">Students</text>
+      <rect x="92" y="324" width="14" height="13" rx="2" fill="none" stroke="#729aa0" stroke-width="2"/><text x="123" y="337">Exams</text>
+      <path d="M90 394h17M90 401h17M90 408h11" stroke="#729aa0" stroke-width="2"/><text x="123" y="406">Attendance</text>
+      <path d="M91 466v-16m9 16v-24m9 24v-12" stroke="#729aa0" stroke-width="3"/><text x="123" y="463">Analytics</text>
+    </g>
+    <rect x="71" y="551" width="177" height="58" rx="8" fill="#142b33" stroke="#355459"/>
+    <circle cx="92" cy="579" r="6" fill="#6ad2bd"/>
+    <text x="109" y="576" font-size="12" fill="#e0f7f2" font-weight="600">Local prototype</text>
+    <text x="109" y="594" font-size="12" fill="#88aab0">Camera required</text>
+  </g>
+  <g font-family="Inter,Segoe UI,Arial,sans-serif">
+    <text x="309" y="165" fill="#effaf7" font-size="29" font-weight="700">Identity verification</text>
+    <text x="310" y="197" fill="#97b3b8" font-size="16">Face matching  /  blink detection  /  exam attendance</text>
+    <rect x="309" y="222" width="500" height="364" rx="13" fill="url(#cam)" stroke="#426a69"/>
+    <rect x="333" y="246" width="452" height="316" rx="9" fill="none" stroke="#5a8e88" stroke-dasharray="5 8" stroke-opacity=".48"/>
+    <text x="351" y="276" fill="#97c3c1" font-size="12" letter-spacing="1.5" font-weight="600">CAMERA PREVIEW · LOCAL DEVICE</text>
+    <circle cx="557" cy="407" r="135" fill="url(#halo)"/>
+    <g fill="none" stroke="#9cdbce" stroke-width="4" stroke-linecap="round">
+      <path d="M485 360v-22q0-22 22-22h19M589 316h19q22 0 22 22v22M485 455v22q0 22 22 22h19M630 455v22q0 22-22 22h-19" stroke="#76d4c0"/>
+      <path d="M532 424q-31-29-22-68q7-43 47-43q48 0 52 48q4 36-22 63M532 425q-1 25 25 42q25-17 30-42" stroke="#89c9bf" stroke-opacity=".86"/>
+      <path d="M531 385h13m28 0h13m-37 40q9 8 19 0" stroke-width="3"/>
+    </g>
+    <circle cx="538" cy="385" r="3" fill="#9bded1"/><circle cx="579" cy="385" r="3" fill="#9bded1"/>
+    <rect x="353" y="517" width="245" height="30" rx="7" fill="#102b32" stroke="#355f5e"/>
+    <circle cx="372" cy="532" r="5" fill="#f0bb78"/><text x="385" y="537" fill="#d8e9e7" font-size="14">Awaiting live verification</text>
+    <text x="842" y="246" fill="#88aeb1" font-size="12" font-weight="700" letter-spacing="1.2">VERIFICATION PIPELINE</text>
+    <rect x="833" y="265" width="276" height="91" rx="10" fill="#142c35" stroke="#35565d"/>
+    <circle cx="860" cy="299" r="12" fill="#215e5b"/><path d="M855 299l4 4 7-8" stroke="#b3eee1" fill="none" stroke-width="2.5"/>
+    <text x="883" y="297" fill="#f1f8f7" font-size="16" font-weight="700">Face recognition</text><text x="883" y="322" fill="#99b5ba" font-size="13">Match registered identity</text>
+    <path d="M970 357v20" stroke="#47847f" stroke-width="2" stroke-dasharray="3 4"/>
+    <rect x="833" y="379" width="276" height="91" rx="10" fill="#142c35" stroke="#35565d"/>
+    <circle cx="860" cy="413" r="12" fill="#215e5b"/><path d="M855 413l4 4 7-8" stroke="#b3eee1" fill="none" stroke-width="2.5"/>
+    <text x="883" y="411" fill="#f1f8f7" font-size="16" font-weight="700">Liveness gate</text><text x="883" y="436" fill="#99b5ba" font-size="13">Eye-blink confirmation</text>
+    <path d="M970 471v20" stroke="#47847f" stroke-width="2" stroke-dasharray="3 4"/>
+    <rect x="833" y="494" width="276" height="92" rx="10" fill="#142c35" stroke="#35565d"/>
+    <circle cx="860" cy="528" r="12" fill="#215e5b"/><path d="M855 528l4 4 7-8" stroke="#b3eee1" fill="none" stroke-width="2.5"/>
+    <text x="883" y="526" fill="#f1f8f7" font-size="16" font-weight="700">Attendance log</text><text x="883" y="551" fill="#99b5ba" font-size="13">Store record for exam</text>
+    <text x="315" y="615" fill="#729aa1" font-size="13">Illustrative system overview — not a captured application screen</text>
+  </g>
+</g>
+</svg>

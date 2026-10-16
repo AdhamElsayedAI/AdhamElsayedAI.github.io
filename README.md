@@ -35,7 +35,7 @@ Hybrid dense and sparse retrieval with RRF fusion, evidence gates, citation vali
 | | Additional systems | |
 |:--|:--|:--|
 | **02** | **[Smart Basket](https://github.com/AdhamElsayedAI/Smart-Basket)** | YOLO detection and ONNX edge inference on Raspberry Pi 5, connected to a Flutter/Firebase cart |
-| **03** | **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype, threshold alerts, and an auditable FastAPI workflow |
+| **03** | **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype, threshold alerts, and an auditable FastAPI workflow |\n| **04** | **[Smart Attendance System](https://github.com/AdhamElsayedAI/Smart-Attendance-System)** | Face recognition, blink-based liveness checks, exam-scoped attendance, and Streamlit/SQLite records |
 
 <details>
 <summary><strong>Engineering evidence & measurement scope</strong></summary>
@@ -96,7 +96,7 @@ images/                            Original project imagery
 portfolio-v3-fixes.css             Responsive refinements
 portfolio-v3-motion.css / .js      Interaction and reveal motion
 portfolio-v3-section-titles.css    Readable heading fallback
-portfolio-v3-creative-letters.*    Per-letter heading animation
+portfolio-v3-creative-letters.*    Per-letter heading animation\nportfolio-smart-attendance.*      Hydration-safe Smart Attendance project card
 Adham_Elsayed_CV.pdf               Current downloadable résumé
 ```
 
