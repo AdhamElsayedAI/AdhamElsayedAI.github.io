@@ -94,3 +94,22 @@ html.motion-off .section-heading-v5 .section-dot-banner.particle-ready .section-
    opacity:0!important;visibility:hidden!important;
  }
 }
+
+/* V3: continuous chromatic waves and noticeable pointer repulsion. */
+.section-heading-v5 .section-dot-banner {
+ background:radial-gradient(ellipse at 18% 30%,rgba(135,68,131,.13),transparent 42%),
+            radial-gradient(ellipse at 85% 70%,rgba(29,133,151,.12),transparent 38%),
+            linear-gradient(112deg,#090b16,#12101e 50%,#090d17)!important;
+}
+.light .section-heading-v5 .section-dot-banner {
+ background:radial-gradient(ellipse at 23% 28%,rgba(148,78,161,.15),transparent 45%),
+            radial-gradient(ellipse at 82% 68%,rgba(49,139,171,.14),transparent 38%),
+            linear-gradient(112deg,#171823,#1e1b2c 50%,#111d28)!important;
+}
+.section-heading-v5 .section-dot-banner canvas.cinema-particles {
+ filter:drop-shadow(0 0 5px rgba(160,138,255,.24)) drop-shadow(0 0 10px rgba(97,219,222,.11));
+}
+.cinema-nav-veil canvas {filter:drop-shadow(0 0 9px rgba(176,138,255,.26))}
+@media(prefers-reduced-motion:reduce){
+ .section-heading-v5 .section-dot-banner canvas.cinema-particles {filter:none!important}
+}

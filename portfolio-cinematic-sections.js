@@ -4,7 +4,7 @@
 (()=>{'use strict';
 const ids=['home','about','skills','projects','achievements','experience','certifications','contact'];
 const names={home:'HOME',about:'ABOUT',skills:'SKILLS',projects:'PROJECTS',achievements:'ACHIEVEMENT',experience:'EXPERIENCE',certifications:'CERTIFICATIONS',contact:'CONTACT'};
-const colors=['#f3d9b8','#aabdb4','#d8aaa0','#c8b5cf','#e0c4a9'];
+const colors=['#ff65b7','#9e83ff','#5ce7db','#76ccff','#ffbd78'];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover:hover) and (pointer:fine)');
 const states=new Map();let veil=null,busy=false;
 const enabled=()=>!reduced.matches&&!document.documentElement.classList.contains('motion-off');
@@ -16,18 +16,26 @@ function particles(canvas,word,kind){
     const c=canvas.getContext('2d');if(!c)return;
     c.clearRect(0,0,state.width,state.height);
     const arrival=clamp((now-state.t0)/770,0,1);
+    const swatches=[[255,92,173],[155,115,255],[84,229,220],[93,185,255],[255,185,111]];
     const ease=1-Math.pow(1-arrival,3),hot=fine.matches&&enabled()&&now-state.moved<1800;
     for(let i=0;i<state.dots.length;i++){
       const p=state.dots[i],dx=p.x-state.mx,dy=p.y-state.my,d=Math.hypot(dx,dy)||1;
-      const proximity=hot?Math.max(0,1-d/(kind==='veil'?164:94)):0;
-      const jump=proximity*proximity*(kind==='veil'?25:17);
+      const proximity=hot?Math.max(0,1-d/(kind==='veil'?194:158)):0;
+      const jump=proximity*proximity*(kind==='veil'?54:43);
       p.dx+=((dx/d)*jump-p.dx)*.16;p.dy+=((dy/d)*jump-p.dy)*.16;
       const progress=clamp((ease-p.j*.38)/(1-p.j*.38),0,1);if(!progress)continue;
       const spread=(1-progress)*(18+p.j*23);
       const x=p.x+(p.j-.5)*spread*1.25+p.dx;
-      const y=p.y+Math.sin(i*12.9898)*spread+p.dy;
-      c.globalAlpha=.3+.7*progress;c.fillStyle=p.color;c.beginPath();c.arc(x,y,p.r,0,Math.PI*2);c.fill();
+      const wave=Math.sin(now*.004+p.x*.025+p.y*.017+p.j*5.8);
+      const y=p.y+Math.sin(i*12.9898)*spread+p.dy+wave*2.6*progress;
+      const phase=(p.x/state.width*3.2+now*.00046+p.j*.28+.14*Math.sin(now*.0015+p.y*.032))%swatches.length;
+      const shade=Math.floor(phase),mix=phase-shade,one=swatches[shade],two=swatches[(shade+1)%swatches.length];
+      const rr=Math.round(one[0]+(two[0]-one[0])*mix),gg=Math.round(one[1]+(two[1]-one[1])*mix),bb=Math.round(one[2]+(two[2]-one[2])*mix);
+      c.globalAlpha=(.45+.55*progress)*(.73+.27*wave);
+      c.fillStyle='rgb('+rr+','+gg+','+bb+')';
+      c.beginPath();c.arc(x,y,p.r*(1+.16*wave),0,Math.PI*2);c.fill();
     }c.globalAlpha=1;
+    canvas.__cinemaFrames=(canvas.__cinemaFrames||0)+1;
   }
   function resize(){
     const r=canvas.getBoundingClientRect(),w=Math.max(1,Math.round(r.width)),h=Math.max(1,Math.round(r.height));
@@ -54,9 +62,12 @@ function particles(canvas,word,kind){
     state.dots=dots;state.t0=performance.now()-(enabled()?0:1800);draw(performance.now());
   }
   function stepFrame(now){
-    state.frame=0;if(!state.visible||!enabled())return;
-    draw(now);
-    if(now-state.t0<1200||now-state.moved<2200||state.dots.some(p=>Math.abs(p.dx)+Math.abs(p.dy)>.32))schedule();
+    state.frame=0;
+    if(!state.visible||!enabled()||document.hidden)return;
+    const limit=window.innerWidth<600?32:22;
+    if(!state.lastPaint||now-state.lastPaint>=limit){state.lastPaint=now;draw(now);}
+    // Continue animating while the title is visible, not only for its entrance or cursor movement.
+    schedule();
   }
   function schedule(){if(!state.frame&&state.visible&&enabled())state.frame=requestAnimationFrame(stepFrame);}
   state.resize=resize;
@@ -91,7 +102,7 @@ function makeVeil(){
   if(veil)return veil;
   const box=document.createElement('div');box.className='cinema-nav-veil';box.setAttribute('aria-hidden','true');
   const canvas=document.createElement('canvas'),note=document.createElement('span');
-  note.className='cinema-navigation-mark';note.textContent='ADHAM ELSEYED  /  PORTFOLIO';
+  note.className='cinema-navigation-mark';note.textContent='ADHAM ELSAYED  /  PORTFOLIO';
   box.append(canvas,note);document.body.appendChild(box);
   box.addEventListener('pointermove',e=>{
     const r=box.getBoundingClientRect();
@@ -155,6 +166,7 @@ function start(){
     pending=false;states.forEach(s=>s.resize());veil?.state?.resize();
   });};
   window.addEventListener('resize',resized,{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)states.forEach(s=>s.pointer(-900,-900));});
   if('ResizeObserver' in window){
     const ro=new ResizeObserver(resized);states.forEach((s,b)=>ro.observe(b));
   }
