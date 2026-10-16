@@ -16,6 +16,7 @@ function particles(canvas,word,kind){
     const c=canvas.getContext('2d');if(!c)return;
     c.clearRect(0,0,state.width,state.height);
     const animated=kind==='veil'||(!staticMode&&state.hovering&&enabled());
+    const lightTheme=kind==='banner'&&document.documentElement.classList.contains('light');
     const arrival=kind==='veil'?clamp((now-state.t0)/770,0,1):1;
     const ease=1-Math.pow(1-arrival,3);
     // Continuous sweeping ripple, with a clear assembly/disassembly effect.
@@ -38,10 +39,14 @@ function particles(canvas,word,kind){
         (animated?Math.sin(seconds*3.7+p.y*.036+p.j*5)*4.2:0)+beam*(p.j-.5)*42;
       const y=p.y+Math.sin(i*12.9898)*spread+p.dy+
         (animated?Math.cos(seconds*4.4+p.x*.032+p.j*6)*4.5:0)+beam*(p.j-.5)*58;
-      const hue=(normalized*290+seconds*112+p.j*39+360)%360;
-      const light=clamp(62+beam*20+breath*6,48,88);
+      const hue=lightTheme
+        ? (174+normalized*101+p.j*10+(animated?seconds*38:0))%360
+        : (normalized*290+seconds*112+p.j*39+360)%360;
+      const inkLightness=lightTheme
+        ? (animated?clamp(37+beam*13+breath*5,29,59):35)
+        : clamp(62+beam*20+breath*6,48,88);
       c.globalAlpha=animated?clamp(progress*(.75+.23*breath)+beam*.16,0,1):.95;
-      c.fillStyle='hsl('+hue.toFixed(1)+' 98% '+light.toFixed(1)+'%)';
+      c.fillStyle='hsl('+hue.toFixed(1)+' '+(lightTheme?77:98)+'% '+inkLightness.toFixed(1)+'%)';
       c.beginPath();c.arc(x,y,p.r*(animated?1+.26*beam+.17*breath:1),0,Math.PI*2);c.fill();
     }c.globalAlpha=1;
     canvas.__cinemaFrames=(canvas.__cinemaFrames||0)+1;
@@ -82,6 +87,7 @@ function particles(canvas,word,kind){
       state.frame=requestAnimationFrame(stepFrame);
   }
   state.resize=resize;
+  state.refreshTheme=()=>{if(kind==='banner'&&!state.hovering)draw(0,true);};
   state.show=()=>{
     if(state.visible)return;
     state.visible=true;state.t0=performance.now();state.lastPaint=0;
@@ -217,6 +223,7 @@ function start(){
       if(!b.isConnected){s.hide();states.delete(b);return}
       if(!enabled())s.leave();
       else{const r=s.canvas.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)s.show()}
+      s.refreshTheme();
     });
   }
   reduced.addEventListener?.('change',syncMotionPreference);

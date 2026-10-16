@@ -17,7 +17,7 @@ async function inspect(browser, title, viewport, mobile) {
   const context = await browser.newContext({
     viewport, deviceScaleFactor: 1,
     isMobile: mobile, hasTouch: mobile,
-    reducedMotion: 'no-preference',
+    reducedMotion: 'no-preference', colorScheme: 'dark',
   });
   const page = await context.newPage();
   const pageErrors = [];
@@ -118,6 +118,36 @@ async function inspect(browser, title, viewport, mobile) {
     await page.waitForTimeout(250);
     const changed=await page.locator('html').getAttribute('class');
     assert(initial !== changed, title + ' dark/light toggle');
+    const lightMode=await page.locator('html').evaluate(e=>e.classList.contains('light'));
+    assert(lightMode,title+' light theme activated');
+    if(lightMode){
+      const about=page.locator('#about .section-dot-banner');
+      await about.scrollIntoViewIfNeeded();
+      await page.mouse.move(1,1);
+      await page.waitForTimeout(360);
+      const lightSurface=await about.evaluate(e=>({
+        bg:getComputedStyle(e).backgroundImage,
+        radius:getComputedStyle(e).borderTopLeftRadius
+      }));
+      assert(lightSurface.bg.includes('rgb(247, 245, 249)'),title+' light header matches light page',lightSurface.bg);
+      assert(lightSurface.radius!=='0px',title+' light header soft corners',lightSurface.radius);
+      const ink=await about.locator('canvas.cinema-particles').evaluate(el=>{
+        const d=el.getContext('2d').getImageData(0,0,el.width,el.height).data;
+        let n=0,y=0;
+        for(let i=0;i<d.length;i+=4)if(d[i+3]>=160){n++;y+=d[i]*.2126+d[i+1]*.7152+d[i+2]*.0722}
+        return {particles:n,luminance:n?y/n:255}
+      });
+      assert(ink.particles>50&&ink.luminance<175,title+' light header uses dark readable dots',JSON.stringify(ink));
+      await page.screenshot({path:path.join(DIR,title+'-light-about.png'),fullPage:false});
+      await page.locator('#projects .section-dot-banner').scrollIntoViewIfNeeded();
+      await page.waitForTimeout(150);
+      await page.screenshot({path:path.join(DIR,title+'-light-projects.png'),fullPage:false});
+      await themeButton.click();
+      await page.waitForTimeout(160);
+      assert(await page.locator('html').evaluate(e=>e.classList.contains('dark')),title+' return to dark mode');
+      const darkBg=await page.locator('#projects .section-dot-banner').evaluate(e=>getComputedStyle(e).backgroundImage);
+      assert(darkBg.includes('rgb(9, 11, 22)'),title+' dark mode background preserved');
+    }
   }
   await context.close();
 }
