@@ -7,7 +7,9 @@ const names={home:'HOME',about:'ABOUT',skills:'SKILLS',projects:'PROJECTS',achie
 const colors=['#ff65b7','#9e83ff','#5ce7db','#76ccff','#ffbd78'];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover:hover) and (pointer:fine)');
 const states=new Map();let veil=null,busy=false;
-const enabled=()=>!reduced.matches&&!document.documentElement.classList.contains('motion-off');
+let manualMotionOptIn=false;
+const savedMotionOptIn=()=>{try{return localStorage.getItem('adham-cinema-opt-in')==='true'}catch(_){return false}};
+const enabled=()=>(!reduced.matches||manualMotionOptIn||savedMotionOptIn())&&!document.documentElement.classList.contains('motion-off');
 const clamp=(n,a,b)=>Math.min(b,Math.max(a,n));
 const rand=n=>Math.abs((Math.sin(n*127.1+54.9)*43758.5453)%1);
 function particles(canvas,word,kind){
@@ -81,6 +83,7 @@ function particles(canvas,word,kind){
   state.show=()=>{if(state.visible)return;state.visible=true;state.t0=performance.now();schedule();};
   state.hide=()=>{state.visible=false;if(state.frame)cancelAnimationFrame(state.frame);state.frame=0;};
   state.pointer=(x,y)=>{state.mx=x;state.my=y;state.moved=performance.now();schedule();};
+  state.replay=()=>{state.hide();state.t0=performance.now();state.lastPaint=0;state.show();};
   resize();return state;
 }
 const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>entries.forEach(e=>{
@@ -95,6 +98,30 @@ function mountBanner(b){
   b.appendChild(c);const s=particles(c,title,'banner');
   if(!c.getContext('2d')){c.remove();return;}states.set(b,s);
   b.dataset.cinemaReady='1';b.classList.add('particle-ready');
+  // The title banner was decorative; make it accessible once it contains a real control.
+  b.removeAttribute('aria-hidden');
+  const btn=document.createElement('button');
+  btn.type='button';btn.className='cinema-motion-control';
+  btn.textContent='● LIVE PARTICLES';btn.setAttribute('aria-label','Replay section particle animation');
+  btn.addEventListener('click',()=>{
+    if(!enabled()){
+      if(reduced.matches){
+        manualMotionOptIn=true;
+        try{localStorage.setItem('adham-cinema-opt-in','true')}catch(_){}
+      }
+      if(document.documentElement.classList.contains('motion-off')){
+        const existing=document.querySelector('button[aria-label="Toggle motion"]');
+        // Keep the existing React state, localStorage setting and header icon in sync.
+        if(existing)existing.click();
+        else{
+          document.documentElement.classList.remove('motion-off');
+          try{localStorage.setItem('adham-motion','true')}catch(_){}
+        }
+      }
+    }
+    setTimeout(()=>{if(enabled())s.replay();refreshControls();},180);
+  });
+  b.appendChild(btn);s.control=btn;
   if('ResizeObserver' in window)new ResizeObserver(()=>s.resize()).observe(b);
   b.addEventListener('pointermove',e=>{
     if(!fine.matches||!enabled())return;
@@ -143,8 +170,26 @@ function transition(id){
   setTimeout(()=>v.box.classList.add('cinema-fade'),780);
   setTimeout(()=>{v.box.classList.remove('cinema-visible','cinema-fade');v.state.hide();busy=false;},1120);
 }
+function refreshControls(){
+  states.forEach((s,b)=>{
+    if(!b.isConnected){s.hide();states.delete(b);return;}
+    if(!s.control)return;
+    const frames=s.canvas.__cinemaFrames||0;
+    const previous=Number(s.control.dataset.previous||0);
+    const paused=!enabled(),active=s.visible&&!document.hidden;
+    const fps=frames-previous;
+    s.control.dataset.previous=String(frames);
+    const status=paused?'paused':active&&fps>2?'live':active?'stalled':'ready';
+    s.control.dataset.status=status;
+    s.control.textContent=paused?'▶ ENABLE ANIMATION':
+      status==='live'?'● LIVE · '+Math.max(1,fps)+' FPS':
+      status==='stalled'?'↻ RESTART ANIMATION':'↻ REPLAY ANIMATION';
+    s.control.setAttribute('aria-label',paused?'Enable section animation':status==='stalled'?'Restart section animation':'Replay section animation');
+  });
+}
 function start(){
   document.querySelectorAll('.section-heading-v5 .section-dot-banner').forEach(mountBanner);
+  refreshControls();setInterval(refreshControls,1100);
   // Recover particle headings if Next.js hydrates or rerenders the section tree.
   let scanQueued=false;
   new MutationObserver(changes=>{
