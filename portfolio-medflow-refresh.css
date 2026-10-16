@@ -167,3 +167,39 @@
   font-size: .68rem;
   letter-spacing: .07em;
 }
+
+/* Portfolio project grid: MedFlow now occupies one standard card slot.
+   The hidden/retired MedicalPlab card stays untouched, and the remaining
+   project cards naturally flow into two equal columns on desktop. */
+@media (min-width: 901px) {
+  #projects .projects-grid-v5 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  #projects .projects-grid-v5 > .project-card-featured-v5:first-child {
+    grid-column: span 6;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+  }
+  #projects .projects-grid-v5 > .project-card-featured-v5:first-child .project-featured-media-v5 {
+    flex: 0 0 auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1195 / 692;
+    background-position: center center;
+    background-size: contain;
+  }
+  #projects .projects-grid-v5 > .project-card-featured-v5:first-child .project-card-body-v5 {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+}
+/* Single-column tablet and phone layouts retain touch-friendly gallery controls. */
+@media (max-width: 900px) {
+  #projects .projects-grid-v5 > .project-card-featured-v5:first-child {
+    grid-column: span 12;
+  }
+}
