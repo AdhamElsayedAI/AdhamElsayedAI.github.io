@@ -15,17 +15,17 @@
     </div>
     <div class="project-card-body-v5">
       <div>
-        <p class="project-card-category-v5">Computer Vision / Liveness Prototype</p>
+        <p class="project-card-category-v5">Computer Vision / AttendanceOS</p>
         <h3 class="project-card-title-v5">Smart Attendance System</h3>
-        <p class="project-card-description-v5">Exam-scoped attendance prototype combining real-time face recognition, eye-blink liveness verification, a Streamlit interface, and SQLite attendance records.</p>
+        <p class="project-card-description-v5">Exam-scoped attendance prototype built with React and FastAPI, face recognition, eye-blink verification, exam rosters, and SQLite reporting.</p>
       </div>
       <div class="project-metrics-v5 project-metrics-compact-v5 attendance-project-metrics">
         <div><strong>Face + Blink</strong><span>Identity and liveness checks</span></div>
         <div><strong>Exam-scoped</strong><span>Attendance records</span></div>
       </div>
-      <p class="attendance-project-note">Prototype workflow — no unverified recognition-accuracy claims.</p>
+      <p class="attendance-project-note">Local prototype — live blink-to-attendance hardware verification pending.</p>
       <div class="project-tags-v5">
-        <span>Python</span><span>OpenCV</span><span>dlib</span><span>face_recognition</span><span>Streamlit</span><span>SQLite</span>
+        <span>React</span><span>TypeScript</span><span>FastAPI</span><span>OpenCV</span><span>dlib</span><span>SQLite</span>
       </div>
       <a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="project-link-v5">
         View repository
