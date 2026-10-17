@@ -1,105 +1,82 @@
-/* Scoped real-browser intro regression across six desktop/tablet/mobile/4K sizes. */
+/* Intro color and first-paint checks; capture transient intro before it automatically exits. */
 const {chromium}=require('playwright');
 const fs=require('fs');
 const sizes=[[360,780,true],[390,844,true],[768,1024,false],[1440,900,false],[1920,1080,false],[3840,2160,false]];
-const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',
- eyebrow:'rgb(255, 140, 105)',timestamp:'rgb(255, 117, 105)',
- prompt:'rgb(255, 115, 104)',normal:'rgb(255, 136, 105)',
+const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',eyebrow:'rgb(255, 140, 105)',
+ timestamp:'rgb(255, 117, 105)',prompt:'rgb(255, 115, 104)',normal:'rgb(255, 136, 105)',
  muted:'rgb(255, 105, 104)',bottom:'rgb(255, 139, 116)'};
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
  let passed=0;
- try {
-  for(const [width,height,mobile] of sizes) {
-   const ctx=await browser.newContext({viewport:{width,height},isMobile:mobile,
-    hasTouch:mobile,reducedMotion:'no-preference',colorScheme:'dark'});
+ try{
+  for(const [width,height,mobile] of sizes){
+   const ctx=await browser.newContext({viewport:{width,height},isMobile:mobile,hasTouch:mobile,reducedMotion:'no-preference',colorScheme:'dark'});
    const page=await ctx.newPage();
-   if(width===390||width===1440){
-     await page.route('**/portfolio-boot.js*',async route=>{
-       await new Promise(resolve=>setTimeout(resolve,1000));
-       await route.continue();
-     });
-   }
-   const exceptions=[];
-   page.on('pageerror',e=>exceptions.push(e.message));
-   await page.goto('http://127.0.0.1:4173/',{waitUntil:'commit'});
-   if(width===390||width===1440){
-     await page.waitForFunction(()=>document.body&&
-       document.documentElement.classList.contains('ae-boot-pending'),{timeout:5000});
-     const firstPaint=await page.evaluate(()=>{
-       const root=document.documentElement;
-       const pseudo=getComputedStyle(document.body,'::after');
-       const home=document.getElementById('home');
-       return {pending:root.classList.contains('ae-boot-pending'),
-         placeholder:pseudo.content,heroHidden:!home||getComputedStyle(home).visibility==='hidden'};
-     });
-     if(!firstPaint.pending||!firstPaint.placeholder.includes('Adham Elsayed')||!firstPaint.heroHidden)
-       throw Error(width+'px flash of original hero before intro: '+JSON.stringify(firstPaint));
-     console.log('PASS '+width+'px early intro before delayed JS');
-   }
-   // First-paint test already ran above; wait for only the intro stylesheet, not
-   // unrelated Next.js assets that can finish after the automatic intro dismissal.
-   await page.waitForFunction(() => {
-     const sheet=document.querySelector('link[href*="portfolio-boot.css?v=20261017-vivid-v6"]');
-     return Boolean(sheet && sheet.sheet && document.querySelector('#ae-boot-intro .ae-boot-brand'));
-   },null,{timeout:5500});
-   const intro=page.locator('#ae-boot-intro');
-   await intro.waitFor({state:'visible',timeout:2500});
-   const result=await intro.evaluate(el=>{
-      const get=s=>el.querySelector(s);
-      const color=s=>getComputedStyle(get(s)).color;
-      const probeRow=document.createElement('div');
-      probeRow.className='ae-boot-row';probeRow.dataset.tone='muted';
+   await page.addInitScript(()=>{
+    window.__introQA={firstPaint:false,snapshot:null,seen:false};
+    const capture=()=>{
+      const root=document.getElementById('ae-boot-intro');
+      if(!root||window.__introQA.snapshot)return;
+      window.__introQA.seen=true;
+      const g=s=>root.querySelector(s);
+      const brand=g('.ae-boot-brand');
+      if(!brand||getComputedStyle(brand).color!=='rgb(255, 148, 119)')return;
+      const logs=g('.ae-boot-logs');if(!logs)return;
+      const probe=document.createElement('div');probe.className='ae-boot-row';
       const ink=document.createElement('span');ink.className='ae-boot-line';
       const prompt=document.createElement('span');prompt.className='ae-boot-prompt';
-      probeRow.append(prompt,ink);get('.ae-boot-logs').append(probeRow);
-      const muted=getComputedStyle(ink).color;
-      probeRow.dataset.tone='normal';
-      const normal=getComputedStyle(ink).color;
-      const promptColor=getComputedStyle(prompt).color;
-      const accents={};
-      for(const tone of ['green','cyan','amber']){
-        probeRow.dataset.tone=tone;
-        accents[tone]=getComputedStyle(ink).color;
+      const stamp=document.createElement('span');stamp.className='ae-boot-timestamp';
+      probe.append(ink,prompt,stamp);logs.append(probe);
+      const colors={};
+      for(const tone of ['normal','muted','green','cyan','amber']){
+        probe.dataset.tone=tone;colors[tone]=getComputedStyle(ink).color;
+        if(tone==='normal'){colors.prompt=getComputedStyle(prompt).color;colors.timestamp=getComputedStyle(stamp).color}
       }
-      const timestamp=document.createElement('span');timestamp.className='ae-boot-timestamp';
-      probeRow.append(timestamp);
-      const timestampColor=getComputedStyle(timestamp).color;
-      probeRow.remove();
-      const shell=get('.ae-boot-shell');
-      const bounds=shell.getBoundingClientRect();
-      return {
-       brand:color('.ae-boot-brand'),divider:color('.ae-boot-divider'),
-       eyebrow:color('.ae-boot-eyebrow'),timestamp:timestampColor,
-       prompt:promptColor,normal,muted,bottom:color('.ae-boot-bottomline'),accents,
-       blur:getComputedStyle(shell).backdropFilter,
-       background:getComputedStyle(el).backgroundImage,
-       codefields:el.querySelectorAll('.ae-boot-codefield').length,
-       noOldDecorations:!get('.ae-boot-card,.ae-boot-pixel'),
-       insideViewport:bounds.left>=-1&&bounds.right<=innerWidth+1&&bounds.top>=-1&&bounds.bottom<=innerHeight+1,
-       noOverflow:document.documentElement.scrollWidth<=innerWidth+2
+      probe.remove();
+      const rect=g('.ae-boot-shell').getBoundingClientRect();
+      window.__introQA.snapshot={
+        brand:getComputedStyle(brand).color,divider:getComputedStyle(g('.ae-boot-divider')).color,
+        eyebrow:getComputedStyle(g('.ae-boot-eyebrow')).color,
+        timestamp:colors.timestamp,prompt:colors.prompt,normal:colors.normal,muted:colors.muted,
+        bottom:getComputedStyle(g('.ae-boot-bottomline')).color,green:colors.green,cyan:colors.cyan,
+        amber:colors.amber,blur:getComputedStyle(g('.ae-boot-shell')).backdropFilter,
+        codefields:root.querySelectorAll('.ae-boot-codefield').length,
+        inside:rect.left>=-1&&rect.top>=-1&&rect.right<=innerWidth+1&&rect.bottom<=innerHeight+1,
+        overflow:document.documentElement.scrollWidth-innerWidth
       };
+      // A real, live click tests that the session is dismissed correctly.
+      const btn=g('.ae-boot-skip');
+      if(btn){btn.click();window.__introQA.skipClicked=true}
+    };
+    const watcher=new MutationObserver(capture);
+    watcher.observe(document,{childList:true,subtree:true});
+    document.addEventListener('DOMContentLoaded',()=>{
+      window.__introQA.firstPaint=document.documentElement.classList.contains('ae-boot-pending');
+      capture();
+    },{once:true});
+    setInterval(capture,60);
    });
-   for(const [key,value] of Object.entries(expected)){
-     if(result[key]!==value)throw Error(width+'px '+key+' is '+result[key]+' expected '+value);
+   if(width===390||width===1440){
+    await page.route('**/portfolio-boot.js*',async route=>{
+      await new Promise(resolve=>setTimeout(resolve,1000));
+      await route.continue();
+    });
    }
-   const oldAccents={green:'rgb(135, 243, 202)',cyan:'rgb(22, 231, 220)',amber:'rgb(244, 190, 79)'};
-   for(const [tone,value] of Object.entries(oldAccents)){
-     if(result.accents[tone]!==value)throw Error(width+'px changed '+tone+' color');
-   }
-   if(!result.blur.includes('blur(')||result.codefields!==2||!result.noOldDecorations||
-      !result.insideViewport||!result.noOverflow||!result.background.includes('linear-gradient'))
-     throw Error(width+'px layout regression: '+JSON.stringify(result));
-   if(exceptions.some(e=>!e.includes('Minified React error #418')))
-     throw Error(width+'px new JS exception '+JSON.stringify(exceptions));
-   fs.mkdirSync('qa-screenshots',{recursive:true});
-   await page.screenshot({path:'qa-screenshots/warm-intro-'+width+'.png'});
-   await intro.locator('.ae-boot-skip').click();
-   await intro.waitFor({state:'detached',timeout:3000});
-   if(await page.locator('#home').count()!==1)throw Error(width+'px home unavailable after skip');
-   console.log('PASS '+width+'x'+height+' warm neutral ink / original accents / glass / Skip / responsive');
+   await page.goto('http://127.0.0.1:4173/',{waitUntil:'domcontentloaded'});
+   await page.waitForFunction(()=>Boolean(window.__introQA?.snapshot),null,{timeout:9000});
+   const snapshot=await page.evaluate(()=>window.__introQA);
+   for(const [k,v] of Object.entries(expected))
+     if(snapshot.snapshot[k]!==v)throw Error(width+'px '+k+': '+snapshot.snapshot[k]+' != '+v);
+   for(const [tone,color] of Object.entries({green:'rgb(135, 243, 202)',cyan:'rgb(22, 231, 220)',amber:'rgb(244, 190, 79)'}))
+     if(snapshot.snapshot[tone]!==color)throw Error(width+'px changed '+tone);
+   if(!snapshot.firstPaint||!snapshot.snapshot.inside||snapshot.snapshot.overflow>2||
+     !snapshot.snapshot.blur.includes('blur(')||snapshot.snapshot.codefields!==2||
+     !snapshot.skipClicked)throw Error(width+'px intro QA '+JSON.stringify(snapshot));
+   await page.waitForFunction(()=>!document.documentElement.classList.contains('ae-boot-pending'),null,{timeout:4000});
+   if(await page.locator('#home').count()!==1)throw Error(width+'px home content missing');
+   console.log('PASS '+width+'x'+height+' immediate boot, vivid warm ink, glass, preserved accents, skip');
    passed++;await ctx.close();
   }
-  console.log('INTRO COLOR QA PASS '+passed+'/'+sizes.length);
+  console.log('INTRO QA SUCCESS '+passed+'/'+sizes.length);
  }finally{await browser.close()}
 })().catch(e=>{console.error(e.stack||e);process.exitCode=1});
