@@ -37,13 +37,11 @@ const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',
        throw Error(width+'px flash of original hero before intro: '+JSON.stringify(firstPaint));
      console.log('PASS '+width+'px early intro before delayed JS');
    }
+   await page.waitForLoadState('domcontentloaded');
    const intro=page.locator('#ae-boot-intro');
    await intro.waitFor({state:'visible',timeout:6500});
-   // The early splash and DOM can be visible before async CSS finishes loading.
-   // Assert actual CSS is applied before checking computed text colors.
-   await page.waitForFunction(()=>{const el=document.querySelector('#ae-boot-intro .ae-boot-brand');
-     return el&&getComputedStyle(el).color==='rgb(255, 148, 119)';
-   },{timeout:8000});
+   // Navigation has reached DOMContentLoaded, so the intro stylesheet is parsed.
+   // Evaluate immediately before the auto-completing 5-second intro vanishes.
    const result=await intro.evaluate(el=>{
       const get=s=>el.querySelector(s);
       const color=s=>getComputedStyle(get(s)).color;
