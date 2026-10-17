@@ -37,7 +37,8 @@ const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',
        throw Error(width+'px flash of original hero before intro: '+JSON.stringify(firstPaint));
      console.log('PASS '+width+'px early intro before delayed JS');
    }
-   await page.waitForLoadState('domcontentloaded');
+   await page.waitForLoadState('load');
+   // Early splash was independently asserted above. Await CSS/resources for color QA.
    const intro=page.locator('#ae-boot-intro');
    await intro.waitFor({state:'visible',timeout:6500});
    // Navigation has reached DOMContentLoaded, so the intro stylesheet is parsed.
