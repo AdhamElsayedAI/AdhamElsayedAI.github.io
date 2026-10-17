@@ -34,6 +34,18 @@ async function inspect(browser, title, viewport, mobile) {
   assert(introVisible,title+' terminal intro mounts after hydration');
   if(introVisible){
     assert(await intro.locator('.ae-boot-brand').textContent()==='Adham Elsayed',title+' terminal title identifies Adham Elsayed');
+    const introCheck=await intro.evaluate(el=>({
+      codefields:el.querySelectorAll('.ae-boot-codefield').length,
+      visibleLines:el.querySelectorAll('.ae-code-line').length,
+      hasSquares:el.querySelectorAll('.ae-boot-pixel,.ae-boot-card').length,
+      blur:getComputedStyle(el.querySelector('.ae-boot-shell')).backdropFilter,
+      overflow:document.documentElement.scrollWidth-innerWidth
+    }));
+    assert(introCheck.codefields===2&&introCheck.visibleLines>=12,title+' AI code background present',JSON.stringify(introCheck));
+    assert(introCheck.hasSquares===0,title+' no old squares/card');
+    assert(introCheck.blur.includes('blur('),title+' glass blur is enabled');
+    assert(introCheck.overflow<=2,title+' intro responsive width',introCheck.overflow);
+    await page.screenshot({path:path.join(DIR,title+'-code-intro.png')});
     await page.waitForTimeout(750);
     assert((await intro.locator('.ae-boot-row').count())>0,title+' typewriter begins composing rows');
     await intro.locator('.ae-boot-skip').click();
