@@ -252,3 +252,26 @@ html.motion-off .ae-boot-code-line{animation:none!important}
 .ae-boot-line{color:#ffc9ac}
 .ae-boot-row[data-tone="muted"] .ae-boot-line{color:#ffb49e}
 .ae-boot-bottomline{color:#e6b0a0}
+
+/* V6 — bolder red/coral; preserve cyan, emerald, gold and all motion. */
+#ae-boot-intro{
+ --boot-white:#ff9479;
+ background:
+ radial-gradient(ellipse 46% 64% at 4% 18%,rgb(169 25 50 / .46),transparent 78%),
+ radial-gradient(ellipse 30% 56% at 18% 75%,rgb(207 46 49 / .17),transparent 82%),
+ radial-gradient(ellipse 47% 69% at 97% 78%,rgb(7 112 111 / .26),transparent 85%),
+ linear-gradient(120deg,#10080d 0%,#080b11 48%,#060f14 100%);
+}
+.ae-boot-shell{
+ border-color:rgb(249 99 91 / .29);
+ box-shadow:-22px 18px 85px rgb(180 32 61 / .14),0 36px 110px rgb(0 0 0 / .53),inset 0 1px rgb(255 255 255 / .11);
+}
+.ae-boot-top{background:linear-gradient(90deg,rgb(213 47 71 / .115),transparent 54%,rgb(13 211 206 / .025))}
+.ae-boot-brand{color:#ff9477;text-shadow:0 0 13px rgb(255 99 84 / .23)}
+.ae-boot-divider{color:#ff806b}
+.ae-boot-eyebrow{color:#ff8c69}
+.ae-boot-timestamp{color:#ff7569}
+.ae-boot-prompt{color:#ff7368}
+.ae-boot-line{color:#ff8869}
+.ae-boot-row[data-tone="muted"] .ae-boot-line{color:#ff6968}
+.ae-boot-bottomline{color:#ff8b74}

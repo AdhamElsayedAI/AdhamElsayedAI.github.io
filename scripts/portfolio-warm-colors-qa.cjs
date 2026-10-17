@@ -2,10 +2,10 @@
 const {chromium}=require('playwright');
 const fs=require('fs');
 const sizes=[[360,780,true],[390,844,true],[768,1024,false],[1440,900,false],[1920,1080,false],[3840,2160,false]];
-const expected={brand:'rgb(255, 226, 211)',divider:'rgb(231, 165, 152)',
- eyebrow:'rgb(255, 194, 165)',timestamp:'rgb(230, 167, 155)',
- prompt:'rgb(239, 172, 151)',normal:'rgb(255, 201, 172)',
- muted:'rgb(255, 180, 158)',bottom:'rgb(230, 176, 160)'};
+const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',
+ eyebrow:'rgb(255, 140, 105)',timestamp:'rgb(255, 117, 105)',
+ prompt:'rgb(255, 115, 104)',normal:'rgb(255, 136, 105)',
+ muted:'rgb(255, 105, 104)',bottom:'rgb(255, 139, 116)'};
 (async()=>{
  const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
  let passed=0;
@@ -14,9 +14,29 @@ const expected={brand:'rgb(255, 226, 211)',divider:'rgb(231, 165, 152)',
    const ctx=await browser.newContext({viewport:{width,height},isMobile:mobile,
     hasTouch:mobile,reducedMotion:'no-preference',colorScheme:'dark'});
    const page=await ctx.newPage();
+   if(width===390||width===1440){
+     await page.route('**/portfolio-boot.js*',async route=>{
+       await new Promise(resolve=>setTimeout(resolve,1000));
+       await route.continue();
+     });
+   }
    const exceptions=[];
    page.on('pageerror',e=>exceptions.push(e.message));
-   await page.goto('http://127.0.0.1:4173/',{waitUntil:'load'});
+   await page.goto('http://127.0.0.1:4173/',{waitUntil:'commit'});
+   if(width===390||width===1440){
+     await page.waitForFunction(()=>document.body&&
+       document.documentElement.classList.contains('ae-boot-pending'),{timeout:5000});
+     const firstPaint=await page.evaluate(()=>{
+       const root=document.documentElement;
+       const pseudo=getComputedStyle(document.body,'::after');
+       const home=document.getElementById('home');
+       return {pending:root.classList.contains('ae-boot-pending'),
+         placeholder:pseudo.content,heroHidden:!home||getComputedStyle(home).visibility==='hidden'};
+     });
+     if(!firstPaint.pending||!firstPaint.placeholder.includes('Adham Elsayed')||!firstPaint.heroHidden)
+       throw Error(width+'px flash of original hero before intro: '+JSON.stringify(firstPaint));
+     console.log('PASS '+width+'px early intro before delayed JS');
+   }
    const intro=page.locator('#ae-boot-intro');
    await intro.waitFor({state:'visible',timeout:6500});
    const result=await intro.evaluate(el=>{

@@ -5,9 +5,13 @@
   const root=document.documentElement;
   let mounted=false;
   function mount(){
-    if(mounted||(location.hash&&location.hash!=='#home')||
+    if(mounted)return;
+    if((location.hash&&location.hash!=='#home')||
       matchMedia('(prefers-reduced-motion: reduce)').matches||
-      root.classList.contains('motion-off')||!document.body)return;
+      root.classList.contains('motion-off')||!document.body){
+      root.classList.remove('ae-boot-pending');
+      return;
+    }
     mounted=true;
     const overlay=document.createElement('section');
     overlay.id='ae-boot-intro';
@@ -75,11 +79,13 @@
     let finished=false;
     root.classList.add('ae-boot-pending');
     document.body.appendChild(overlay);
+    root.classList.add('ae-boot-mounted');
+    if(window.__aeBootFailsafe)clearTimeout(window.__aeBootFailsafe);
     for(const element of siblings)element.inert=true;
     function finish(){
       if(finished)return;
       finished=true;
-      root.classList.remove('ae-boot-pending');
+      root.classList.remove('ae-boot-pending','ae-boot-mounted');
       for(const [element,oldValue] of previousInert)element.inert=oldValue;
       window.removeEventListener('keydown',keyHandler,true);
       overlay.classList.add('ae-boot-exit');
@@ -141,7 +147,8 @@
       finish();
     })().catch(finish);
   }
-  function start(){setTimeout(mount,900)}
-  if(document.readyState==='complete')start();
-  else window.addEventListener('load',start,{once:true});
+  function start(){mount()}
+  if(document.readyState==='loading')
+    document.addEventListener('DOMContentLoaded',start,{once:true});
+  else start();
 })();
