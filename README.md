@@ -1,122 +1,246 @@
 <div align="center">
 
-<img src="./readme-cover.svg" alt="Adham Elsayed — AI Engineering Portfolio" width="100%" />
+<img src="./readme-cover.svg" alt="Adham Elsayed — AI Engineering Portfolio cover" width="100%" />
 
-<br />
+<h1>Adham Elsayed · AI Engineering Portfolio</h1>
 
-**Evidence-grounded AI. Designed, evaluated, and built for real-world use.**
+<strong>Building AI systems with evidence, evaluation, and product thinking.</strong>
 
-Generative AI · RAG Systems · Machine Learning · Computer Vision · AI Evaluation
+<p>
+Generative AI &nbsp;·&nbsp; Retrieval-Augmented Generation &nbsp;·&nbsp; Computer Vision &nbsp;·&nbsp; Edge AI
+</p>
 
-<br />
+<p>
+<a href="https://adhamelsayedai.github.io/"><img alt="View live portfolio" src="https://img.shields.io/badge/VIEW%20PORTFOLIO-LIVE%20WEBSITE-0B7A73?style=for-the-badge" /></a>
+<a href="./Adham_Elsayed_CV.pdf"><img alt="Download résumé" src="https://img.shields.io/badge/RESUME-DOWNLOAD-D97706?style=for-the-badge" /></a>
+</p>
 
-[**Explore Portfolio ↗**](https://adhamelsayedai.github.io/) &nbsp; · &nbsp; [**View Résumé ↗**](./Adham_Elsayed_CV.pdf) &nbsp; · &nbsp; [**LinkedIn ↗**](https://www.linkedin.com/in/adham-elsayed-/) &nbsp; · &nbsp; [**Get in Touch ↗**](mailto:adhamelsayed515@gmail.com)
+<p>
+<a href="https://www.linkedin.com/in/adham-elsayed-/">LinkedIn</a> &nbsp;·&nbsp;
+<a href="https://github.com/AdhamElsayedAI">GitHub</a> &nbsp;·&nbsp;
+<a href="mailto:adhamelsayed515@gmail.com">Email</a>
+</p>
+
+<a href="https://github.com/AdhamElsayedAI/AdhamElsayedAI.github.io/actions/workflows/portfolio-qa.yml"><img alt="Portfolio browser QA workflow" src="https://github.com/AdhamElsayedAI/AdhamElsayedAI.github.io/actions/workflows/portfolio-qa.yml/badge.svg?branch=main" /></a>
+<img alt="GitHub Pages" src="https://img.shields.io/badge/HOSTING-GITHUB%20PAGES-181717?style=flat-square&amp;logo=github&amp;logoColor=white" />
+<img alt="Responsive" src="https://img.shields.io/badge/EXPERIENCE-RESPONSIVE-2563EB?style=flat-square" />
 
 </div>
 
 ---
 
-### About
+## The Portfolio
 
-I'm an AI Engineering student at **Mansoura University** focused on designing complete intelligent systems, from retrieval and model behavior to evaluation, APIs, and product integration. My work explores how Generative AI and computer vision can deliver practical, verifiable results—not just compelling demos.
+I'm an AI Engineer focused on **building complete intelligent products**, from retrieval and computer-vision pipelines to dependable APIs, model evaluation and the interface people actually use.
 
-This portfolio brings together the systems I've built, the engineering decisions behind them, and the evidence used to assess their behavior.
+This website is a curated collection of engineering projects, technical decisions, academic achievements and professional experience. It is also a frontend project in its own right: a responsive, motion-led portfolio published on GitHub Pages.
 
-### Selected work
+**[Live Site](https://adhamelsayedai.github.io/) · [Featured Projects](https://adhamelsayedai.github.io/#projects) · [Experience](https://adhamelsayedai.github.io/#experience) · [Contact](https://adhamelsayedai.github.io/#contact)**
 
-<a href="https://github.com/AdhamElsayedAI/MedFlow-AI"><img src="./images/medflow/rag-chat.png" alt="MedFlow real grounded RAG chat interface" width="83%" /></a>
+## Technology Stack
 
-**01 / [MedFlow — Evidence-Grounded Clinical RAG](https://github.com/AdhamElsayedAI/MedFlow-AI)**
+The badges below describe the **portfolio website and its published build**. AI project technologies are documented separately in their own repositories.
 
-Hybrid dense and sparse retrieval with RRF fusion, evidence gates, citation validation, and bounded response states: answer, caution, abstain, or redirect.
+<table>
+<tr>
+<td width="33%" valign="top">
+<h3>Frontend Foundation</h3>
+<p>
+<img alt="Next.js" src="https://img.shields.io/badge/Next.js-000000?style=flat-square&amp;logo=nextdotjs&amp;logoColor=white" />
+<img alt="React" src="https://img.shields.io/badge/React-149ECA?style=flat-square&amp;logo=react&amp;logoColor=white" />
+<img alt="TypeScript build source" src="https://img.shields.io/badge/TypeScript-SOURCE%20BUILD-3178C6?style=flat-square&amp;logo=typescript&amp;logoColor=white" />
+</p>
+<sub>React-powered portfolio compiled into a Next.js static export.</sub>
+</td>
+<td width="33%" valign="top">
+<h3>Visual System</h3>
+<p>
+<img alt="Tailwind CSS" src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=flat-square&amp;logo=tailwindcss&amp;logoColor=white" />
+<img alt="CSS" src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&amp;logo=css3&amp;logoColor=white" />
+<img alt="Lucide" src="https://img.shields.io/badge/Lucide-F59E0B?style=flat-square" />
+</p>
+<sub>Responsive layouts, reusable visual language and custom styling layers.</sub>
+</td>
+<td width="33%" valign="top">
+<h3>Interaction &amp; Motion</h3>
+<p>
+<img alt="Motion" src="https://img.shields.io/badge/Motion-8B5CF6?style=flat-square" />
+<img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&amp;logo=javascript&amp;logoColor=111827" />
+<img alt="Canvas API" src="https://img.shields.io/badge/Canvas%20API-DC2626?style=flat-square" />
+</p>
+<sub>Cinematic navigation, hover-responsive particle lettering and a skippable code intro.</sub>
+</td>
+</tr>
+<tr>
+<td width="33%" valign="top">
+<h3>Quality Assurance</h3>
+<p>
+<img alt="Playwright" src="https://img.shields.io/badge/Playwright-2EAD33?style=flat-square&amp;logo=playwright&amp;logoColor=white" />
+<img alt="Node.js" src="https://img.shields.io/badge/Node.js-339933?style=flat-square&amp;logo=nodedotjs&amp;logoColor=white" />
+<img alt="Responsive QA" src="https://img.shields.io/badge/Browser%20QA-0F766E?style=flat-square" />
+</p>
+<sub>Automated viewport, interaction and accessibility-behavior smoke checks.</sub>
+</td>
+<td width="33%" valign="top">
+<h3>Hosting &amp; Delivery</h3>
+<p>
+<img alt="GitHub Pages" src="https://img.shields.io/badge/GitHub%20Pages-181717?style=flat-square&amp;logo=github&amp;logoColor=white" />
+<img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&amp;logo=githubactions&amp;logoColor=white" />
+<img alt="Static export" src="https://img.shields.io/badge/Static%20Export-334155?style=flat-square" />
+</p>
+<sub>Static hosting, versioned assets and GitHub Actions browser checks.</sub>
+</td>
+<td width="33%" valign="top">
+<h3>Discoverable &amp; Accessible</h3>
+<p>
+<img alt="Open Graph" src="https://img.shields.io/badge/Open%20Graph-EC4899?style=flat-square" />
+<img alt="Light and dark mode" src="https://img.shields.io/badge/Dark%20%2F%20Light-64748B?style=flat-square" />
+<img alt="Reduced motion" src="https://img.shields.io/badge/Reduced%20Motion-16A34A?style=flat-square" />
+</p>
+<sub>Social previews, theme support, keyboard interactions and motion preferences.</sub>
+</td>
+</tr>
+</table>
 
-<sub>Python · BGE · BM25 · RRF · ChromaDB · FastAPI</sub>
+## Experience Highlights
 
-| | Additional systems | |
-|:--|:--|:--|
-| **02** | **[Smart Basket](https://github.com/AdhamElsayedAI/Smart-Basket)** | YOLO detection and ONNX edge inference on Raspberry Pi 5, connected to a Flutter/Firebase cart |
-| **03** | **[Code AI Proctor](https://github.com/AdhamElsayedAI/code-ai-proctor)** | Webcam-based monitoring prototype, threshold alerts, and an auditable FastAPI workflow |
-| **04** | **[Smart Attendance System](https://github.com/AdhamElsayedAI/Smart-Attendance-System)** | Face recognition, blink-based liveness checks, exam-scoped attendance, and Streamlit/SQLite records |
+<table>
+<tr>
+<td valign="top" width="25%"><strong>Interactive Introduction</strong><br /><sub>A code-inspired opening sequence with a skip action and reduced-motion support.</sub></td>
+<td valign="top" width="25%"><strong>Featured Engineering Work</strong><br /><sub>Project visuals, architecture stories and links to technical repositories.</sub></td>
+<td valign="top" width="25%"><strong>Responsive &amp; Theme-Aware</strong><br /><sub>Desktop and mobile layouts, light/dark presentation and expressive detail.</sub></td>
+<td valign="top" width="25%"><strong>Built for Recruiters</strong><br /><sub>Projects, achievements, experience, certifications and downloadable CV.</sub></td>
+</tr>
+</table>
 
-<details>
-<summary><strong>Engineering evidence & measurement scope</strong></summary>
+## Featured Engineering Projects
 
-<br />
+Every project has its own implementation, scope and technical limitations. The visuals below are **portfolio media**, not necessarily screenshots of a deployed application.
 
-- **MedFlow retrieval:** Precision@4 **53.12%**, Hit@4 **87.50%**, and MRR **≈0.7031** on the documented 200-token, Top-K=4 setup.
-- **MedFlow grounding:** A bounded seven-case evaluation reported valid citations and coverage across all seven cases. This is **not a clinical accuracy measurement**.
-- **Smart Basket detection:** Reported results for a four-class evaluation: **96.89% mAP@0.5** and **84.79% mAP@0.5:0.95**.
+<table>
+<tr>
+<td width="50%" valign="top">
+<a href="https://github.com/AdhamElsayedAI/MedFlow-AI"><img src="./images/medflow/rag-chat.png" width="100%" alt="MedFlow portfolio visual featuring a clinical RAG interface" /></a>
+<p><strong>01 · <a href="https://github.com/AdhamElsayedAI/MedFlow-AI">MedFlow — Clinical RAG</a></strong></p>
+<p>Evidence-grounded clinical question answering with retrieval, ranked sources, citation validation and bounded fallback behavior. Intended as an educational engineering system, not an autonomous clinical decision-maker.</p>
+<sub>RAG · Hybrid Retrieval · Citations · Python · FastAPI</sub>
+</td>
+<td width="50%" valign="top">
+<a href="https://github.com/AdhamElsayedAI/Smart-Basket"><img src="./images/smart-basket/vision-checkout-hero.webp" width="100%" alt="Smart Basket computer-vision portfolio showcase" /></a>
+<p><strong>02 · <a href="https://github.com/AdhamElsayedAI/Smart-Basket">Smart Basket — Edge AI</a></strong></p>
+<p>Grocery object detection with YOLO, ONNX Runtime, Raspberry Pi camera integration and optional Firebase basket-state updates. The Flutter client is an integration direction, not published source in that repo.</p>
+<sub>YOLO · ONNX · OpenCV · Raspberry Pi · Firebase</sub>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<a href="https://github.com/AdhamElsayedAI/code-ai-proctor"><img src="./images/code-ai-proctor/monitoring-dashboard.webp" width="100%" alt="Code AI Proctor project showcase graphic" /></a>
+<p><strong>03 · <a href="https://github.com/AdhamElsayedAI/code-ai-proctor">Code AI Proctor — Exam Technology</a></strong></p>
+<p>Online quiz and review platform combining a FastAPI backend, webcam-frame classification, teacher-facing incident workflows and Gemini-assisted study feedback. Model flags are review signals, not proof of misconduct.</p>
+<sub>PyTorch · YOLO Classification · FastAPI · SQLAlchemy · Gemini</sub>
+</td>
+<td width="50%" valign="top">
+<a href="https://github.com/AdhamElsayedAI/Smart-Attendance-System"><img src="./images/smart-attendance/attendanceos-portfolio.webp" width="100%" alt="Illustrative AttendanceOS interface concept; not a live application screenshot" /></a>
+<p><strong>04 · <a href="https://github.com/AdhamElsayedAI/Smart-Attendance-System">AttendanceOS — Smart Attendance</a></strong></p>
+<p>Local university attendance prototype with React, FastAPI, face recognition, eye-blink challenge, exam rosters and SQLite reporting. Physical-camera end-to-end recognition still requires owner-side validation.</p>
+<sub>React · TypeScript · FastAPI · OpenCV · dlib · SQLite</sub>
+<p><sub><em>Image: interface concept, not actual runtime capture.</em></sub></p>
+</td>
+</tr>
+</table>
 
-</details>
+## How This Website Is Built
 
-### Engineering focus
+The live site is generated from a **Next.js / React application** and hosted as a **static export**. The repository you are browsing is the **published deployment artifact**, not the original editable application workspace.
 
-| AI Systems | Implementation & Delivery |
-|---|---|
-| Grounded generation, hybrid RAG, embeddings, reranking | Python, FastAPI, REST APIs, SQL |
-| Retrieval and citation evaluation, NLI, safety boundaries | PyTorch, YOLO, OpenCV, ONNX |
-| Adaptive AI, computer vision, edge inference | Docker, Git, Firebase, Azure AI |
+```mermaid
+flowchart LR
+    SRC["Next.js / React source<br/>maintained separately"] --> BUILD["Static export"]
+    BUILD --> HTML["index.html + _next/<br/>compiled assets"]
+    HTML --> PAGES["GitHub Pages"]
+    PATCH["Small enhancement layers<br/>portfolio-*.css / .js"] --> PAGES
+    PAGES --> SITE["Live portfolio"]
+    QA["GitHub Actions + Playwright<br/>browser regression checks"] -.-> SITE
+```
 
-### The portfolio experience
+**Why the extra CSS/JS files?** Targeted scripts enhance the published page after hydration—project cards, motion, titles and the first-visit introduction—while leaving hashed Next.js assets untouched. These layers are **deployment enhancements**, not replacements for the editable source.
 
-<div align="center">
+### Published Repository Map
 
-<img src="./images/medflow/rag-architecture-ui.png" alt="Actual MedFlow architecture interface" width="83%" />
+```text
+AdhamElsayedAI.github.io/
+├── index.html                    # Published homepage
+├── _next/                        # Compiled Next.js output
+├── images/                       # Portfolio project media and portrait
+├── portfolio-boot.css / .js      # Intro animation and recovery behavior
+├── portfolio-cinematic-sections.*# Section overlays and navigation interactions
+├── portfolio-v3-motion.*         # Card/section motion enhancements
+├── portfolio-medflow-refresh.*   # MedFlow card presentation and stats
+├── portfolio-smart-attendance.*  # Hydration-safe AttendanceOS project card
+├── portfolio-smart-basket.css    # Smart Basket presentation
+├── portfolio-code-ai-proctor.*   # Code AI Proctor presentation
+├── og-image.png                  # Social sharing thumbnail
+├── readme-cover.svg              # README banner art
+├── Adham_Elsayed_CV.pdf          # Downloadable résumé
+├── .github/workflows/            # QA + social-card workflows
+└── scripts/                      # Browser checks and social-card tooling
+```
 
-<sub>Authentic project UI used in the portfolio — not a generated mockup.</sub>
+The published HTML also contains the About, Skills, Projects, Achievements, Experience, Certifications and Contact sections.
 
-</div>
+## Run the Published Website Locally
 
-<br />
-
-The website uses a dark/light theme, responsive layouts, accessible navigation, authentic project imagery, and subtle interface motion. Section headings are static multicolor dot-matrix lettering unless hovered with a mouse. They animate only while hovered, reset to their original static positions when the pointer leaves, and have no LIVE or FPS buttons. Navigation retains its click-triggered cinematic transitions; reduced-motion and the original Motion toggle are respected. Interactive cards respond to pointer position; animated section typography is a progressive enhancement and respects reduced-motion settings.
-
-### For developers
-
-The homepage introduces the AI portfolio with a code-terminal typing animation headed **Adham Elsayed** on the first visit per tab session. The introduction is skippable via a visible button or Escape and bypassed on reduced-motion systems and section deep links. The implementation lives in `portfolio-boot.css` and `portfolio-boot.js`, without changing compiled Next.js assets.\n\nThis repository is the **published Next.js static export** served by GitHub Pages. It contains compiled assets rather than the original editable application source.
-
-<details>
-<summary><strong>Run locally and maintain the site</strong></summary>
-
-<br />
-
-From the repository root:
+A simple static HTTP server is enough to preview **this repository's exported website**:
 
 ```bash
+git clone https://github.com/AdhamElsayedAI/AdhamElsayedAI.github.io.git
+cd AdhamElsayedAI.github.io
 python -m http.server 4173
 ```
 
-Visit **http://localhost:4173/**. A local server is necessary because assets use root-relative paths.
+Then visit **http://127.0.0.1:4173/**.
 
-**Key files**
+**Do not** open `index.html` directly as a `file://` URL: the export uses root-relative asset paths. This public repo has no root `package.json` or editable Next.js source; `npm install` / `next dev` are **not** supported ways to run this published artifact.
 
-```text
-index.html                         Published homepage
-_next/                             Compiled Next.js assets
-images/                            Original project imagery
-portfolio-v3-fixes.css             Responsive refinements
-portfolio-v3-motion.css / .js      Interaction and reveal motion
-portfolio-v3-section-titles.css    Readable heading fallback
-portfolio-v3-creative-letters.*    Per-letter heading animation
-portfolio-smart-attendance.*      Hydration-safe Smart Attendance project card
-portfolio-cinematic-sections.*     Particle section titles and section navigation overlay
-Adham_Elsayed_CV.pdf               Current downloadable résumé
-```
+### Editing & Maintenance
 
-Do not edit hashed files under `_next/`. For major redesigns or content updates, make changes in the editable Next.js source and regenerate the export. Port any static-export enhancements into that source before rebuilding, or they may be overwritten.
+- Make actual content/component changes in the **original editable Next.js source**, then regenerate the static export.
+- Treat `_next/` as compiled output. Avoid hand-editing hashed chunks.
+- If an emergency static-export enhancement is required, keep it scoped to a documented `portfolio-*.css` / `.js` file and verify that React hydration still works.
+- Preserve the portfolio's actual project imagery, accessibility fallbacks and link destinations.
+- Before deployment, review desktop/mobile layouts, light/dark themes, first-visit interactions, reduced-motion behavior, résumé downloads and Open Graph previews.
 
-**Pre-publish checks:** verify mobile and desktop layouts, light/dark themes, links and images, résumé download, keyboard interactions, and reduced-motion behavior.
+## Quality Assurance & Release Workflow
 
-</details>
+This repository includes a browser QA workflow: [`portfolio-qa.yml`](.github/workflows/portfolio-qa.yml). It serves the static site locally and runs **Playwright** checks defined in:
+
+- [`portfolio-smoke-test.cjs`](scripts/portfolio-smoke-test.cjs) — responsive layout, project presence, interactions and section behaviors.
+- [`portfolio-warm-colors-qa.cjs`](scripts/portfolio-warm-colors-qa.cjs) — intro/color presentation checks across viewports.
+
+GitHub Actions publishes QA screenshots as a workflow artifact when available. A separate [social-card workflow](.github/workflows/build-social-card.yml) supports portfolio link-preview assets.
+
+**Test scope matters:** the existence of a workflow does not guarantee its latest run passed. Check [Actions](https://github.com/AdhamElsayedAI/AdhamElsayedAI.github.io/actions) for current results.
+
+## Engineering Approach
+
+My portfolio highlights a consistent approach to building AI products: define the decision boundary, document what evidence supports an output, separate demo measurements from real-world claims, and build interfaces that explain system state clearly.
+
+The same principles apply to this website: **clear information hierarchy, purposeful motion, accessible fallbacks and reproducible publishing**.
 
 ---
 
 <div align="center">
 
-**Adham Elsayed** · AI Engineer · Mansoura, Egypt
+**Adham Elsayed**
 
-[Website](https://adhamelsayedai.github.io/) &nbsp;·&nbsp; [GitHub](https://github.com/AdhamElsayedAI) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/adham-elsayed-/) &nbsp;·&nbsp; [Email](mailto:adhamelsayed515@gmail.com)
+AI Engineer · Generative AI · RAG · Computer Vision
 
-<sub>Built with a focus on measurable engineering, clear evidence, and responsible AI systems.</sub>
+<a href="https://adhamelsayedai.github.io/">Portfolio</a> &nbsp;·&nbsp;
+<a href="./Adham_Elsayed_CV.pdf">Résumé</a> &nbsp;·&nbsp;
+<a href="https://github.com/AdhamElsayedAI">GitHub</a> &nbsp;·&nbsp;
+<a href="https://www.linkedin.com/in/adham-elsayed-/">LinkedIn</a> &nbsp;·&nbsp;
+<a href="mailto:adhamelsayed515@gmail.com">Email</a>
+
+<sub>Designed for clarity. Built around evidence. Shipped with care.</sub>
 
 </div>
