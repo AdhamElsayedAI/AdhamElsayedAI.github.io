@@ -45,9 +45,7 @@ const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',eyebrow:
         inside:rect.left>=-1&&rect.top>=-1&&rect.right<=innerWidth+1&&rect.bottom<=innerHeight+1,
         overflow:document.documentElement.scrollWidth-innerWidth
       };
-      // A real, live click tests that the session is dismissed correctly.
-      const btn=g('.ae-boot-skip');
-      if(btn){btn.click();window.__introQA.skipClicked=true}
+      // Capture before allowing the user-facing intro to finish. Do not auto-click.
     };
     const watcher=new MutationObserver(capture);
     watcher.observe(document,{childList:true,subtree:true});
@@ -71,8 +69,17 @@ const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',eyebrow:
    for(const [tone,color] of Object.entries({green:'rgb(135, 243, 202)',cyan:'rgb(22, 231, 220)',amber:'rgb(244, 190, 79)'}))
      if(snapshot.snapshot[tone]!==color)throw Error(width+'px changed '+tone);
    if(!snapshot.firstPaint||!snapshot.snapshot.inside||snapshot.snapshot.overflow>2||
-     !snapshot.snapshot.blur.includes('blur(')||snapshot.snapshot.codefields!==2||
-     !snapshot.skipClicked)throw Error(width+'px intro QA '+JSON.stringify(snapshot));
+     !snapshot.snapshot.blur.includes('blur(')||snapshot.snapshot.codefields!==2)
+       throw Error(width+'px intro QA '+JSON.stringify(snapshot));
+   await page.waitForTimeout(1300);
+   const live=await page.evaluate(()=>({
+     visible:!!document.querySelector('#ae-boot-intro')&&getComputedStyle(document.querySelector('#ae-boot-intro')).visibility==='visible',
+     rows:document.querySelectorAll('#ae-boot-intro .ae-boot-row').length
+   }));
+   if(!live.visible||live.rows<1)throw Error(width+'px intro disappeared while typing '+JSON.stringify(live));
+   fs.mkdirSync('qa-screenshots',{recursive:true});
+   await page.screenshot({path:'qa-screenshots/live-boot-'+width+'.png'});
+   await page.locator('#ae-boot-intro .ae-boot-skip').click();
    await page.waitForFunction(()=>!document.documentElement.classList.contains('ae-boot-pending'),null,{timeout:4000});
    if(await page.locator('#home').count()!==1)throw Error(width+'px home content missing');
    console.log('PASS '+width+'x'+height+' immediate boot, vivid warm ink, glass, preserved accents, skip');

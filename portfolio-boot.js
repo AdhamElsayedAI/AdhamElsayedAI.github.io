@@ -1,19 +1,16 @@
 /* Adham Elsayed portfolio opening sequence.
- * Independent enhancement mounted after Next.js hydration.
+ * Visible markup ships in HTML; JS adds interactivity and animation.
  * The faint animated code uses illustrative (not executable) AI/RAG pseudocode. */
 (()=>{'use strict';
   const root=document.documentElement;
   let mounted=false;
   function mount(){
     if(mounted)return;
-    if((location.hash&&location.hash!=='#home')||
-      matchMedia('(prefers-reduced-motion: reduce)').matches||
-      root.classList.contains('motion-off')||!document.body){
-      root.classList.remove('ae-boot-pending');
-      return;
-    }
+    if(!document.body)return;
     mounted=true;
-    const overlay=document.createElement('section');
+    // Reuse the intro markup that was sent with the original HTML response.
+    // Construct only as a recovery fallback if another script removed that markup.
+    let overlay=document.getElementById('ae-boot-intro')||document.createElement('section');
     overlay.id='ae-boot-intro';
     overlay.tabIndex=-1;
     overlay.setAttribute('role','dialog');
@@ -77,14 +74,21 @@
     const siblings=[...document.body.children].filter(e=>e!==overlay&&e.tagName!=='SCRIPT');
     const previousInert=siblings.map(e=>[e,e.inert]);
     let finished=false;
+    let reinserts=0;
+    const recovery=new MutationObserver(()=>{
+      if(!finished&&!overlay.isConnected&&reinserts++<3&&document.body)
+        document.body.appendChild(overlay);
+    });
+    recovery.observe(document.body,{childList:true});
     root.classList.add('ae-boot-pending');
-    document.body.appendChild(overlay);
+    if(!overlay.isConnected)document.body.appendChild(overlay);
     root.classList.add('ae-boot-mounted');
     if(window.__aeBootFailsafe)clearTimeout(window.__aeBootFailsafe);
     for(const element of siblings)element.inert=true;
     function finish(){
       if(finished)return;
       finished=true;
+      recovery.disconnect();
       root.classList.remove('ae-boot-pending','ae-boot-mounted');
       for(const [element,oldValue] of previousInert)element.inert=oldValue;
       window.removeEventListener('keydown',keyHandler,true);
@@ -118,6 +122,19 @@
     function progressUpdate(){
       const value=Math.min(100,Math.round(typed/total*100));
       progress.style.width=value+'%';percent.textContent=String(value).padStart(2,'0')+'%';
+    }
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||
+       root.classList.contains('motion-off')){
+      for(const [time,message,tone] of lines){
+        const row=document.createElement('div');row.className='ae-boot-row';row.dataset.tone=tone;
+        const stamp=document.createElement('span');stamp.className='ae-boot-timestamp';stamp.textContent='['+time+']';
+        const arrow=document.createElement('span');arrow.className='ae-boot-prompt';arrow.textContent='›';
+        const words=document.createElement('span');words.className='ae-boot-line';words.textContent=message;
+        row.append(stamp,arrow,words);logs.appendChild(row);
+      }
+      progress.style.width='100%';percent.textContent='100%';
+      setTimeout(finish,2600);
+      return;
     }
     (async()=>{
       await wait(155);
