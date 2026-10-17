@@ -202,6 +202,7 @@ async function inspect(browser, title, viewport, mobile) {
  try {
    await inspect(browser,'desktop-1440',{width:1440,height:900},false);
    await inspect(browser,'desktop-1920',{width:1920,height:1080},false);
+   await inspect(browser,'desktop-4k',{width:3840,height:2160},false);
    await inspect(browser,'tablet-768',{width:768,height:1024},false);
    await inspect(browser,'mobile-390',{width:390,height:844},true);
    await inspect(browser,'mobile-360',{width:360,height:780},true);
