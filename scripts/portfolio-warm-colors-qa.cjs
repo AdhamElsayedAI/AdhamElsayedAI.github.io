@@ -37,12 +37,14 @@ const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',
        throw Error(width+'px flash of original hero before intro: '+JSON.stringify(firstPaint));
      console.log('PASS '+width+'px early intro before delayed JS');
    }
-   await page.waitForLoadState('load');
-   // Early splash was independently asserted above. Await CSS/resources for color QA.
+   // First-paint test already ran above; wait for only the intro stylesheet, not
+   // unrelated Next.js assets that can finish after the automatic intro dismissal.
+   await page.waitForFunction(() => {
+     const sheet=document.querySelector('link[href*="portfolio-boot.css?v=20261017-vivid-v6"]');
+     return Boolean(sheet && sheet.sheet && document.querySelector('#ae-boot-intro .ae-boot-brand'));
+   },null,{timeout:5500});
    const intro=page.locator('#ae-boot-intro');
-   await intro.waitFor({state:'visible',timeout:6500});
-   // Navigation has reached DOMContentLoaded, so the intro stylesheet is parsed.
-   // Evaluate immediately before the auto-completing 5-second intro vanishes.
+   await intro.waitFor({state:'visible',timeout:2500});
    const result=await intro.evaluate(el=>{
       const get=s=>el.querySelector(s);
       const color=s=>getComputedStyle(get(s)).color;
