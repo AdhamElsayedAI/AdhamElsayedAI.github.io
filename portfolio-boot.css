@@ -241,3 +241,14 @@ html.ae-boot-pending body>:not(#ae-boot-intro):not(script){visibility:hidden!imp
 html.motion-off #ae-boot-intro:before,
 html.motion-off .ae-boot-codefield,
 html.motion-off .ae-boot-code-line{animation:none!important}
+
+/* V5: Warm coral/peach neutral text only. All accent hues, animation and spacing stay unchanged. */
+#ae-boot-intro{--boot-white:#ffd7c3}
+.ae-boot-brand{color:#ffe2d3;text-shadow:0 0 13px rgb(239 116 94 / .13)}
+.ae-boot-divider{color:#e7a598}
+.ae-boot-eyebrow{color:#ffc2a5}
+.ae-boot-timestamp{color:#e6a79b}
+.ae-boot-prompt{color:#efac97}
+.ae-boot-line{color:#ffc9ac}
+.ae-boot-row[data-tone="muted"] .ae-boot-line{color:#ffb49e}
+.ae-boot-bottomline{color:#e6b0a0}
