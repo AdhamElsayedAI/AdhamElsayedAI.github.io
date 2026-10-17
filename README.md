@@ -73,7 +73,7 @@ The website uses a dark/light theme, responsive layouts, accessible navigation, 
 
 ### For developers
 
-This repository is the **published Next.js static export** served by GitHub Pages. It contains compiled assets rather than the original editable application source.
+The homepage introduces the AI portfolio with a code-terminal typing animation headed **Adham Elsayed** on the first visit per tab session. The introduction is skippable via a visible button or Escape and bypassed on reduced-motion systems and section deep links. The implementation lives in `portfolio-boot.css` and `portfolio-boot.js`, without changing compiled Next.js assets.\n\nThis repository is the **published Next.js static export** served by GitHub Pages. It contains compiled assets rather than the original editable application source.
 
 <details>
 <summary><strong>Run locally and maintain the site</strong></summary>

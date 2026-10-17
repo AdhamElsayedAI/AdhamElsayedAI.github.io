@@ -27,6 +27,19 @@ async function inspect(browser, title, viewport, mobile) {
     if (r.status() >= 400 && r.url().startsWith(URL)) notFound.push(r.status() + ' ' + r.url());
   });
   await page.goto(URL, { waitUntil: 'load', timeout: 60000 });
+  // A fresh visit opens a keyboard-skippable intro, without damaging React hydration.
+  const intro=page.locator('#ae-boot-intro');
+  assert(await intro.count()===1,title+' terminal intro opens on fresh home visit');
+  if(await intro.count()){
+    assert(await intro.locator('.ae-boot-brand').textContent()==='Adham Elsayed',title+' terminal title identifies Adham Elsayed');
+    await page.waitForTimeout(750);
+    assert((await intro.locator('.ae-boot-row').count())>0,title+' typewriter begins composing rows');
+    await intro.locator('.ae-boot-skip').click();
+    await page.waitForTimeout(550);
+    assert(await intro.count()===0,title+' Skip intro restores main site');
+    assert(await page.evaluate(()=>!document.documentElement.classList.contains('ae-boot-pending')),
+      title+' boot scroll lock released');
+  }
   await page.waitForTimeout(2700);
 
   assert((await page.title()).includes('Adham Elsayed'), title + ' title');
