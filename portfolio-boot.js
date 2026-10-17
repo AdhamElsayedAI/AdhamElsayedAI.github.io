@@ -1,10 +1,11 @@
 /* Adham Elsayed — accessible first-visit code-terminal animation.
    Added outside the compiled Next.js React tree; never edits hydrated markup. */
 (()=>{'use strict';
-  const KEY='ae-boot-seen-v1';
   const root=document.documentElement;
-  if(!root.classList.contains('ae-boot-pending'))return;
-  if(!document.body){root.classList.remove('ae-boot-pending');return;}
+  let mounted=false;
+  function mount(){
+  if(mounted||(location.hash&&location.hash!=='#home')||matchMedia('(prefers-reduced-motion: reduce)').matches||!document.body)return;
+  mounted=true;
   const overlay=document.createElement('section');
   overlay.id='ae-boot-intro';overlay.setAttribute('role','dialog');
   overlay.setAttribute('aria-modal','true');
@@ -33,6 +34,7 @@
     '<div class="ae-boot-track"><div class="ae-boot-bar"></div></div>',
     '</div></div></div>'
   ].join('');
+  root.classList.add('ae-boot-pending');
   document.body.appendChild(overlay);
   const shapes=[[7,16,7,'#8e7cb5',.48],[11,73,5,'#6eafb3',.34],[22,26,5,'#70a3b8',.21],
     [31,84,8,'#8b7bae',.31],[80,13,5,'#718fcb',.32],[89,75,9,'#4ba6ab',.34],
@@ -60,7 +62,6 @@
   function finish(){
     if(finished)return;
     finished=true;
-    try{sessionStorage.setItem(KEY,'1')}catch(_){}
     root.classList.remove('ae-boot-pending');
     for(const [el,wasInert] of inertBefore)el.inert=wasInert;
     window.removeEventListener('keydown',handleKey,true);
@@ -124,4 +125,8 @@
     await delay(760);
     finish();
   })().catch(finish);
+  }
+  function start(){setTimeout(mount,900)}
+  if(document.readyState==='complete')start();
+  else window.addEventListener('load',start,{once:true});
 })();
