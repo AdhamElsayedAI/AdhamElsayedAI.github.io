@@ -12,7 +12,6 @@
   overlay.setAttribute('aria-label','Adham Elsayed portfolio introduction');
   overlay.setAttribute('aria-describedby','ae-boot-description');
   overlay.innerHTML=[
-    '<div class="ae-boot-ambient" aria-hidden="true" id="ae-boot-ambient"></div>',
     '<div class="ae-boot-shell">',
     '<div class="ae-boot-top">',
     '<span class="ae-boot-dots" aria-hidden="true"><i></i><i></i><i></i></span>',
@@ -24,11 +23,6 @@
     '<p class="ae-boot-sr-only" id="ae-boot-description">Portfolio introduction for Adham Elsayed, AI Engineer. Skip with Escape or the Skip intro button.</p>',
     '<div class="ae-boot-eyebrow" aria-hidden="true">INITIALIZING PORTFOLIO EXPERIENCE</div>',
     '<div class="ae-boot-logs" aria-hidden="true"></div>',
-    '<div class="ae-boot-card">',
-    '<strong class="ae-boot-name">Adham Elsayed</strong>',
-    '<span class="ae-boot-role">AI Engineer · Generative AI · RAG · Computer Vision</span>',
-    '<span class="ae-boot-location">Egypt · Evidence-driven AI systems</span>',
-    '</div>',
     '<div class="ae-boot-bottom" aria-hidden="true">',
     '<div class="ae-boot-bottomline"><span>PORTFOLIO / INIT</span><span class="ae-boot-percent">00%</span></div>',
     '<div class="ae-boot-track"><div class="ae-boot-bar"></div></div>',
