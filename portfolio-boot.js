@@ -36,21 +36,7 @@
   ].join('');
   root.classList.add('ae-boot-pending');
   document.body.appendChild(overlay);
-  const shapes=[[7,16,7,'#8e7cb5',.48],[11,73,5,'#6eafb3',.34],[22,26,5,'#70a3b8',.21],
-    [31,84,8,'#8b7bae',.31],[80,13,5,'#718fcb',.32],[89,75,9,'#4ba6ab',.34],
-    [94,36,4,'#bd977b',.42],[69,88,5,'#8e7bba',.26],[3,53,4,'#6ca4be',.24],
-    [18,90,3,'#b29c78',.25],[97,8,5,'#81b1aa',.18],[72,7,5,'#8f83c0',.30]];
-  const ambient=overlay.querySelector('#ae-boot-ambient');
-  shapes.forEach(([x,y,size,color,alpha],i)=>{
-    const pixel=document.createElement('span');pixel.className='ae-boot-pixel';
-    pixel.style.setProperty('--x',x+'%');pixel.style.setProperty('--y',y+'%');
-    pixel.style.setProperty('--size',size+'px');pixel.style.setProperty('--color',color);
-    pixel.style.setProperty('--opacity',String(alpha));
-    pixel.style.setProperty('--delay',(-i*.35)+'s');
-    ambient.appendChild(pixel);
-  });
   const logs=overlay.querySelector('.ae-boot-logs');
-  const card=overlay.querySelector('.ae-boot-card');
   const progress=overlay.querySelector('.ae-boot-bar');
   const percent=overlay.querySelector('.ae-boot-percent');
   const skip=overlay.querySelector('.ae-boot-skip');
@@ -78,15 +64,17 @@
   }
   window.addEventListener('keydown',handleKey,true);
   skip.addEventListener('click',finish);
-  skip.focus({preventScroll:true});
+  overlay.tabIndex=-1;
+  overlay.focus({preventScroll:true});
   const lines=[
-    ['00.000','boot: initializing portfolio runtime...','normal'],
-    ['00.418','stack: Generative AI / RAG / Computer Vision','violet'],
-    ['01.104','profile: Adham Elsayed','cyan'],
-    ['01.721','role: AI Engineer · Artificial Intelligence','normal'],
+    ['00.000','init: loading portfolio experience...','muted'],
+    ['00.418','profile: Adham Elsayed','green'],
+    ['01.104','role: AI Engineer / Generative AI','cyan'],
+    ['01.721','stack: RAG · Machine Learning · Computer Vision','normal'],
     ['02.358','projects: MedFlow · Smart Basket · Smart Attendance','amber'],
-    ['03.009','method: evidence → evaluation → deployment','violet'],
-    ['03.741','status: portfolio experience ready ✓','success']
+    ['03.009','workflow: evidence → evaluation → deployment','cyan'],
+    ['03.741','status: interface ready ✓','success'],
+    ['04.112','opening: adhamelsayedai.github.io','green']
   ];
   const total=lines.reduce((sum,item)=>sum+Array.from(item[1]).length,0);
   let typed=0;
@@ -117,7 +105,6 @@
         await delay(character===' '?8:13);
       }
       cursor.remove();updateProgress();
-      if(n===2)card.classList.add('ae-card-reveal');
       await delay(n===lines.length-1?430:130);
     }
     if(finished)return;
