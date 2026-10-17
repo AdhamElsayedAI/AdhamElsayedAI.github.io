@@ -79,7 +79,7 @@ def main():
     draw=ImageDraw.Draw(im)
     draw.rounded_rectangle((78,91,125,138),radius=13,fill=(8,41,40,250),outline=(25,225,218,145),width=2)
     draw.text((89,99),"AE",font=font(22),fill="#22E7DC",stroke_width=0)
-    draw.text((145,105),"ADHAM ELSEYED / PORTFOLIO",font=font(15),fill="#A8BBC1")
+    draw.text((145,105),"ADHAM ELSAYED / PORTFOLIO",font=font(15),fill="#A8BBC1")
     draw.text((78,188),"AI ENGINEER  /  GENERATIVE AI",font=font(19),fill="#F2B15D")
     draw.text((75,248),"Adham Elsayed",font=font(63),fill="#F6FAF8",
               stroke_width=0)
