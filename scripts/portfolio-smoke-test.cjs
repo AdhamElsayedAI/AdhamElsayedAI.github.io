@@ -29,8 +29,10 @@ async function inspect(browser, title, viewport, mobile) {
   await page.goto(URL, { waitUntil: 'load', timeout: 60000 });
   // A fresh visit opens a keyboard-skippable intro, without damaging React hydration.
   const intro=page.locator('#ae-boot-intro');
-  assert(await intro.count()===1,title+' terminal intro opens on fresh home visit');
-  if(await intro.count()){
+  let introVisible=false;
+  try { await intro.locator('.ae-boot-brand').waitFor({state:'visible',timeout:6000});introVisible=true } catch {}
+  assert(introVisible,title+' terminal intro mounts after hydration');
+  if(introVisible){
     assert(await intro.locator('.ae-boot-brand').textContent()==='Adham Elsayed',title+' terminal title identifies Adham Elsayed');
     await page.waitForTimeout(750);
     assert((await intro.locator('.ae-boot-row').count())>0,title+' typewriter begins composing rows');
