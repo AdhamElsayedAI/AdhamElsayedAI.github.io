@@ -15,6 +15,7 @@ const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',eyebrow:
    await page.addInitScript(()=>{
     window.__introQA={firstPaint:false,snapshot:null,seen:false};
     const capture=()=>{
+      if(document.documentElement?.classList.contains('ae-boot-pending')) window.__introQA.firstPaint=true;
       const root=document.getElementById('ae-boot-intro');
       if(!root||window.__introQA.snapshot)return;
       window.__introQA.seen=true;
@@ -51,7 +52,7 @@ const expected={brand:'rgb(255, 148, 119)',divider:'rgb(255, 128, 107)',eyebrow:
     const watcher=new MutationObserver(capture);
     watcher.observe(document,{childList:true,subtree:true});
     document.addEventListener('DOMContentLoaded',()=>{
-      window.__introQA.firstPaint=document.documentElement.classList.contains('ae-boot-pending');
+      window.__introQA.firstPaint ||= document.documentElement.classList.contains('ae-boot-pending');
       capture();
     },{once:true});
     setInterval(capture,60);
