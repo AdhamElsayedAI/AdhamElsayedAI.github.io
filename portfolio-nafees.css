@@ -35,3 +35,51 @@
 @media(max-width:900px){#achievements .nafees-showcase{grid-template-columns:minmax(0,1fr)}#achievements .nafees-photo{aspect-ratio:1.48;min-height:0}}
 @media(max-width:520px){#achievements .nafees-showcase{border-radius:16px}#achievements .nafees-photo{aspect-ratio:1.05}#achievements .nafees-photo-bottom{left:.7rem;right:.7rem;bottom:.7rem;font-size:.59rem}#achievements .nafees-showcase-body{padding:1.4rem 1.05rem}#achievements .nafees-stats strong{font-size:clamp(1.1rem,5vw,1.6rem)}#experience .nafees-experience-card{padding:1rem}}
 @media(hover:none),(prefers-reduced-motion:reduce){#achievements .nafees-photo img{transition:none}#achievements .nafees-photo:hover img{transform:none}}
+
+
+/* Full genuine photograph, never cropped at any viewport. Caption is outside image. */
+#achievements .nafees-showcase .nafees-photo{
+ display:flex;flex-direction:column;min-height:0;aspect-ratio:auto;
+ margin:0;overflow:hidden;background:#10161f;align-self:stretch;
+}
+#achievements .nafees-showcase .nafees-photo img{
+ position:relative;inset:auto;width:100%;height:auto;aspect-ratio:3/4;
+ object-fit:contain;object-position:center;flex:0 0 auto;transform:none;
+}
+#achievements .nafees-showcase .nafees-photo:hover img{transform:none}
+#achievements .nafees-showcase .nafees-photo::after{display:none;content:none}
+#achievements .nafees-showcase .nafees-photo-bottom{
+ position:relative;left:auto;right:auto;bottom:auto;
+ padding:1rem 1.15rem;display:flex;align-items:center;justify-content:space-between;
+ min-width:0;background:#0a1720;gap:.65rem;
+}
+#achievements .nafees-showcase .nafees-photo-bottom span{
+ background:transparent;border:0;border-radius:0;padding:0;backdrop-filter:none;
+}
+#achievements .nafees-showcase .nafees-photo-bottom a:focus-visible{
+ outline:2px solid #55dfd8;outline-offset:3px;
+}
+html.light #home .nafees-hero-line a,
+html.light #experience .nafees-experience-card > strong{color:#076e75}
+html.light #experience .nafees-experience-card a,
+html.light #achievements .nafees-overline,
+html.light #achievements .nafees-stats > div:nth-child(2) strong{color:#96520c}
+html.light #home .nafees-hero-marker,
+html.light #experience .nafees-experience-top span{color:#96520c}
+@media(max-width:900px){
+ #achievements .nafees-showcase .nafees-photo{aspect-ratio:auto;min-height:0}
+ #achievements .nafees-showcase .nafees-photo img{height:auto;aspect-ratio:3/4}
+}
+@media(max-width:520px){
+ #achievements .nafees-showcase .nafees-photo{aspect-ratio:auto}
+ #achievements .nafees-showcase .nafees-photo-bottom{padding:.9rem .8rem;gap:.45rem}
+ #achievements .nafees-showcase .nafees-photo-bottom span{font-size:.62rem}
+ #achievements .nafees-showcase .nafees-photo-bottom a{font-size:.67rem}
+}
+@media(prefers-reduced-motion:reduce){
+ #achievements .nafees-showcase .nafees-photo img,
+ #achievements .nafees-showcase .nafees-photo:hover img{transition:none!important;animation:none!important;transform:none!important}
+}
+html.motion-off #achievements .nafees-showcase .nafees-photo img{
+ transition:none!important;animation:none!important;transform:none!important;
+}

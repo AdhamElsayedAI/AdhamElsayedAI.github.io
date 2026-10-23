@@ -19,12 +19,12 @@
   article.id='nafees-ai-award';
   article.setAttribute('aria-label','Nafees AI second-place hackathon recognition');
   article.innerHTML=[
-    '<div class="nafees-photo">',
-      '<img src="'+photo+'" width="480" height="640" loading="lazy" decoding="async"',
+    '<figure class="nafees-photo">',
+      '<img src="'+photo+'" width="1200" height="1600" loading="lazy" decoding="async"',
       ' alt="Adham Elsayed holding the Second Place Startup Track award cheque for 80,000 EGP at GEN AI for Education Hackathon on 13 October 2026">',
-      '<div class="nafees-photo-bottom"><span>GEN AI for Education · 2026</span>',
-      '<a href="'+photo+'" target="_blank" rel="noopener noreferrer" aria-label="Open the original Nafees AI award photograph">View photo ↗</a></div>',
-    '</div>',
+      '<figcaption class="nafees-photo-bottom"><span>Official award photograph · October 2026</span>',
+      '<a href="'+photo+'" target="_blank" rel="noopener noreferrer" aria-label="Open the full Nafees AI award photograph">View full photo ↗</a></figcaption>',
+    '</figure>',
     '<div class="nafees-showcase-body">',
       '<span class="nafees-overline">Featured recognition / Education AI</span>',
       '<h3>Nafees AI</h3>',
@@ -50,9 +50,9 @@
     '<div class="experience-marker-v5" aria-hidden="true"><span></span></div>',
     '<div class="nafees-experience-card">',
       '<div class="nafees-experience-top"><time datetime="2026-10-13">Oct 2026</time><span>Hackathon / Project</span></div>',
-      '<h3>Nafees AI — AI Project Contributor</h3>',
+      '<h3>Nafees AI — Hackathon Participant</h3>',
       '<strong>GEN AI for Education Hackathon · Startup Track</strong>',
-      '<p>Participated in the Nafees AI education-focused entry, recognized with 2nd Place and an 80,000 EGP award in the Startup Track. This entry records the project participation and award, without implying a formal employer role.</p>',
+      '<p>Participated in the Nafees AI education-focused project at GEN AI for Education Hackathon 2026, where the team earned Second Place in the Startup Track and an 80,000 EGP award.</p>',
       '<a href="#nafees-ai-award">See recognition and photograph ↗</a>',
     '</div>'
   ].join('');
