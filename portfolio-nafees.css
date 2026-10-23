@@ -1,0 +1,37 @@
+/* Nafees AI: an editorial award treatment using the existing portfolio tokens. */
+#home .nafees-hero-line{display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap;margin-top:1rem;max-width:46rem;color:var(--muted);font-size:clamp(.79rem,1vw,.91rem);line-height:1.65}
+#home .nafees-hero-marker{color:var(--warm);border:1px solid rgb(var(--warm-rgb)/.3);border-radius:99px;padding:.2rem .58rem;background:rgb(var(--warm-rgb)/.08);font:700 .65rem/1.5 ui-monospace,Consolas,monospace;white-space:nowrap}
+#home .nafees-hero-line strong{color:var(--ink)}#home .nafees-hero-line a{color:var(--accent);text-underline-offset:3px}
+#achievements .nafees-showcase{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);position:relative;isolation:isolate;overflow:hidden;margin-top:clamp(2rem,5vw,3.8rem);border:1px solid rgb(var(--line-rgb)/.9);border-radius:22px;background:var(--surface);box-shadow:0 24px 65px -42px #0008;color:var(--ink)}
+#achievements .nafees-showcase:before{content:"";position:absolute;top:0;inset-inline:0;height:2px;z-index:3;background:linear-gradient(90deg,#f4be4f,#ec8c99,#16e7dc)}
+#achievements .nafees-photo{position:relative;min-width:0;min-height:520px;overflow:hidden;background:#15212b}
+#achievements .nafees-photo img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:50% 42%;transition:transform .55s ease}
+#achievements .nafees-photo:hover img{transform:scale(1.027)}
+#achievements .nafees-photo:after{content:"";position:absolute;inset:55% 0 0;background:linear-gradient(transparent,rgba(3,9,14,.78));pointer-events:none}
+#achievements .nafees-photo-bottom{position:absolute;z-index:1;left:1.2rem;right:1.2rem;bottom:1.2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;color:#fff;font:600 .67rem/1.5 ui-monospace,Consolas,monospace}
+#achievements .nafees-photo-bottom span{border:1px solid #ffffff40;border-radius:99px;padding:.5rem .75rem;background:#08121cb3;backdrop-filter:blur(10px)}
+#achievements .nafees-photo-bottom a{color:#fff;text-decoration:underline;text-underline-offset:4px}
+#achievements .nafees-showcase-body{min-width:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(1.4rem,4vw,3.4rem);background:radial-gradient(ellipse at 90% 10%,rgb(var(--cyan-rgb)/.08),transparent 70%),radial-gradient(ellipse at 0% 100%,rgb(var(--warm-rgb)/.06),transparent 75%)}
+#achievements .nafees-overline{font:750 .7rem/1.5 ui-monospace,Consolas,monospace;letter-spacing:.14em;color:var(--warm);text-transform:uppercase}
+#achievements .nafees-showcase h3{font-size:clamp(2.1rem,4vw,3.5rem);font-weight:850;letter-spacing:-.05em;line-height:1.1;margin:.7rem 0}
+#achievements .nafees-event-name{color:var(--muted);font-size:.95rem;line-height:1.7}
+#achievements .nafees-stats{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin:1.7rem 0}
+#achievements .nafees-stats>div{min-width:0;border:1px solid rgb(var(--line-rgb)/.9);border-radius:13px;padding:1rem;background:rgb(var(--surface-rgb)/.34)}
+#achievements .nafees-stats strong{display:block;font-size:clamp(1.22rem,2.5vw,1.85rem);letter-spacing:-.045em;color:var(--ink);overflow-wrap:anywhere}
+#achievements .nafees-stats>div:nth-child(2) strong{color:var(--warm)}
+#achievements .nafees-stats small{display:block;margin-top:.45rem;color:var(--muted);font:650 .68rem/1.4 ui-monospace,Consolas,monospace;text-transform:uppercase}
+#achievements .nafees-summary{color:var(--muted);font-size:.95rem;line-height:1.8}
+#achievements .nafees-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.3rem}
+#achievements .nafees-chips span{padding:.42rem .67rem;border:1px solid rgb(var(--line-rgb)/.85);border-radius:99px;color:var(--ink);font-size:.7rem;font-weight:650}
+#achievements .nafees-award-date{font:600 .73rem/1.6 ui-monospace,Consolas,monospace;color:var(--muted);margin-top:1.4rem}
+#experience .nafees-experience-card{padding:1.3rem 1.5rem;border:1px solid rgb(var(--warm-rgb)/.25);border-radius:17px;background:linear-gradient(105deg,rgb(var(--warm-rgb)/.06),transparent 50%),var(--surface);min-width:0}
+#experience .nafees-experience-top{display:flex;gap:.6rem;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:.7rem}
+#experience .nafees-experience-top time{font:650 .78rem/1.5 ui-monospace,Consolas,monospace;color:var(--muted)}
+#experience .nafees-experience-top span{color:var(--warm);border:1px solid rgb(var(--warm-rgb)/.32);border-radius:99px;padding:.24rem .57rem;font:700 .65rem/1.4 ui-monospace,Consolas,monospace}
+#experience .nafees-experience-card h3{font-size:clamp(1.15rem,2vw,1.45rem);font-weight:800;color:var(--ink);line-height:1.35;margin:.3rem 0 .5rem}
+#experience .nafees-experience-card>strong{color:var(--accent);font-size:.83rem}
+#experience .nafees-experience-card p{margin-top:.65rem;color:var(--muted);line-height:1.72;font-size:.88rem}
+#experience .nafees-experience-card a{display:inline-block;margin-top:1rem;color:var(--warm);font-size:.81rem;font-weight:700;text-underline-offset:4px}
+@media(max-width:900px){#achievements .nafees-showcase{grid-template-columns:minmax(0,1fr)}#achievements .nafees-photo{aspect-ratio:1.48;min-height:0}}
+@media(max-width:520px){#achievements .nafees-showcase{border-radius:16px}#achievements .nafees-photo{aspect-ratio:1.05}#achievements .nafees-photo-bottom{left:.7rem;right:.7rem;bottom:.7rem;font-size:.59rem}#achievements .nafees-showcase-body{padding:1.4rem 1.05rem}#achievements .nafees-stats strong{font-size:clamp(1.1rem,5vw,1.6rem)}#experience .nafees-experience-card{padding:1rem}}
+@media(hover:none),(prefers-reduced-motion:reduce){#achievements .nafees-photo img{transition:none}#achievements .nafees-photo:hover img{transform:none}}
