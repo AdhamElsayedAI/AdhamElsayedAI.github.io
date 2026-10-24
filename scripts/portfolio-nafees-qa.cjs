@@ -24,7 +24,7 @@ const W=[360,390,768,1440,1920,3840];
     const photo=card?.querySelector('img');
     const r=photo?.getBoundingClientRect();
     return {
-      imgLoaded:!!photo&&photo.complete&&((photo.naturalWidth===900&&photo.naturalHeight===1200)||(photo.naturalWidth===1200&&photo.naturalHeight===1600)),
+      imgLoaded:!!photo&&photo.complete&&photo.naturalWidth>0&&photo.naturalHeight>0&&Math.abs(photo.naturalWidth/photo.naturalHeight-.75)<.02,
       pictureType:card?.querySelector('source[type="image/avif"]')?.getAttribute('srcset'),
       renderedMedia:!!r&&r.width>0&&r.height>0,
       fit:photo?getComputedStyle(photo).objectFit:null,
