@@ -1,78 +1,150 @@
-/* Nafees AI recognition; additive to the published portfolio; no existing awards removed. */
+/* Nafees AI Recognition — additive enhancement of the existing static portfolio.
+   The image source, brand framing and motions are scoped to Nafees only. */
 (()=>{
  'use strict';
- const photo='/images/nafees-ai/nafees-ai-award.webp';
- function addHero(){
-  const hero=document.querySelector('#home .ref-hero-grid > div:first-child');
-  if(!hero||hero.querySelector('.nafees-hero-line'))return;
-  const p=document.createElement('p');p.className='nafees-hero-line';
-  p.innerHTML='<span class="nafees-hero-marker">Award · 2026</span>'+
-   '<span><strong>Nafees AI</strong> — 2nd Place, Startup Track at GEN AI for Education Hackathon. <a href="#nafees-ai-award">Explore achievement ↗</a></span>';
-  const anchor=hero.querySelector('.ref-inline-terminal')||hero.querySelector('.ref-tagline');
-  if(anchor)anchor.after(p); else hero.append(p);
+ const imagePath='/images/nafees-ai/nafees-ai-award.webp';
+ const optimizedImage='/images/nafees-ai/nafees-ai-award.avif';
+ const allowedMotion=()=>!matchMedia('(prefers-reduced-motion: reduce)').matches &&
+                       !document.documentElement.classList.contains('motion-off');
+
+ function hero(){
+   const column=document.querySelector('#home .ref-hero-grid > div:first-child');
+   if(!column||column.querySelector('.nafees-hero-line'))return;
+   const line=document.createElement('p');
+   line.className='nafees-hero-line';
+   line.innerHTML='<span class="nafees-hero-marker">2026 · Award</span>'+
+    '<span><strong>Nafees AI</strong> · 2nd Place, Startup Track at GEN AI for Education Hackathon. '+
+    '<a href="#nafees-ai-award">View recognition ↗</a></span>';
+   const anchor=column.querySelector('.ref-inline-terminal')||column.querySelector('.ref-tagline');
+   if(anchor)anchor.after(line);else column.append(line);
  }
- function addAward(){
-  const content=document.querySelector('#achievements .site-container');
-  if(!content||content.querySelector('#nafees-ai-award'))return;
-  const article=document.createElement('article');
-  article.className='nafees-showcase';
-  article.id='nafees-ai-award';
-  article.setAttribute('aria-label','Nafees AI second-place hackathon recognition');
-  article.innerHTML=[
-    '<figure class="nafees-photo">',
-      '<img src="'+photo+'" width="1200" height="1600" loading="lazy" decoding="async"',
-      ' alt="Adham Elsayed holding the Second Place Startup Track award cheque for 80,000 EGP at GEN AI for Education Hackathon on 13 October 2026">',
-      '<figcaption class="nafees-photo-bottom"><span>Official award photograph · October 2026</span>',
-      '<a href="'+photo+'" target="_blank" rel="noopener noreferrer" aria-label="Open the full Nafees AI award photograph">View full photo ↗</a></figcaption>',
-    '</figure>',
-    '<div class="nafees-showcase-body">',
-      '<span class="nafees-overline">Featured recognition / Education AI</span>',
-      '<h3>Nafees AI</h3>',
-      '<p class="nafees-event-name">GEN AI for Education Hackathon 2026 · Startup Track</p>',
-      '<div class="nafees-stats">',
+ function achievement(){
+   const content=document.querySelector('#achievements .site-container');
+   if(!content)return;
+   const heading=content.querySelector('.section-heading-v5');
+   // Now that the section lists two awards, use a genuinely inclusive heading.
+   if(heading){
+     const title=heading.querySelector('h2.section-title');
+     const blurb=heading.querySelector('.section-heading-v5-copy p.text-muted');
+     if(title&&title.textContent.includes('AI Hackathon Mansoura 2026'))
+       title.textContent='Recognition & Awards.';
+     if(blurb&&blurb.textContent.includes('A Team MedFlow achievement'))
+       blurb.textContent='Recognition for applied AI projects across education and clinical problem-solving.';
+   }
+   let card=content.querySelector('#nafees-ai-award');
+   if(!card){
+     card=document.createElement('article');
+     card.className='nafees-showcase';
+     card.id='nafees-ai-award';
+     card.setAttribute('aria-label','Nafees AI: Second Place Startup Track at GEN AI for Education Hackathon 2026');
+     card.innerHTML=[
+      '<figure class="nafees-visual nafees-reveal">',
+       '<div class="nafees-photo-frame">',
+        '<div class="nafees-photo-glow" aria-hidden="true"></div>',
+        '<picture class="nafees-photo-picture">',
+          '<source type="image/avif" srcset="'+optimizedImage+'" />',
+          '<img class="nafees-award-image" src="'+imagePath+'" width="1200" height="1600"',
+            ' loading="lazy" decoding="async"',
+            ' alt="Adham Elsayed holding the GEN AI for Education Hackathon 2026 Startup Track Second Place award cheque of 80,000 EGP" />',
+        '</picture>',
+        '<span class="nafees-glass-shine" aria-hidden="true"></span>',
+        '<span class="nafees-corner nafees-corner-tl" aria-hidden="true"></span>',
+        '<span class="nafees-corner nafees-corner-br" aria-hidden="true"></span>',
+       '</div>',
+       '<figcaption class="nafees-photo-bottom"><span>GEN AI for Education / 2026</span>',
+        '<a href="'+imagePath+'" target="_blank" rel="noopener noreferrer">View full photo ↗</a>',
+       '</figcaption>',
+      '</figure>',
+      '<div class="nafees-showcase-body">',
+       '<p class="nafees-overline nafees-reveal" style="--nafees-delay:60ms">2026 / Featured recognition</p>',
+       '<h3 class="nafees-reveal" style="--nafees-delay:130ms">Nafees AI</h3>',
+       '<p class="nafees-event-name nafees-reveal" style="--nafees-delay:190ms">GEN AI for Education Hackathon 2026 · Startup Track</p>',
+       '<div class="nafees-stats nafees-reveal" style="--nafees-delay:250ms">',
         '<div><strong>2nd Place</strong><small>Startup Track</small></div>',
         '<div><strong>80,000 EGP</strong><small>Award amount</small></div>',
-      '</div>',
-      '<p class="nafees-summary">Nafees AI, an education-focused AI project, received Second Place in the Startup Track at the GEN AI for Education Hackathon 2026. The recognition was accompanied by an 80,000 EGP award.</p>',
-      '<div class="nafees-chips"><span>Education AI</span><span>Startup Track</span><span>Hackathon Recognition</span></div>',
-      '<p class="nafees-award-date"><time datetime="2026-10-13">13 October 2026</time> · Egypt</p>',
-    '</div>'
-  ].join('');
-  content.appendChild(article);
+       '</div>',
+       '<p class="nafees-summary nafees-reveal" style="--nafees-delay:320ms">Nafees AI, an education-focused AI project, earned second place in the Startup Track at the GEN AI for Education Hackathon 2026, with an 80,000 EGP award.</p>',
+       '<div class="nafees-chips nafees-reveal" style="--nafees-delay:390ms"><span>Education AI</span><span>Startup Track</span><span>Hackathon Award</span></div>',
+       '<p class="nafees-award-date nafees-reveal" style="--nafees-delay:450ms"><time datetime="2026-10-13">13 October 2026</time> · Egypt</p>',
+      '</div>'
+     ].join('');
+   }
+   // DOM order is explicit: featured Nafees card BEFORE the existing MedFlow card.
+   const oldMedFlow=content.querySelector('.achievement-card');
+   if(oldMedFlow&&card.nextElementSibling!==oldMedFlow)oldMedFlow.before(card);
+   else if(!card.isConnected)content.append(card);
+   bindInteractions(card);
  }
- function addExperience(){
-  const timeline=document.querySelector('#experience .experience-timeline-v5');
-  if(!timeline||timeline.querySelector('.nafees-experience'))return;
-  const item=document.createElement('article');
-  item.className='experience-row-v5 nafees-experience';
-  item.setAttribute('data-tone','warm');
-  item.innerHTML=[
-    '<div class="experience-marker-v5" aria-hidden="true"><span></span></div>',
-    '<div class="nafees-experience-card">',
+ function experience(){
+   const timeline=document.querySelector('#experience .experience-timeline-v5');
+   if(!timeline||timeline.querySelector('.nafees-experience'))return;
+   const item=document.createElement('article');
+   item.className='experience-row-v5 nafees-experience';
+   item.dataset.tone='warm';
+   item.innerHTML=[
+     '<div class="experience-marker-v5" aria-hidden="true"><span></span></div>',
+     '<div class="nafees-experience-card">',
       '<div class="nafees-experience-top"><time datetime="2026-10-13">Oct 2026</time><span>Hackathon / Project</span></div>',
       '<h3>Nafees AI — Hackathon Participant</h3>',
       '<strong>GEN AI for Education Hackathon · Startup Track</strong>',
-      '<p>Participated in the Nafees AI education-focused project at GEN AI for Education Hackathon 2026, where the team earned Second Place in the Startup Track and an 80,000 EGP award.</p>',
-      '<a href="#nafees-ai-award">See recognition and photograph ↗</a>',
-    '</div>'
-  ].join('');
-  const first=timeline.querySelector('.experience-row-v5');
-  if(first)first.before(item);else timeline.append(item);
+      '<p>Participated in the Nafees AI education-focused project, recognized with Second Place in the Startup Track and an 80,000 EGP award.</p>',
+      '<a href="#nafees-ai-award">View recognition and photograph ↗</a>',
+     '</div>'
+   ].join('');
+   const first=timeline.querySelector('.experience-row-v5');
+   if(first)first.before(item);else timeline.append(item);
  }
- function reconcile(){addHero();addAward();addExperience()}
+ const revealObservers=new WeakSet();
+ function bindInteractions(card){
+   if(!revealObservers.has(card)){
+     revealObservers.add(card);
+     if(allowedMotion()&&'IntersectionObserver' in window){
+       card.classList.add('nafees-animate');
+       const observer=new IntersectionObserver(entries=>{
+         if(entries.some(entry=>entry.isIntersecting)){
+           card.classList.add('nafees-in-view');
+           observer.disconnect();
+         }
+       },{threshold:.10,rootMargin:'0px 0px -20px 0px'});
+       observer.observe(card);
+       setTimeout(()=>{card.classList.add('nafees-in-view');observer.disconnect()},5000);
+     }else card.classList.add('nafees-in-view');
+   }
+   const frame=card.querySelector('.nafees-photo-frame');
+   if(!frame||frame.dataset.nafeesBound==='true')return;
+   frame.dataset.nafeesBound='true';
+   if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
+   let frameId=0;
+   frame.addEventListener('pointermove',event=>{
+      if(!allowedMotion())return;
+      const rect=frame.getBoundingClientRect();
+      const dx=(event.clientX-rect.left)/rect.width-.5;
+      const dy=(event.clientY-rect.top)/rect.height-.5;
+      cancelAnimationFrame(frameId);
+      frameId=requestAnimationFrame(()=>{
+        frame.style.setProperty('--nx',dx.toFixed(3));
+        frame.style.setProperty('--ny',dy.toFixed(3));
+      });
+   },{passive:true});
+   frame.addEventListener('pointerleave',()=>{
+     cancelAnimationFrame(frameId);
+     frame.style.setProperty('--nx','0');
+     frame.style.setProperty('--ny','0');
+   },{passive:true});
+ }
+ function reconcile(){hero();achievement();experience()}
  function start(){
-  reconcile();setTimeout(reconcile,950);setTimeout(reconcile,2600);
-  const main=document.querySelector('#main-content');
-  if(main&&window.MutationObserver){
-   let pending=false;
-   const obs=new MutationObserver(()=>{
-    if(pending)return;
-    pending=true;
-    requestAnimationFrame(()=>{pending=false;reconcile()});
-   });
-   obs.observe(main,{childList:true,subtree:true});
-  }
+   reconcile();setTimeout(reconcile,1050);setTimeout(reconcile,2450);
+   const main=document.getElementById('main-content');
+   if(main&&'MutationObserver' in window){
+     let scheduled=false;
+     const observer=new MutationObserver(()=>{
+       if(scheduled)return;scheduled=true;
+       requestAnimationFrame(()=>{scheduled=false;reconcile()});
+     });
+     observer.observe(main,{subtree:true,childList:true});
+   }
  }
- if(document.readyState==='complete')setTimeout(start,380);
- else window.addEventListener('load',()=>setTimeout(start,380),{once:true});
+ if(document.readyState==='complete')setTimeout(start,350);
+ else window.addEventListener('load',()=>setTimeout(start,350),{once:true});
 })();
