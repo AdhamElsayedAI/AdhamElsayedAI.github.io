@@ -36,10 +36,13 @@
   }
   function start() {
     update();
-    window.setTimeout(update, 700);
-    window.setTimeout(update, 2000);
+
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', start, {once:true});
-  } else start();
+  // React owns the initial Next.js export. Do not mutate its markup until the
+  // shared post-hydration gate has completed, even on cached navigations.
+  if (typeof window.portfolioAfterHydration === 'function') {
+    window.portfolioAfterHydration(start);
+  } else {
+    window.addEventListener('load', () => requestAnimationFrame(start), {once:true});
+  }
 })();
