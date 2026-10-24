@@ -25,7 +25,7 @@ const W=[360,390,768,1440,1920,3840];
     const r=photo?.getBoundingClientRect();
     return {
       imgLoaded:!!photo&&photo.complete&&photo.naturalWidth>0&&photo.naturalHeight>0&&Math.abs(photo.naturalWidth/photo.naturalHeight-.75)<.02,
-      pictureType:card?.querySelector('source[type="image/avif"]')?.getAttribute('srcset'),
+      imageSrc:photo?.getAttribute('src'),
       renderedMedia:!!r&&r.width>0&&r.height>0,
       fit:photo?getComputedStyle(photo).objectFit:null,
       order:!!(card&&medflow&&card.compareDocumentPosition(medflow)&Node.DOCUMENT_POSITION_FOLLOWING),
@@ -39,7 +39,7 @@ const W=[360,390,768,1440,1920,3840];
       reduce:card?.querySelector('.nafees-reveal')?getComputedStyle(card.querySelector('.nafees-reveal')).opacity:null
     };
   });
-  const pass=result.imgLoaded&&result.pictureType==='/images/nafees-ai/nafees-ai-award.avif'&&
+  const pass=result.imgLoaded&&result.imageSrc==='/images/nafees-ai/nafees-ai-award.webp'&&
     result.renderedMedia&&result.fit==='contain'&&result.order&&result.oneCard&&
     result.oneExperience&&result.hero&&result.fullLink==='/images/nafees-ai/nafees-ai-award.webp'&&
     result.overflow<=2&&result.medflowPreserved&&result.reduce==='1'&&
