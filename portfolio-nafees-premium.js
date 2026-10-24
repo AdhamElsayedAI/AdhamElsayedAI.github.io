@@ -70,10 +70,18 @@
   requestAnimationFrame(scan);
  };
  function boot(){
+  // Next.js hydration can replace the original #achievements subtree.
+  // Observe the document root, not a section that may be detached.
   scan();
-  const section=document.getElementById('achievements');
-  if(!section){return}
-  new MutationObserver(schedule).observe(section,{childList:true,subtree:true});
+  if('MutationObserver' in window){
+   new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
+  }
+  // Hydration and the base Nafees script complete after load; independent fallbacks
+  // also handle delayed insertion when mutation notifications are throttled.
+  window.addEventListener('load',schedule,{once:true});
+  setTimeout(schedule,350);
+  setTimeout(schedule,1100);
+  setTimeout(schedule,2600);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
