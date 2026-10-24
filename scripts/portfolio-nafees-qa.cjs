@@ -56,6 +56,13 @@ const W=[360,390,768,1440,1920,3840];
  const page=await context.newPage();
  await page.goto('http://127.0.0.1:4173/#achievements',{waitUntil:'domcontentloaded'});
  await page.waitForSelector('#nafees-ai-award .nafees-photo-frame',{timeout:8000});
+ // The first-paint terminal intro is a modal overlay; dismiss it before any real
+ // pointer test so the hover target is the actual award instead of the intro.
+ if(await page.locator('#ae-boot-intro').count()){
+   await page.locator('#ae-boot-intro .ae-boot-skip').click({timeout:2500}).catch(()=>{});
+   await page.locator('#ae-boot-intro').waitFor({state:'detached',timeout:8000});
+ }
+
  const card=page.locator('#nafees-ai-award');
  await card.locator('.nafees-showcase-body h3').scrollIntoViewIfNeeded();
  await page.waitForTimeout(450);
