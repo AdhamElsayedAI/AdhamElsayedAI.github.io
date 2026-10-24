@@ -51,3 +51,15 @@
 html.motion-off #achievements .nafees-reveal,html.motion-off #achievements .nafees-photo-frame{transition:none!important;transform:none!important;filter:none!important;opacity:1!important}
 html.light #achievements .nafees-overline,html.light #achievements .nafees-stats>div:nth-child(2) strong,html.light #experience .nafees-experience-card a{color:#975313}
 html.light #home .nafees-hero-line a,html.light #experience .nafees-experience-card>strong{color:#07737c}
+
+/* Picture preserves the original full aspect ratio on modern and fallback browsers. */
+#achievements .nafees-photo-frame .nafees-photo-picture{
+ display:block;width:100%;height:100%;position:relative;border-radius:12px;overflow:hidden;
+}
+#achievements .nafees-photo-frame .nafees-photo-picture img{
+ width:100%;height:100%;object-fit:contain;object-position:center;
+}
+@media(prefers-reduced-motion:reduce){
+ #achievements .nafees-photo-frame .nafees-photo-picture,
+ #achievements .nafees-photo-frame .nafees-photo-picture img{transition:none!important;transform:none!important}
+}

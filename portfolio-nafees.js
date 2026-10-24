@@ -2,7 +2,8 @@
    The image source, brand framing and motions are scoped to Nafees only. */
 (()=>{
  'use strict';
- const imagePath='/images/nafees-ai/nafees-ai-award.avif';
+ const imagePath='/images/nafees-ai/nafees-ai-award.webp';
+ const optimizedImage='/images/nafees-ai/nafees-ai-award.avif';
  const allowedMotion=()=>!matchMedia('(prefers-reduced-motion: reduce)').matches &&
                        !document.documentElement.classList.contains('motion-off');
 
@@ -40,9 +41,12 @@
       '<figure class="nafees-visual nafees-reveal">',
        '<div class="nafees-photo-frame">',
         '<div class="nafees-photo-glow" aria-hidden="true"></div>',
-        '<img class="nafees-award-image" src="'+imagePath+'" width="900" height="1200"',
-          ' loading="lazy" decoding="async"',
-          ' alt="Adham Elsayed holding the GEN AI for Education Hackathon 2026 Startup Track Second Place award cheque of 80,000 EGP" />',
+        '<picture class="nafees-photo-picture">',
+          '<source type="image/avif" srcset="'+optimizedImage+'" />',
+          '<img class="nafees-award-image" src="'+imagePath+'" width="1200" height="1600"',
+            ' loading="lazy" decoding="async"',
+            ' alt="Adham Elsayed holding the GEN AI for Education Hackathon 2026 Startup Track Second Place award cheque of 80,000 EGP" />',
+        '</picture>',
         '<span class="nafees-glass-shine" aria-hidden="true"></span>',
         '<span class="nafees-corner nafees-corner-tl" aria-hidden="true"></span>',
         '<span class="nafees-corner nafees-corner-br" aria-hidden="true"></span>',
