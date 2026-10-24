@@ -175,7 +175,11 @@ AdhamElsayedAI.github.io/
 ├── portfolio-boot.css / .js      # Intro animation and recovery behavior
 ├── portfolio-cinematic-sections.*# Section overlays and navigation interactions
 ├── portfolio-v3-motion.*         # Card/section motion enhancements
+├── portfolio-hydration-gate.js   # Prevents pre-hydration DOM mutations
 ├── portfolio-medflow-refresh.*   # MedFlow card presentation and stats
+├── portfolio-award-showcase.*    # MedFlow achievement/certificate overlay
+├── portfolio-nafees.*            # Nafees genuine photograph/award content
+├── portfolio-nafees-premium.*    # Nafees responsive frame and hover treatment
 ├── portfolio-smart-attendance.*  # Hydration-safe AttendanceOS project card
 ├── portfolio-smart-basket.css    # Smart Basket presentation
 ├── portfolio-code-ai-proctor.*   # Code AI Proctor presentation
@@ -187,6 +191,16 @@ AdhamElsayedAI.github.io/
 ```
 
 The published HTML also contains the About, Skills, Projects, Achievements, Experience, Certifications and Contact sections.
+
+### Cleanup policy for this published export
+
+This is a static deployment artifact, not a full Next.js source checkout. An asset can be required even if it is not visually prominent on the homepage.
+
+- Keep `_next/static/chunks/`, `_next/static/*Manifest.js`, route payloads such as `index.txt` and `__next.*.txt`, `404.html`, and `_not-found/`: React hydration, client navigation, and fallback routes may depend on them.
+- Keep images referenced by the compiled client bundles, CSS backgrounds, award galleries, README, or workflow scripts. This includes images that are currently hidden by presentation CSS.
+- Only remove verified orphaned assets after checking HTML, compiled JavaScript, CSS, route payloads, documentation, and CI consumers.
+- Cleanups must pass the existing browser QA before integration. Do not force-push or delete unique branch history as part of housekeeping.
+- The genuine Nafees award photo is displayed from `images/nafees-ai/nafees-ai-award.webp`. An older, unreferenced `nafees-ai-award.avif` derivative was removed; no visible image was replaced.
 
 ## Run the Published Website Locally
 
@@ -216,6 +230,7 @@ This repository includes a browser QA workflow: [`portfolio-qa.yml`](.github/wor
 
 - [`portfolio-smoke-test.cjs`](scripts/portfolio-smoke-test.cjs) — responsive layout, project presence, interactions and section behaviors.
 - [`portfolio-warm-colors-qa.cjs`](scripts/portfolio-warm-colors-qa.cjs) — intro/color presentation checks across viewports.
+- [`portfolio-nafees-qa.cjs`](scripts/portfolio-nafees-qa.cjs) — authentic Nafees award photo, responsive presentation, and pointer interactions.
 
 GitHub Actions publishes QA screenshots as a workflow artifact when available. A separate [social-card workflow](.github/workflows/build-social-card.yml) supports portfolio link-preview assets.
 

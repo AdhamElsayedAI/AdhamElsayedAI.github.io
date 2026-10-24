@@ -1,7 +1,7 @@
 name: Portfolio Browser QA
 on:
   push:
-    branches: [main]
+    branches: [main, 'maintenance/**']
     paths:
       - 'index.html'
       - 'portfolio-*.js'
