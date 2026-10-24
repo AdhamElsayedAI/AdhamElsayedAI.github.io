@@ -51,6 +51,34 @@ const W=[360,390,768,1440,1920,3840];
   n++;await ctx.close();
  }
  }
- console.log('NAFEES QA SUCCESS '+n+'/12 responsive/theme cases');
+ // Interactive desktop-only hover test (normal motion, fine pointer).
+ const context=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'no-preference',hasTouch:false});
+ const page=await context.newPage();
+ await page.goto('http://127.0.0.1:4173/#achievements',{waitUntil:'domcontentloaded'});
+ await page.waitForSelector('#nafees-ai-award .nafees-photo-frame',{timeout:8000});
+ const card=page.locator('#nafees-ai-award');
+ await card.scrollIntoViewIfNeeded();
+ await page.waitForTimeout(700);
+ const box=await card.boundingBox();
+ if(!box)throw Error('Nafees card not displayed on desktop');
+ await page.mouse.move(box.x+box.width*.73,box.y+box.height*.44);
+ await page.waitForTimeout(350);
+ const hover=await card.evaluate(el=>({
+    active:el.classList.contains('nafees-is-hovered'),
+    x:el.style.getPropertyValue('--nf-x'),
+    tilt:el.style.getPropertyValue('--nf-tilt-y'),
+    heading:getComputedStyle(el.querySelector('h3')).translate,
+    source:el.querySelector('img')?.getAttribute('src')
+ }));
+ if(!hover.active||!hover.x||!hover.tilt||hover.heading==='none'||
+    hover.source!=='/images/nafees-ai/nafees-ai-award.webp')
+    throw Error('Nafees desktop hover regression '+JSON.stringify(hover));
+ await page.mouse.move(0,0);
+ await page.waitForTimeout(140);
+ if(await card.evaluate(el=>el.classList.contains('nafees-is-hovered')))
+    throw Error('Nafees hover persists after pointer leave');
+ await context.close();
+ console.log('PASS NAFEES desktop pointer motion and reset');
+ console.log('NAFEES QA SUCCESS '+n+'/12 responsive/theme cases + desktop hover');
  }finally{await browser.close()}
 })().catch(e=>{console.error(e.stack||e);process.exitCode=1});
