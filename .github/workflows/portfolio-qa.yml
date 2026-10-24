@@ -10,6 +10,7 @@ on:
       - '_next/**'
       - '.github/workflows/portfolio-qa.yml'
       - 'scripts/portfolio-smoke-test.cjs'
+      - 'scripts/portfolio-nafees-qa.cjs'
       - 'scripts/portfolio-warm-colors-qa.cjs'
   workflow_dispatch:
 
@@ -38,6 +39,10 @@ jobs:
         env:
           NODE_PATH: /tmp/portfolio-qa/node_modules
         run: node scripts/portfolio-warm-colors-qa.cjs
+      - name: Verify Nafees AI award and genuine photo on desktop/mobile
+        env:
+          NODE_PATH: /tmp/portfolio-qa/node_modules
+        run: node scripts/portfolio-nafees-qa.cjs
       - name: Test desktop tablet mobile and animations
         env:
           NODE_PATH: /tmp/portfolio-qa/node_modules
