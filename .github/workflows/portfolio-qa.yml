@@ -1,7 +1,7 @@
 name: Portfolio Browser QA
 on:
   push:
-    branches: [main, fix/hydration-consolidation-20261024]
+    branches: [main]
     paths:
       - 'index.html'
       - 'portfolio-*.js'

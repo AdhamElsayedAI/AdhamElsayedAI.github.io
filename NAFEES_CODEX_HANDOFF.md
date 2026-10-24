@@ -1,1 +1,0 @@
-Nafees AI staged integration. BEFORE MERGE upload user-provided genuine photo as images/nafees-ai/nafees-ai-award.webp, optimize to webp without AI edits, verify 200 and display. Review hero, award, experience on mobile desktop, keep MedFlow and all other details unchanged. Do not claim founder or specific engineering responsibilities. Verify QA and Pages.
