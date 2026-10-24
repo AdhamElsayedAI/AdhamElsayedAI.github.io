@@ -14,6 +14,8 @@ const W=[360,390,768,1440,1920,3840];
   page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:4173/#achievements',{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>!!document.querySelector('#nafees-ai-award'),null,{timeout:6500});
+  // Wait for the independent progressive-enhancement script, not just the injected card.
+  await page.waitForFunction(()=>document.querySelector('#nafees-ai-award')?.classList.contains('nafees-premium'),null,{timeout:8500});
   await page.locator('#nafees-ai-award img').evaluate(img=>img.decode());
   await page.waitForTimeout(300);
   const result=await page.evaluate(()=>{
@@ -66,6 +68,7 @@ const W=[360,390,768,1440,1920,3840];
  const page=await context.newPage();
  await page.goto('http://127.0.0.1:4173/#achievements',{waitUntil:'domcontentloaded'});
  await page.waitForSelector('#nafees-ai-award .nafees-photo-frame',{timeout:8000});
+ await page.waitForFunction(()=>document.querySelector('#nafees-ai-award')?.classList.contains('nafees-premium'),null,{timeout:8500});
  // The first-paint terminal intro is a modal overlay; dismiss it before any real
  // pointer test so the hover target is the actual award instead of the intro.
  if(await page.locator('#ae-boot-intro').count()){
