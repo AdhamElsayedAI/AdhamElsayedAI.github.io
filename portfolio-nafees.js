@@ -3,7 +3,7 @@
 (()=>{
  'use strict';
  const imagePath='/images/nafees-ai/nafees-ai-award.webp';
- const optimizedImage='/images/nafees-ai/nafees-ai-award.avif';
+ // Preserve full-resolution WebP as the sole display source.
  const allowedMotion=()=>!matchMedia('(prefers-reduced-motion: reduce)').matches &&
                        !document.documentElement.classList.contains('motion-off');
 
@@ -41,12 +41,7 @@
       '<figure class="nafees-visual nafees-reveal">',
        '<div class="nafees-photo-frame">',
         '<div class="nafees-photo-glow" aria-hidden="true"></div>',
-        '<picture class="nafees-photo-picture">',
-          '<source type="image/avif" srcset="'+optimizedImage+'" />',
-          '<img class="nafees-award-image" src="'+imagePath+'" width="1200" height="1600"',
-            ' loading="lazy" decoding="async"',
-            ' alt="Adham Elsayed holding the GEN AI for Education Hackathon 2026 Startup Track Second Place award cheque of 80,000 EGP" />',
-        '</picture>',
+        '<img class="nafees-award-image" src="'+imagePath+'" width="1200" height="1600" loading="lazy" decoding="async" alt="Adham Elsayed holding the GEN AI for Education Hackathon Second Place award cheque" />',
         '<span class="nafees-glass-shine" aria-hidden="true"></span>',
         '<span class="nafees-corner nafees-corner-tl" aria-hidden="true"></span>',
         '<span class="nafees-corner nafees-corner-br" aria-hidden="true"></span>',
@@ -94,43 +89,51 @@
    const first=timeline.querySelector('.experience-row-v5');
    if(first)first.before(item);else timeline.append(item);
  }
- const revealObservers=new WeakSet();
+ const revealObservers=new WeakSet(),bound=new WeakSet();
  function bindInteractions(card){
    if(!revealObservers.has(card)){
      revealObservers.add(card);
      if(allowedMotion()&&'IntersectionObserver' in window){
        card.classList.add('nafees-animate');
-       const observer=new IntersectionObserver(entries=>{
-         if(entries.some(entry=>entry.isIntersecting)){
-           card.classList.add('nafees-in-view');
-           observer.disconnect();
-         }
-       },{threshold:.10,rootMargin:'0px 0px -20px 0px'});
-       observer.observe(card);
-       setTimeout(()=>{card.classList.add('nafees-in-view');observer.disconnect()},5000);
+       const obs=new IntersectionObserver(entries=>{
+         if(entries.some(e=>e.isIntersecting)){card.classList.add('nafees-in-view');obs.disconnect()}
+       },{threshold:.1});
+       obs.observe(card);
+       setTimeout(()=>{card.classList.add('nafees-in-view');obs.disconnect()},5000);
      }else card.classList.add('nafees-in-view');
    }
-   const frame=card.querySelector('.nafees-photo-frame');
-   if(!frame||frame.dataset.nafeesBound==='true')return;
-   frame.dataset.nafeesBound='true';
-   if(!window.matchMedia('(hover:hover) and (pointer:fine)').matches)return;
-   let frameId=0;
-   frame.addEventListener('pointermove',event=>{
-      if(!allowedMotion())return;
-      const rect=frame.getBoundingClientRect();
-      const dx=(event.clientX-rect.left)/rect.width-.5;
-      const dy=(event.clientY-rect.top)/rect.height-.5;
-      cancelAnimationFrame(frameId);
-      frameId=requestAnimationFrame(()=>{
-        frame.style.setProperty('--nx',dx.toFixed(3));
-        frame.style.setProperty('--ny',dy.toFixed(3));
-      });
-   },{passive:true});
-   frame.addEventListener('pointerleave',()=>{
-     cancelAnimationFrame(frameId);
-     frame.style.setProperty('--nx','0');
-     frame.style.setProperty('--ny','0');
-   },{passive:true});
+   if(bound.has(card))return;
+   bound.add(card);
+   const pointer=matchMedia('(hover:hover) and (pointer:fine)');
+   if(!pointer.matches)return;
+   let raf=0,coords=null;
+   function reset(){
+     cancelAnimationFrame(raf);raf=0;coords=null;
+     card.classList.remove('nafees-is-hovered');
+     for(const key of ['--nf-tilt-x','--nf-tilt-y','--nf-x','--nf-y','--nf-x-mid','--nf-y-mid'])card.style.removeProperty(key);
+   }
+   function paint(){
+     raf=0;if(!coords||!allowedMotion())return;
+     const r=card.getBoundingClientRect();
+     const x=Math.max(-1,Math.min(1,2*(coords.x-r.left)/r.width-1));
+     const y=Math.max(-1,Math.min(1,2*(coords.y-r.top)/r.height-1));
+     card.style.setProperty('--nf-tilt-x',(-y*4.2).toFixed(2)+'deg');
+     card.style.setProperty('--nf-tilt-y',(x*4.2).toFixed(2)+'deg');
+     card.style.setProperty('--nf-x',(x*11).toFixed(2)+'px');
+     card.style.setProperty('--nf-y',(y*8).toFixed(2)+'px');
+     card.style.setProperty('--nf-x-mid',(x*6).toFixed(2)+'px');
+     card.style.setProperty('--nf-y-mid',(y*4).toFixed(2)+'px');
+   }
+   function move(e){
+     if(!allowedMotion()||!pointer.matches){reset();return}
+     coords={x:e.clientX,y:e.clientY};
+     card.classList.add('nafees-is-hovered');
+     if(!raf)raf=requestAnimationFrame(paint);
+   }
+   card.addEventListener('pointerenter',move,{passive:true});
+   card.addEventListener('pointermove',move,{passive:true});
+   card.addEventListener('pointerleave',reset,{passive:true});
+   pointer.addEventListener?.('change',reset);
  }
  function reconcile(){hero();achievement();experience()}
  function start(){
