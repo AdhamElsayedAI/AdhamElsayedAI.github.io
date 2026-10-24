@@ -29,7 +29,7 @@
     link.setAttribute('aria-label','Open the full-resolution Nafees AI award photograph in a new tab');
     link.insertAdjacentHTML('afterbegin',svg('expand'));
    }
-   frame.appendChild(caption);
+   visual.appendChild(caption); // Keep figcaption as a direct figure child for accessible semantics.
   }
   const overline=card.querySelector('.nafees-overline');
   if(overline)overline.insertAdjacentHTML('afterbegin','<span class="np-overline-icon">'+svg('trophy')+'</span>');

@@ -25,6 +25,12 @@ const W=[360,390,768,1440,1920,3840];
     const r=photo?.getBoundingClientRect();
     return {
       imgLoaded:!!photo&&photo.complete&&photo.naturalWidth>0&&photo.naturalHeight>0&&Math.abs(photo.naturalWidth/photo.naturalHeight-.75)<.02,
+      actualPhotoPixels:[photo?.naturalWidth,photo?.naturalHeight],
+      premium:card?.classList.contains('nafees-premium'),
+      premiumIcons:card?.querySelectorAll('svg.np-icon').length,
+      captionSemantics:card?.querySelector('figure > figcaption.nafees-photo-bottom')?.parentElement===card?.querySelector('figure'),
+      captionOverlay:card?.querySelector('.nafees-photo-bottom')?getComputedStyle(card.querySelector('.nafees-photo-bottom')).position:null,
+      responsiveColumns:card?getComputedStyle(card).gridTemplateColumns.split(' ').length:null,
       imageSrc:photo?.getAttribute('src'),
       renderedMedia:!!r&&r.width>0&&r.height>0,
       fit:photo?getComputedStyle(photo).objectFit:null,
@@ -39,7 +45,11 @@ const W=[360,390,768,1440,1920,3840];
       reduce:card?.querySelector('.nafees-reveal')?getComputedStyle(card.querySelector('.nafees-reveal')).opacity:null
     };
   });
-  const pass=result.imgLoaded&&result.imageSrc==='/images/nafees-ai/nafees-ai-award.webp'&&
+  const pass=result.imgLoaded&&result.premium&&result.premiumIcons>=9&&
+    result.actualPhotoPixels?.[0]===1200&&result.actualPhotoPixels?.[1]===1600&&
+    result.captionSemantics&&result.captionOverlay==='absolute'&&
+    result.responsiveColumns===(width<=900?1:2)&&
+    result.imageSrc==='/images/nafees-ai/nafees-ai-award.webp'&&
     result.renderedMedia&&result.fit==='contain'&&result.order&&result.oneCard&&
     result.oneExperience&&result.hero&&result.fullLink==='/images/nafees-ai/nafees-ai-award.webp'&&
     result.overflow<=2&&result.medflowPreserved&&result.reduce==='1'&&
@@ -75,9 +85,12 @@ const W=[360,390,768,1440,1920,3840];
    x:el.style.getPropertyValue('--nf-x'),
    tilt:el.style.getPropertyValue('--nf-tilt-y'),
    heading:getComputedStyle(el.querySelector('h3')).translate,
+   premium:el.classList.contains('nafees-premium'),
+   spot:el.style.getPropertyValue('--nf-spot-x'),
+   photoBorder:getComputedStyle(el.querySelector('.nafees-photo-frame')).borderTopColor,
    source:el.querySelector('img')?.getAttribute('src')
  }));
- if(!hover.cssHover||hover.heading==='none'||hover.heading==='0px'||hover.source!=='/images/nafees-ai/nafees-ai-award.webp')
+ if(!hover.cssHover||!hover.premium||!hover.spot||hover.heading==='none'||hover.heading==='0px'||hover.source!=='/images/nafees-ai/nafees-ai-award.webp')
    throw Error('Nafees actual visible desktop hover regression '+JSON.stringify(hover));
  await page.mouse.move(0,0);
  await page.waitForTimeout(350);
