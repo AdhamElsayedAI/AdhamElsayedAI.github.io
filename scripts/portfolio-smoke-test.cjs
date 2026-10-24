@@ -49,7 +49,9 @@ async function inspect(browser, title, viewport, mobile) {
     await page.waitForTimeout(750);
     assert((await intro.locator('.ae-boot-row').count())>0,title+' typewriter begins composing rows');
     await intro.locator('.ae-boot-skip').click();
-    await page.waitForTimeout(550);
+    // The CSS exit lasts about 520ms; slower 4K renders can delay removal.
+    // Synchronize on the actual DOM lifecycle rather than guessing a timeout.
+    await intro.waitFor({state:'detached',timeout:5000});
     assert(await intro.count()===0,title+' Skip intro restores main site');
     assert(await page.evaluate(()=>!document.documentElement.classList.contains('ae-boot-pending')),
       title+' boot scroll lock released');
