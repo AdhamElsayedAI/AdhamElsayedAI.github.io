@@ -78,3 +78,47 @@ html:not(.motion-off) #achievements .nafees-showcase.nafees-is-hovered .nafees-c
 }
 @media(hover:none),(prefers-reduced-motion:reduce){#achievements .nafees-showcase .nafees-reveal,#achievements .nafees-showcase .nafees-photo-frame{translate:none!important;transform:none!important;transition:none!important;opacity:1!important}}
 html.motion-off #achievements .nafees-showcase .nafees-reveal{translate:none!important;transform:none!important;opacity:1!important;transition:none!important}
+
+/* nafees-hover-v5 — reliable visual hover even if pointer events arrive late.
+   Driven by real :hover, with pointer-tracked parallax when JS is available. */
+@media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+ html:not(.motion-off) #achievements .nafees-showcase .nafees-photo-frame,
+ html:not(.motion-off) #achievements .nafees-showcase .nafees-photo-frame > img,
+ html:not(.motion-off) #achievements .nafees-showcase .nafees-showcase-body .nafees-reveal{
+   will-change:auto;
+   transition-property:transform,translate,opacity,filter,border-color,box-shadow;
+   transition-duration:.48s,.42s,.64s,.64s,.4s,.4s;
+   transition-timing-function:cubic-bezier(.22,1,.36,1);
+ }
+ html:not(.motion-off) #achievements .nafees-showcase:hover .nafees-photo-frame{
+   transform:perspective(1000px) rotateX(var(--nf-tilt-x,-1deg)) rotateY(var(--nf-tilt-y,1.5deg)) translateY(-7px);
+   border-color:rgba(34,232,220,.82);
+   box-shadow:0 34px 75px rgba(0,0,0,.47),0 0 35px rgba(22,231,220,.16),inset 0 1px rgba(255,255,255,.2);
+ }
+ html:not(.motion-off) #achievements .nafees-showcase:hover .nafees-photo-frame > img{transform:scale(1.021)}
+ html:not(.motion-off) #achievements .nafees-showcase:hover .nafees-showcase-body h3{
+   translate:var(--nf-x,10px) var(--nf-y,-7px);
+   text-shadow:0 0 23px rgba(22,231,220,.13);
+ }
+ html:not(.motion-off) #achievements .nafees-showcase:hover .nafees-showcase-body .nafees-stats{
+   translate:var(--nf-x-mid,6px) var(--nf-y-mid,-4px);
+ }
+ html:not(.motion-off) #achievements .nafees-showcase:hover .nafees-showcase-body .nafees-event-name,
+ html:not(.motion-off) #achievements .nafees-showcase:hover .nafees-showcase-body .nafees-summary,
+ html:not(.motion-off) #achievements .nafees-showcase:hover .nafees-showcase-body .nafees-chips{
+   translate:var(--nf-x-mid,5px) var(--nf-y-mid,-3px);
+ }
+ html:not(.motion-off) #achievements .nafees-showcase:hover .nafees-photo-glow{opacity:1}
+}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){
+ #achievements .nafees-showcase .nafees-showcase-body .nafees-reveal,
+ #achievements .nafees-showcase .nafees-photo-frame,
+ #achievements .nafees-showcase .nafees-photo-frame > img{
+   translate:none!important;transform:none!important;transition:none!important;
+ }
+}
+html.motion-off #achievements .nafees-showcase .nafees-showcase-body .nafees-reveal,
+html.motion-off #achievements .nafees-showcase .nafees-photo-frame,
+html.motion-off #achievements .nafees-showcase .nafees-photo-frame > img{
+ translate:none!important;transform:none!important;transition:none!important;
+}
